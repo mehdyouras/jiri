@@ -9,9 +9,9 @@ import {
 } from 'graphql/type';
 
 import UserMongo from '../../mongoose/user'
-import {userType} from './user'
+import {userType} from './objectsType/user'
 
-import {studentType} from './student'
+import {studentType} from './objectsType/student'
 import StudentMongo from '../../mongoose/student'
 
 /**
