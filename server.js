@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import graphQLSchema from './graphql/Schema/Schema'
 import User from './mongoose/user'
 import Student from './mongoose/student'
+import Implementation from './mongoose/implementation'
 
 const PORT = 3000;
 
@@ -28,10 +29,10 @@ app.get('/',(req,res)=>{
 	res.sendFile(__dirname + '/index.html')
 })
 
-app.post('/quotes',(req,res)=>{
+app.post('/addUser',(req,res)=>{
 	// Insert into Jiri Collection
 	var user = new User({
-		id: Date.now(),
+		id: parseInt(Date.now()),
 		type: 'user',
 		is_admin : 1,
 		name: 'Jean',
@@ -40,21 +41,45 @@ app.post('/quotes',(req,res)=>{
 		company: 'HEPL',
 	})
 
+	user.save((err,result)=> {
+		if (err) {console.log("---TodoItem save failed " + err)}
+		console.log("+++TodoItem saved successfully ")
+
+	})
+	res.redirect('/')
+})
+
+app.post('/addStudent',(req,res)=>{
+	// Insert into Jiri Collection
 	var student = new Student({
-		id: Date.now(),
+		id: parseInt(Date.now()),
 		type: 'student',
 		name: 'Jean',
 		email: 'Renard',
 	})
 
-	user.save((err,result)=> {
-		if (err) {console.log("---TodoItem save failed " + err)}
-		console.log("+++TodoItem saved successfully "+user.name)
-
-	})
 	student.save((err,result)=> {
 		if (err) {console.log("---TodoItem save failed " + err)}
-		console.log("+++TodoItem saved successfully "+user.name)
+		console.log("+++TodoItem saved successfully ")
+
+	})
+	res.redirect('/')
+})
+
+app.post('/addImplementation',(req,res)=>{
+
+	var implementation = new Implementation({
+		id: Date.now(),
+		project_id: 1,
+		student_id: 1511107403394,
+		type: 'implementation',
+		url_project: "mehdy.ouras.be",
+		url_repo: "github.com",
+		event_id: 1,
+	})
+	implementation.save((err,result)=> {
+		if (err) {console.log("---TodoItem save failed " + err)}
+		console.log("+++TodoItem saved successfully ")
 
 	})
 	res.redirect('/')

@@ -3,19 +3,21 @@ import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
 // create a schema
-var studentSchema = new Schema({
+var implementationSchema = new Schema({
     id: Number,
+    project_id: { type: Number, ref: 'Project' },
+    student_id: { type: Number, ref: 'Student' },
     type: String,
-    name: String,
-    email: String,
-    implementations: [{ type: Schema.Types.ObjectId, ref: 'Implementation' }],
+    url_project: String,
+    url_repo: String,
+    event_id: Number,
 }, {collection:"Jiri"});
 
 // the schema is useless so far
 // we need to create a model using it
-var Student = mongoose.model('Student', studentSchema);
+var Implementation = mongoose.model('Implementation', implementationSchema);
 
-export default Student
+export default Implementation
 
 // Select an item from TodoList collection
 // ToDo.find({item:"Gethyl"},(err,res)=>{
