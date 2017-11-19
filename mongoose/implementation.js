@@ -17,9 +17,3 @@ var implementationSchema = new Schema({
 var Implementation = mongoose.model('Implementation', implementationSchema);
 
 export default Implementation
-
-// Select an item from TodoList collection
-// ToDo.find({item:"Gethyl"},(err,res)=>{
-// 	if (err){console.log("---Gethyl not found in ToDo" + err)}
-// 	else console.log("+++Gethyl fetched ==> " + res)
-// })	

@@ -17,9 +17,3 @@ var userSchema = new Schema({
 var User = mongoose.model('User', userSchema);
 
 export default User
-
-// Select an item from TodoList collection
-// ToDo.find({item:"Gethyl"},(err,res)=>{
-// 	if (err){console.log("---Gethyl not found in ToDo" + err)}
-// 	else console.log("+++Gethyl fetched ==> " + res)
-// })	

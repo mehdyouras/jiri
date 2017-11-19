@@ -13,9 +13,3 @@ var projectSchema = new Schema({
 var Project = mongoose.model('Project', projectSchema);
 
 export default Project
-
-// Select an item from TodoList collection
-// ToDo.find({item:"Gethyl"},(err,res)=>{
-// 	if (err){console.log("---Gethyl not found in ToDo" + err)}
-// 	else console.log("+++Gethyl fetched ==> " + res)
-// })	
