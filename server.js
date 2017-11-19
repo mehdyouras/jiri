@@ -7,11 +7,12 @@ import graphQLSchema from './graphql/Schema/Schema'
 import User from './mongoose/user'
 import Student from './mongoose/student'
 import Implementation from './mongoose/implementation'
+import nanoid from 'nanoid'
 
 const PORT = 3000;
 
 // Mongoose connect
-mongoose.connect('mongodb://localhost:27017/local')
+mongoose.connect('mongodb://localhost:27017/jiri')
 
 var db = mongoose.connection;
 db.on('error', ()=> {console.log( '---FAILED to connect to mongoose')})
@@ -30,10 +31,9 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/addUser',(req,res)=>{
-	// Insert into Jiri Collection
+
 	var user = new User({
-		id: parseInt(Date.now()),
-		type: 'user',
+		id: nanoid(),
 		is_admin : 1,
 		name: 'Jean',
 		email: 'Renard',
@@ -50,10 +50,9 @@ app.post('/addUser',(req,res)=>{
 })
 
 app.post('/addStudent',(req,res)=>{
-	// Insert into Jiri Collection
+
 	var student = new Student({
-		id: parseInt(Date.now()),
-		type: 'student',
+		id: nanoid(),
 		name: 'Jean',
 		email: 'Renard',
 	})
@@ -69,10 +68,9 @@ app.post('/addStudent',(req,res)=>{
 app.post('/addImplementation',(req,res)=>{
 
 	var implementation = new Implementation({
-		id: Date.now(),
+		id: nanoid(),
 		project_id: 1,
 		student_id: 1511107403394,
-		type: 'implementation',
 		url_project: "mehdy.ouras.be",
 		url_repo: "github.com",
 		event_id: 1,

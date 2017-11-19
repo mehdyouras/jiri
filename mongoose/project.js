@@ -4,10 +4,9 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var projectSchema = new Schema({
-    id: Int,
-    type: String,
+    id: String,
     name: String
-}, {collection:"Jiri"});
+}, {collection:"projects"});
 
 // the schema is useless so far
 // we need to create a model using it
