@@ -1,3 +1,9 @@
+import getProjection from './getProjection'
+
+import UserMongo from '../../mongoose/user'
+import StudentMongo from '../../mongoose/student'
+import ImplementationMongo from '../../mongoose/implementation'
+
 export const resolvers = {
     Query: {
       user: (root, params, ctx, options) => {
