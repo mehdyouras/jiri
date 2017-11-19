@@ -30,13 +30,13 @@ type Event {
   course_name: String
   academic_year: String
   exam_session: Int
-  user_id: String
+  user_id: [User]
 }
 type Query {
   user : [User]
   user(id : String) : [User]
   student: [Student]
   implementation : [Implementation]
-  implementations(student_id : String) : [Implementation]
+  event: [Event]
 }
 `;

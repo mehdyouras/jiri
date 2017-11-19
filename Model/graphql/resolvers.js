@@ -4,6 +4,7 @@ import getAll from './helpers/getAll'
 import UserMongo from '../mongoose/user'
 import StudentMongo from '../mongoose/student'
 import ImplementationMongo from '../mongoose/implementation'
+import EventMongo from '../mongoose/event'
 
 export const resolvers = {
     Query: {
@@ -16,10 +17,18 @@ export const resolvers = {
       implementation: (root, params, ctx, options) => {
         return getAll(ImplementationMongo, root, params, ctx, options)
       },
+      event: (root, params, ctx, options) => {
+        return getAll(EventMongo, root, params, ctx, options)
+      },
     },
     Student: {
       implementations: (root, params, ctx, options) => {
         return getAll(ImplementationMongo, root, {student_id : root.id}, ctx, options)
+      }
+    },
+    Event: {
+      user_id: (root, params, ctx, options) => {
+        return getAll(UserMongo, root, {id : root.user_id}, ctx, options)
       }
     }
   }
