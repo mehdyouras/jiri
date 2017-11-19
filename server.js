@@ -11,7 +11,7 @@ import Implementation from './mongoose/implementation'
 const PORT = 3000;
 
 // Mongoose connect
-mongoose.connect('mongodb://localhost:27017/local')
+mongoose.connect('mongodb://localhost:27017/jiri')
 
 var db = mongoose.connection;
 db.on('error', ()=> {console.log( '---FAILED to connect to mongoose')})
@@ -30,10 +30,9 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/addUser',(req,res)=>{
-	// Insert into Jiri Collection
+
 	var user = new User({
 		id: parseInt(Date.now()),
-		type: 'user',
 		is_admin : 1,
 		name: 'Jean',
 		email: 'Renard',
@@ -50,10 +49,9 @@ app.post('/addUser',(req,res)=>{
 })
 
 app.post('/addStudent',(req,res)=>{
-	// Insert into Jiri Collection
+
 	var student = new Student({
 		id: parseInt(Date.now()),
-		type: 'student',
 		name: 'Jean',
 		email: 'Renard',
 	})
@@ -72,7 +70,6 @@ app.post('/addImplementation',(req,res)=>{
 		id: Date.now(),
 		project_id: 1,
 		student_id: 1511107403394,
-		type: 'implementation',
 		url_project: "mehdy.ouras.be",
 		url_repo: "github.com",
 		event_id: 1,

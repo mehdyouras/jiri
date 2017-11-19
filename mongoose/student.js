@@ -5,11 +5,10 @@ var Schema = mongoose.Schema;
 // create a schema
 var studentSchema = new Schema({
     id: Number,
-    type: String,
     name: String,
     email: String,
     implementations: [{ type: Schema.Types.ObjectId, ref: 'Implementation' }],
-}, {collection:"Jiri"});
+}, {collection:"students"});
 
 // the schema is useless so far
 // we need to create a model using it

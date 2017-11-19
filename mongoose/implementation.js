@@ -7,11 +7,10 @@ var implementationSchema = new Schema({
     id: Number,
     project_id: { type: Number, ref: 'Project' },
     student_id: { type: Number, ref: 'Student' },
-    type: String,
     url_project: String,
     url_repo: String,
     event_id: Number,
-}, {collection:"Jiri"});
+}, {collection:"implementations"});
 
 // the schema is useless so far
 // we need to create a model using it
