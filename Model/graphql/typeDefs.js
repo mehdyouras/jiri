@@ -26,5 +26,6 @@ type Query {
   user(id : String) : [User]
   student: [Student]
   implementation : [Implementation]
+  implementations(student_id : String) : [Implementation]
 }
 `;

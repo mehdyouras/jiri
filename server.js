@@ -3,10 +3,10 @@ import bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import mongoose from 'mongoose'
 
-import graphQLSchema from './graphql/Schema/Schema'
-import User from './mongoose/user'
-import Student from './mongoose/student'
-import Implementation from './mongoose/implementation'
+import graphQLSchema from './Model/graphql/Schema'
+import User from './Model/mongoose/user'
+import Student from './Model/mongoose/student'
+import Implementation from './Model/mongoose/implementation'
 import nanoid from 'nanoid'
 
 const PORT = 3000;
