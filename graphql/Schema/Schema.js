@@ -11,6 +11,9 @@ import {
 import UserMongo from '../../mongoose/user'
 import {userType} from './user'
 
+import {studentType} from './student'
+import StudentMongo from '../../mongoose/student'
+
 /**
  * generate projection object for mongoose
  * @param  {Object} fieldASTs
@@ -32,8 +35,21 @@ var schema = new GraphQLSchema({
         resolve: (root, {}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var foundItems = new Promise((resolve, reject) => {
-              UserMongo.find({}, projections,(err, users) => {
+              UserMongo.find({type: 'user'}, projections,(err, users) => {
                   err ? reject(err) : resolve(users)
+              })
+          })
+
+          return foundItems
+        }
+      },
+      student: {
+        type: new GraphQLList(studentType),
+        resolve: (root, {}, source, fieldASTs) => {
+          var projections = getProjection(fieldASTs);
+          var foundItems = new Promise((resolve, reject) => {
+              StudentMongo.find({type: 'student'}, projections,(err, students) => {
+                  err ? reject(err) : resolve(students)
               })
           })
 

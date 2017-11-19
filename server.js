@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 
 import graphQLSchema from './graphql/Schema/Schema'
 import User from './mongoose/user'
+import Student from './mongoose/student'
 
 const PORT = 3000;
 
@@ -28,8 +29,10 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/quotes',(req,res)=>{
-	// Insert into TodoList Collection
+	// Insert into Jiri Collection
 	var user = new User({
+		id: Date.now(),
+		type: 'user',
 		is_admin : 1,
 		name: 'Jean',
 		email: 'Renard',
@@ -37,12 +40,24 @@ app.post('/quotes',(req,res)=>{
 		company: 'HEPL',
 	})
 
+	var student = new Student({
+		id: Date.now(),
+		type: 'student',
+		name: 'Jean',
+		email: 'Renard',
+	})
+
 	user.save((err,result)=> {
 		if (err) {console.log("---TodoItem save failed " + err)}
 		console.log("+++TodoItem saved successfully "+user.name)
 
-		res.redirect('/')
 	})
+	student.save((err,result)=> {
+		if (err) {console.log("---TodoItem save failed " + err)}
+		console.log("+++TodoItem saved successfully "+user.name)
+
+	})
+	res.redirect('/')
 })
 
 app.listen(PORT);
