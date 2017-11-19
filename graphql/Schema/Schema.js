@@ -9,6 +9,7 @@ import {
 } from 'graphql/type';
 
 import { makeExecutableSchema } from 'graphql-tools';
+import getProjection from './getProjection'
 
 import UserMongo from '../../mongoose/user'
 import {userType} from './objectsType/user'
@@ -29,7 +30,7 @@ const typeDefs = `
     event_id: Int!
   }
   type User {
-    id: Int!
+    id: String
     is_admin: Boolean!
     name: String
     email: String
@@ -37,13 +38,13 @@ const typeDefs = `
     company: String
   }
   type Student {
-    id: Int!
+    id: String
     name: String
     email: String
     implementations: [Implementation]
   }
   type Query {
-    user : User
+    user : [User]
     student: Student
     implementation : Implementation
   }
@@ -51,24 +52,24 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    user: (root, args, context, fieldASTs) => {
-      var projections = getProjection(fieldASTs);
-      let foundItems = new Promise((resolve, reject) => {
-        UserMongo.find(args, projections,(err, users) => {
-            err ? reject(err) : resolve(users)
-        })
-        return foundItems;
-    })},
-    student: (root, args, context, fieldASTs) => {
-      var projections = getProjection(fieldASTs);
-      let foundItems = new Promise((resolve, reject) => {
-        StudentMongo.find(args, projections,(err, students) => {
-            err ? reject(err) : resolve(students)
-        })
-        return foundItems;
-    })},
+    user: (root, params, ctx, options) => {
+      let projection = getProjection(options);
+  
+      return UserMongo
+        .find()
+        .select(projection)
+        .exec();
+    },
+    student: (root, params, ctx, options) => {
+      let projection = getProjection(options);
+  
+      return StudentMongo
+        .find()
+        .select(projection)
+        .exec();
+    },
     implementation: (root, args, context, fieldASTs) => {
-      var projections = getProjection(fieldASTs);
+      let projections = getProjection(fieldASTs);
       let foundItems = new Promise((resolve, reject) => {
         ImplementationMongo.find(args, projections,(err, implementations) => {
             err ? reject(err) : resolve(implementations)
@@ -88,18 +89,6 @@ export const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
-
-/**
- * generate projection object for mongoose
- * @param  {Object} fieldASTs
- * @return {Project}
- */
-export function getProjection (fieldASTs) {
-  return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
-    projections[selection.name.value] = true;
-    return projections;
-  }, {});
-}
 
 // var schema = new GraphQLSchema({
 //   query: new GraphQLObjectType({
@@ -148,6 +137,10 @@ export function getProjection (fieldASTs) {
 //   })
   
 // });
+
+const users = [
+  { id: 1, is_admin: 1,name: 'Tom', email: 'Coleman', password: 'test',company: 'HEPL' },
+];
 
 export default schema;
 
