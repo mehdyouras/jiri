@@ -7,6 +7,8 @@ import graphQLSchema from './Model/graphql/Schema'
 import User from './Model/mongoose/user'
 import Student from './Model/mongoose/student'
 import Implementation from './Model/mongoose/implementation'
+import Event from './Model/mongoose/event'
+
 import nanoid from 'nanoid'
 
 const PORT = 3000;
@@ -82,5 +84,22 @@ app.post('/addImplementation',(req,res)=>{
 	})
 	res.redirect('/')
 })
+
+app.post('/addEvent',(req,res)=>{
+	
+		var event = new Event({
+			id: nanoid(),
+			course_name: 'Cours de web',
+			academic_year: '2016 - 2017',
+			exam_session: 1,
+			user_id: '0HpJ71XSQrurTttRaTo4t',
+		})
+		event.save((err,result)=> {
+			if (err) {console.log("---TodoItem save failed " + err)}
+			console.log("+++TodoItem saved successfully ")
+	
+		})
+		res.redirect('/')
+	})
 
 app.listen(PORT);

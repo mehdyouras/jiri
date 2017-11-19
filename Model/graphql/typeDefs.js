@@ -21,6 +21,17 @@ type Student {
   email: String
   implementations: [Implementation]
 }
+type Project {
+  id: String
+  name: String
+}
+type Event {
+  id: String
+  course_name: String
+  academic_year: String
+  exam_session: Int
+  user_id: String
+}
 type Query {
   user : [User]
   user(id : String) : [User]
