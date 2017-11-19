@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var projectSchema = new Schema({
-    id: Int,
+    id: String,
     name: String
 }, {collection:"projects"});
 

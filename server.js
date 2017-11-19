@@ -7,6 +7,7 @@ import graphQLSchema from './graphql/Schema/Schema'
 import User from './mongoose/user'
 import Student from './mongoose/student'
 import Implementation from './mongoose/implementation'
+import nanoid from 'nanoid'
 
 const PORT = 3000;
 
@@ -32,7 +33,7 @@ app.get('/',(req,res)=>{
 app.post('/addUser',(req,res)=>{
 
 	var user = new User({
-		id: parseInt(Date.now()),
+		id: nanoid(),
 		is_admin : 1,
 		name: 'Jean',
 		email: 'Renard',
@@ -51,7 +52,7 @@ app.post('/addUser',(req,res)=>{
 app.post('/addStudent',(req,res)=>{
 
 	var student = new Student({
-		id: parseInt(Date.now()),
+		id: nanoid(),
 		name: 'Jean',
 		email: 'Renard',
 	})
@@ -67,7 +68,7 @@ app.post('/addStudent',(req,res)=>{
 app.post('/addImplementation',(req,res)=>{
 
 	var implementation = new Implementation({
-		id: Date.now(),
+		id: nanoid(),
 		project_id: 1,
 		student_id: 1511107403394,
 		url_project: "mehdy.ouras.be",

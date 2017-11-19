@@ -22,15 +22,15 @@ import ImplementationMongo from '../../mongoose/implementation'
 
 const typeDefs = `
   type Implementation {
-    id: Int!
-    project_id: Int!
-    student_id: Int!
+    id: String!
+    project_id: String
+    student_id: String
     url_project: String
     url_repo: String
     event_id: Int!
   }
   type User {
-    id: String
+    id: String!
     is_admin: Boolean!
     name: String
     email: String
@@ -38,15 +38,16 @@ const typeDefs = `
     company: String
   }
   type Student {
-    id: String
+    id: String!
     name: String
     email: String
     implementations: [Implementation]
   }
   type Query {
     user : [User]
-    student: Student
-    implementation : Implementation
+    user(id : String) : [User]
+    student: [Student]
+    implementation : [Implementation]
   }
 `;
 
@@ -55,28 +56,40 @@ const resolvers = {
     user: (root, params, ctx, options) => {
       let projection = getProjection(options);
   
-      return UserMongo
-        .find()
+      let items = UserMongo
+        .find(params)
         .select(projection)
         .exec();
+
+      return items;
     },
     student: (root, params, ctx, options) => {
       let projection = getProjection(options);
   
       return StudentMongo
-        .find()
+        .find(params)
         .select(projection)
         .exec();
     },
-    implementation: (root, args, context, fieldASTs) => {
-      let projections = getProjection(fieldASTs);
-      let foundItems = new Promise((resolve, reject) => {
-        ImplementationMongo.find(args, projections,(err, implementations) => {
-            err ? reject(err) : resolve(implementations)
-        })
-        return foundItems;
-    })},
+    implementation: (root, params, ctx, options) => {
+      let projection = getProjection(options);
+  
+      return ImplementationMongo
+        .find(params)
+        .select(projection)
+        .exec();
+    },
   },
+  Student: {
+    implementations: (root, params, ctx, options) => {
+      let projection = getProjection(options);
+      
+          return ImplementationMongo
+            .find({student_id : root.id})
+            .select(projection)
+            .exec();
+    }
+  }
   // Author: {
   //   posts: (author) => filter(posts, { authorId: author.id }),
   // },

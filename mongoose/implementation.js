@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var implementationSchema = new Schema({
-    id: Number,
-    project_id: { type: Number, ref: 'Project' },
-    student_id: { type: Number, ref: 'Student' },
+    id: String,
+    project_id: { type: String, ref: 'Project' },
+    student_id: { type: String, ref: 'Student' },
     url_project: String,
     url_repo: String,
-    event_id: Number,
+    event_id: String,
 }, {collection:"implementations"});
 
 // the schema is useless so far

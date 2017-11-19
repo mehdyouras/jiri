@@ -14,7 +14,8 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "graphql-tools": "^2.8.0",
-    "mongoose": "^4.13.4"
+    "mongoose": "^4.13.4",
+    "nanoid": "^1.0.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",
