@@ -5,14 +5,22 @@ import {
     GraphQLString,
     GraphQLList,
     GraphQLInt,
-    GraphQLBoolean
+    GraphQLBoolean,
+    GraphQLID
   } from 'graphql/type';
 
 export const userType = new GraphQLObjectType({
     name: 'user',
     description: 'User',
     fields: () => ({
-        id: GraphQLID,
+        id: {
+            type: GraphQLID,
+            description: 'ID',
+        },
+        type: {
+            type: GraphQLString,
+            description: 'Type',
+        },
       is_admin: {
         type: (GraphQLBoolean),
         description: 'Is the user an admin',
