@@ -10,7 +10,7 @@ var meetingSchema = new Schema({
     event_id: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
     start_time: Date,
     end_time: Date,
-    general_evaluation: Float,
+    general_evaluation: Number,
 }, {collection:"meetings"});
 
 // the schema is useless so far

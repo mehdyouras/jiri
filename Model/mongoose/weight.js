@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 // create a schema
 var weightSchema = new Schema({
     id: String,
-    weight: Float,
+    weight: Number,
     project_id: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     event_id: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 }, {collection:"weights"});

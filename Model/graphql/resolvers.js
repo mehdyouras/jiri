@@ -1,3 +1,4 @@
+
 import getProjection from './helpers/getProjection'
 import getAll from './helpers/getAll'
 
@@ -5,6 +6,11 @@ import UserMongo from '../mongoose/user'
 import StudentMongo from '../mongoose/student'
 import ImplementationMongo from '../mongoose/implementation'
 import EventMongo from '../mongoose/event'
+import MeetingMongo from '../mongoose/meeting'
+import ScoreMongo from '../mongoose/score'
+import PerformanceMongo from '../mongoose/performance'
+import WeightMongo from '../mongoose/weight'
+import ProjectMongo from '../mongoose/project'
 
 export const resolvers = {
     Query: {

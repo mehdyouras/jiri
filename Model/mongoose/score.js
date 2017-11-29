@@ -7,7 +7,7 @@ var scoreSchema = new Schema({
     id: String,
     meeting_id: [{ type: Schema.Types.ObjectId, ref: 'Meeting' }],
     implementation_id: [{ type: Schema.Types.ObjectId, ref: 'Implementation' }],
-    score: Float,
+    score: Number,
     comment: String,
 }, {collection:"scores"});
 

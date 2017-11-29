@@ -38,8 +38,8 @@ type Meeting {
   user_id: [User]
   student_id: [Student]
   event_id: [Event]
-  start_time: Timestamp
-  end_time: Timestamp
+  start_time: String
+  end_time: String
   general_evaluation: Float
 }
 type Score {
@@ -68,5 +68,10 @@ type Query {
   student: [Student]
   implementation : [Implementation]
   event: [Event]
+  meeting: [Meeting]
+  score: [Score]
+  performance: [Performance]
+  weight: [Weight]
+  project: [Project]
 }
 `;

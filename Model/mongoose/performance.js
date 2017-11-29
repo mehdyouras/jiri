@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 // create a schema
 var performanceSchema = new Schema({
     id: String,
-    calculated_score: Float,
-    manua_score: Float,
+    calculated_score: Number,
+    manua_score: Number,
     event_id: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
     student_id: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
 }, {collection:"performances"});
