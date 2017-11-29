@@ -43,6 +43,9 @@ export const resolvers = {
     Meeting: {
       student_id: (root, params, ctx, options) => {
         return getAll(StudentMongo, root, {id : root.student_id}, ctx, options)
+      },
+      user_id: (root, params, ctx, options) => {
+        return getAll(UserMongo, root, {id : root.user_id}, ctx, options)
       }
     }
   }
