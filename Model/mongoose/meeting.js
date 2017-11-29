@@ -5,9 +5,9 @@ var Schema = mongoose.Schema;
 // create a schema
 var meetingSchema = new Schema({
     id: String,
-    user_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    student_id: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
-    event_id: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+    user_id: { type: String, ref: 'User' },
+    student_id: { type: String, ref: 'Student' },
+    event_id: { type: String, ref: 'Event' },
     start_time: Date,
     end_time: Date,
     general_evaluation: Number,

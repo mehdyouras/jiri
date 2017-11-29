@@ -26,6 +26,9 @@ export const resolvers = {
       event: (root, params, ctx, options) => {
         return getAll(EventMongo, root, params, ctx, options)
       },
+      meeting: (root, params, ctx, options) => {
+        return getAll(MeetingMongo, root, params, ctx, options)
+      },
     },
     Student: {
       implementations: (root, params, ctx, options) => {
@@ -35,6 +38,11 @@ export const resolvers = {
     Event: {
       user_id: (root, params, ctx, options) => {
         return getAll(UserMongo, root, {id : root.user_id}, ctx, options)
+      }
+    },
+    Meeting: {
+      student_id: (root, params, ctx, options) => {
+        return getAll(StudentMongo, root, {id : root.student_id}, ctx, options)
       }
     }
   }
