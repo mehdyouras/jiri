@@ -8,6 +8,7 @@ import User from './Model/mongoose/user'
 import Student from './Model/mongoose/student'
 import Implementation from './Model/mongoose/implementation'
 import Event from './Model/mongoose/event'
+import Meeting from './Model/mongoose/meeting'
 
 import nanoid from 'nanoid'
 
@@ -101,5 +102,23 @@ app.post('/addEvent',(req,res)=>{
 		})
 		res.redirect('/')
 	})
+	app.post('/addMeeting',(req,res)=>{
+		
+			var meeting = new Meeting({
+				id: nanoid(),
+				user_id: '0HpJ71XSQrurTttRaTo4t',
+				student_id: 'lvg3X7CZxwksvPSRXjUSE',
+				event_id: 1,
+				start_time: Date.now(),
+				end_time: Date.now(),
+				general_evaluation: 13.5,
+			})
+			meeting.save((err,result)=> {
+				if (err) {console.log("---TodoItem save failed " + err)}
+				console.log("+++TodoItem saved successfully ")
+		
+			})
+			res.redirect('/')
+		})
 
 app.listen(PORT);

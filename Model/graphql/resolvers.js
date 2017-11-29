@@ -46,6 +46,9 @@ export const resolvers = {
       },
       user_id: (root, params, ctx, options) => {
         return getAll(UserMongo, root, {id : root.user_id}, ctx, options)
+      },
+      event_id: (root, params, ctx, options) => {
+        return getAll(EventMongo, root, {id : root.event_id}, ctx, options)
       }
     }
   }
