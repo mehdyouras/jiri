@@ -29,6 +29,18 @@ export const resolvers = {
       meeting: (root, params, ctx, options) => {
         return getAll(MeetingMongo, root, params, ctx, options)
       },
+      score: (root, params, ctx, options) => {
+        return getAll(ScoreMongo, root, params, ctx, options)
+      },
+      performance: (root, params, ctx, options) => {
+        return getAll(PerformanceMongo, root, params, ctx, options)
+      },
+      weight: (root, params, ctx, options) => {
+        return getAll(WeightMongo, root, params, ctx, options)
+      },
+      project: (root, params, ctx, options) => {
+        return getAll(ProjectMongo, root, params, ctx, options)
+      },
     },
     Student: {
       implementations: (root, params, ctx, options) => {
@@ -50,5 +62,29 @@ export const resolvers = {
       event_id: (root, params, ctx, options) => {
         return getAll(EventMongo, root, {id : root.event_id}, ctx, options)
       }
-    }
+    },
+    Score: {
+      meeting_id: (root, params, ctx, options) => {
+        return getAll(MeetingMongo, root, {id : root.meeting_id}, ctx, options)
+      },
+      implementation_id: (root, params, ctx, options) => {
+        return getAll(ImplementationMongo, root, {id : root.implementation_id}, ctx, options)
+      },
+    },
+    Performance: {
+      event_id: (root, params, ctx, options) => {
+        return getAll(EventMongo, root, {id : root.event_id}, ctx, options)
+      },
+      student_id: (root, params, ctx, options) => {
+        return getAll(StudentMongo, root, {id : root.student_id}, ctx, options)
+      },
+    },
+    Weight: {
+      project_id: (root, params, ctx, options) => {
+        return getAll(ProjectMongo, root, {id : root.project_id}, ctx, options)
+      },
+      event_id: (root, params, ctx, options) => {
+        return getAll(EventMongo, root, {id : root.event_id}, ctx, options)
+      },
+    },
   }
