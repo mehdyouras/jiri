@@ -1,0 +1,95 @@
+# projectId: cjawro3gg3v8101545anv3p3y
+# version: 4
+
+type File @model {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type Implementation @model {
+  id: ID! @isUnique
+  project: String
+  student: Student! @relation(name: "StudentOnImplementation")
+  urlProject: String
+  urlRepo: String
+  event: Int!
+  score: Score! @relation(name: "ImplementationOnScore")
+}
+
+type User @model {
+  id: ID! @isUnique
+  isAdmin: Boolean
+  name: String
+  email: String
+  password: String
+  company: String
+  events: [Event!]! @relation(name: "UserOnEvent")
+  meetings: [Meeting!]! @relation(name: "UserOnMeeting")
+}
+
+type Student @model {
+  id: ID! @isUnique
+  name: String
+  email: String
+  implementations: [Implementation!]! @relation(name: "StudentOnImplementation")
+  meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
+  performance: Performance! @relation(name: "StudentOnPerformance")
+}
+
+type Project @model {
+  id: ID! @isUnique
+  name: String
+  description: String
+  weight: Weight! @relation(name: "ProjectOnWeight")
+}
+
+type Event @model {
+  id: ID! @isUnique
+  courseName: String
+  academicYear: String
+  examSession: Int
+  user: User! @relation(name: "UserOnEvent")
+  meetings: [Meeting!]! @relation(name: "EventOnMeeting")
+  performances: [Performance!]! @relation(name: "EventOnPerformance")
+  weights: [Weight!]! @relation(name: "EventOnWeight")
+}
+
+type Meeting @model {
+  id: ID! @isUnique
+  user: User! @relation(name: "UserOnMeeting")
+  student: Student! @relation(name: "StudentOnMeeting")
+  event: Event! @relation(name: "EventOnMeeting")
+  startTime: DateTime
+  endTime: DateTime
+  generalEvaluation: Float
+  scores: [Score!]! @relation(name: "MeetingOnScore")
+}
+
+type Score @model {
+  id: ID! @isUnique
+  meeting: Meeting! @relation(name: "MeetingOnScore")
+  implementation: Implementation! @relation(name: "ImplementationOnScore")
+  score: Float
+  comment: String
+}
+
+type Performance @model {
+  id: ID! @isUnique
+  calculatedScore: Float
+  manualScore: Float
+  event: Event! @relation(name: "EventOnPerformance")
+  student: Student! @relation(name: "StudentOnPerformance")
+}
+
+type Weight @model {
+  id: ID! @isUnique
+  weight: Float
+  project: Project! @relation(name: "ProjectOnWeight")
+  event: Event! @relation(name: "EventOnWeight")
+}
