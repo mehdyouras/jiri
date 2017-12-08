@@ -1,13 +1,12 @@
 {
-  "name": "todo",
+  "name": "jiri",
   "version": "1.0.0",
-  "description": "Todo Express-MongoDB server",
+  "description": "Jiri",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "dev3": "babel-node server.js"
+    "dev": "babel-node server.js"
   },
-  "author": "Gethyl George",
+  "author": "Mehdy Ouras",
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^1.2.0",
