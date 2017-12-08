@@ -13,7 +13,7 @@ cd ..
 
 ```
 yarn install
-yarn run dev3
+yarn run dev
 ```
 
 You can access the site via http://localhost:3000 and GraphiQL via http://localhost:3000/graphiql
