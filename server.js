@@ -1,8 +1,11 @@
 const express = require('express')
 import playground from 'graphql-playground-middleware-express'
+import cors from 'cors'
 
 const app = express()
 
+
+app.use(cors())
 
 // Connection to remote GraphQL
 app.use(function (req, res, next) {
@@ -26,6 +29,12 @@ app.use(function (req, res, next) {
 
 
 // 
+
+
 app.use('/playground', playground({ endpoint: 'http://localhost:60000/simple/v1/cjawxygal00020121ulquzy7m' }))
+
+app.get('/', (req, res) => {
+  res.json({'Is it working':'yes'})
+})
 
 app.listen(3000, () => console.log('Server running. Open http://localhost:3000/playground to run queries.'))
