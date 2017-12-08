@@ -1,40 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>GraphQL Express</title>
-</head>
-<body>
-	<hr>
-	<h1>Testing a simple GraphQL Server</h2>
-	<hr>
-	<h2>This is just a normal POST</h2>	
-	<div>Enter a new item in the text box and hit Submit to save it to the database</div>
-	<form action="/addUser" method="POST">
-		<input type="text" placeholder="item" name="item">
-		<button type="submit">user</button>
-	</form>
-	<form action="/addImplementation" method="POST">
-		<input type="text" placeholder="item" name="item">
-		<button type="submit">imple</button>
-	</form>
-	<form action="/addStudent" method="POST">
-		<input type="text" placeholder="item" name="item">
-		<button type="submit">student</button>
-	</form>
-	<form action="/addEvent" method="POST">
-		<input type="text" placeholder="item" name="item">
-		<button type="submit">event</button>
-	</form>
-	<form action="/addMeeting" method="POST">
-		<input type="text" placeholder="item" name="item">
-		<button type="submit">meeting</button>
-	</form>
-	<hr>
-	<h2>GraphQL Test</h2>
-	<hr>
-	<div>
-		<a href="/graphql?query={todo(itemId:1){itemId,item}}">GraphQL Test</a>
-	</div>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>jiri</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+  </body>
 </html>
