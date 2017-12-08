@@ -1,10 +1,17 @@
 # Jiri
 ## Teacher's repo : https://github.com/hepl-pw/jiri/
 
-You need to have MangoDB installed
+You need to have Docker and Graphcool CLI installed
+
+To deploy graphcool server
+```
+graphcool local up
+cd Model
+graphcool deploy
+cd ..
+```
 
 ```
-sudo service mongod start
 yarn install
 yarn run dev3
 ```
