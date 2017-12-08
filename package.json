@@ -11,6 +11,8 @@
   "author": "Mehdy Ouras",
   "license": "ISC",
   "dependencies": {
+    "apollo-client": "^2.1.0",
+    "apollo-client-preset": "^1.0.4",
     "apollo-server-express": "^1.2.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.4",
@@ -19,7 +21,9 @@
     "graphql-tools": "^2.8.0",
     "mongoose": "^4.13.4",
     "nanoid": "^1.0.1",
-    "vue": "^2.4.4"
+    "vue": "^2.4.4",
+    "vue-apollo": "^3.0.0-alpha.2",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",
