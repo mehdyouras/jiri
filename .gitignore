@@ -4,6 +4,9 @@ logs
 npm-debug.log*
 .DS_STORE
 
+// Graphcool build bullshit
+./Server/build
+
 # Runtime data
 pids
 *.pid
