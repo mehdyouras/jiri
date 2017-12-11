@@ -33,3 +33,23 @@ permissions:
 # rootTokens:
 # - mytoken
 
+
+functions:
+  signup:
+    type: resolver
+    schema: Model/Login/signup.graphql
+    handler:
+      code: Controller/Login/signup.ts
+
+  authenticate:
+    type: resolver
+    schema: Model/Login/authenticate.graphql
+    handler:
+      code: Controller/Login/authenticate.ts
+
+  loggedInUser:
+    type: resolver
+    schema: Model/Login/loggedInUser.graphql
+    handler:
+      code: Controller/Login/loggedInUser.ts
+

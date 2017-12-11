@@ -1,0 +1,3 @@
+targets:
+  jiri: local/cjb22nzhw00080121htk6d2wt
+  default: jiri

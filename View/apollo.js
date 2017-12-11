@@ -6,7 +6,7 @@ import fetch from 'node-fetch';
 
 // Create the apollo client
 const apolloClient = new ApolloClient({
-    link: new HttpLink({ uri: 'http://localhost:60000/simple/v1/cjawxygal00020121ulquzy7m' }),
+    link: new HttpLink({ uri: 'http://localhost:60000/simple/v1/cjb22nzhw00080121htk6d2wt' }),
     cache: new InMemoryCache(),
     connectToDevTools: true,
 });

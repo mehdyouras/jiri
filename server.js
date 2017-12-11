@@ -11,7 +11,7 @@ app.use(cors())
 app.use(function (req, res, next) {
   
       // Website you wish to allow to connect
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:60000/simple/v1/cjawxygal00020121ulquzy7m');
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:60000/simple/v1/cjb22nzhw00080121htk6d2wt');
   
       // Request methods you wish to allow
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 // 
 
 
-app.use('/playground', playground({ endpoint: 'http://localhost:60000/simple/v1/cjawxygal00020121ulquzy7m' }))
+app.use('/playground', playground({ endpoint: 'http://localhost:60000/simple/v1/cjb22nzhw00080121htk6d2wt' }))
 
 app.get('/', (req, res) => {
   res.json({'Is it working':'yes'})
