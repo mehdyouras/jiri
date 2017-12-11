@@ -18,23 +18,10 @@
 types: ./types.graphql
 
 
-# Model/Relation permissions are used to limit the API access
-# To take the burden of thinking about those while development, we 
-# preconfigured the wildcard ("*") permission that allows everything
-# Read more here:
-# https://docs-next.graph.cool/reference/auth/authorization/overview-iegoo0heez
-permissions:
-- operation: "*"
-
-  
-# Your root tokens used for functions to get full access to the API
-# Read more here:
-# https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o
-# rootTokens:
-# - mytoken
-
-
 functions:
+
+# added by email-password template: (please uncomment)
+
   signup:
     type: resolver
     schema: Model/Login/signup.graphql
@@ -52,4 +39,19 @@ functions:
     schema: Model/Login/loggedInUser.graphql
     handler:
       code: Controller/Login/loggedInUser.ts
+
+# Model/Relation permissions are used to limit the API access
+# To take the burden of thinking about those while development, we 
+# preconfigured the wildcard ("*") permission that allows everything
+# Read more here:
+# https://docs-next.graph.cool/reference/auth/authorization/overview-iegoo0heez
+permissions:
+- operation: "*"
+
+  
+# Your root tokens used for functions to get full access to the API
+# Read more here:
+# https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o
+# rootTokens:
+# - mytoken
 
