@@ -47,15 +47,23 @@ export default {
   methods: {
       signupUser() {
           let {email, name, password, isAdmin, company} = this;
-          return this.$apollo.mutate(
+          this.$apollo.mutate(
               {
                   mutation: gql`mutation {
-                        signupUser(email: "${email}", password: "${password}") {
+                        signupUser(email: "${email}", password: "${password}", name: "${name}", company: "${company}", isAdmin: ${isAdmin}) {
                             id
                             token
                         }
-                        updateUser(id: "cjb2cz98e00cy0121oa37sp3n", name: "${name}", isAdmin: ${isAdmin}, company: "${company}") {
+                    }
+                  `
+              }
+          )
+          this.$apollo.mutate(
+              {
+                  mutation: gql`mutation {
+                        signupUser(email: "${email}", password: "${password}", name: "${name}", company: "${company}", isAdmin: ${isAdmin}) {
                             id
+                            token
                         }
                     }
                   `

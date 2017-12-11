@@ -1,11 +1,13 @@
 const express = require('express')
 import playground from 'graphql-playground-middleware-express'
 import cors from 'cors'
+import history from 'connect-history-api-fallback'
 
 const app = express()
 
 
 app.use(cors())
+//app.use(history())
 
 // Connection to remote GraphQL
 app.use(function (req, res, next) {
