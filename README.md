@@ -6,7 +6,7 @@ You need to have Docker and Graphcool CLI installed
 To deploy graphcool server
 ```
 graphcool local up
-cd Model
+cd Server
 graphcool deploy
 cd ..
 ```
