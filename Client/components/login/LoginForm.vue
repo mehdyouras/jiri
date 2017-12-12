@@ -1,10 +1,10 @@
 <template>
   <div>
       <form method="post" action="#">
-        <label :for="nameId">Nom</label>
-        <input type="text" :id="nameId">
+        <label :for="emailId">Nom</label>
+        <input v-model="email" type="text" :id="emailId">
         <label :for="passwordId">Mot de passe</label>
-        <input type="password" :id="passwordId">
+        <input v-model="password" type="password" :id="passwordId">
 
         <input @click.prevent="checkLogin" type="submit">
       </form>
@@ -13,17 +13,34 @@
 
 <script>
 import nanoid from 'nanoid'
+import gql from 'graphql-tag'
+import VueApollo from 'vue-apollo'
+
 export default {
   name: 'LoginForm',
   data() {
       return {
-        nameId: nanoid(),
+        email: '',
+        password: '',
+        emailId: nanoid(),
         passwordId: nanoid(),
       }
   },
   methods: {
       checkLogin() {
-          console.log('Checked');
+        let {email, password} = this
+        let res = this.$apollo.mutate(
+            {
+                mutation: gql`mutation {
+                      authenticateUser(email: "${email}", password: "${password}"){
+                        id
+                        token
+                      }
+                  }
+                `
+            }
+        )
+        console.log(res)
       }
   }
 }
