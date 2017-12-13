@@ -16,4 +16,4 @@ yarn install
 yarn run dev
 ```
 
-You can access the site via http://localhost:3000 and GraphiQL via http://localhost:3000/graphiql
+You can access the site via http://localhost:8080 and GraphiQL via http://localhost:3000/graphiql
