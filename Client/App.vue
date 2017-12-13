@@ -11,46 +11,43 @@ import gql from 'graphql-tag'
 import VueApollo from 'vue-apollo'
 import {apolloClient} from './apollo'
 import router from './router.js'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'app',
-  data() {
-    return {
-      currentUserId: '',
+  methods: {
+    ...mapMutations([
+      'currentUserId'
+    ]),
+    isUserLoggedIn() {
+      this.$apollo.query({
+        query: gql`{
+                    loggedInUser{
+                        id
+                    }
+                  }`,
+      }).then(data => {  
+        if(this.loggedIn(data) === null){
+          this.$router.push({name:'login'});
+        } else {
+          this.$store.commit('currentUserId', data.data.loggedInUser.id);
+        }
+        if (this.loggedIn(data) !== null && this.$route.path === '/') {
+          this.$router.push({name:'signup'});
+        }
+      }).catch(error => {
+        console.error(error)
+      });
+    },
+    loggedIn(data){
+      return data.data.loggedInUser && data.data.loggedInUser.id !== ''
     }
   },
-  methods: {
-    isUserLoggedIn() {
-      apolloClient.query(
-        {
-            query: gql`{
-                  loggedInUser{
-                      id
-                  }
-                }`
-            }
-        ).then((data) => {
-            router.beforeEach((to, from, next) => {
-              if(!data.data.loggedInUser) {
-                console.log(data.data.loggedInUser)
-                next({name: "login"})
-              } else {
-                console.log(data.data.loggedInUser)
-                next();
-              }
-            })
-        }).catch((e) => {
-          router.beforeEach((to, from, next) => {
-            next({name: "login"})
-          })
-        })
-        },
-  },
-  created() {
-    this.isUserLoggedIn();
+  beforeCreated() {
+   this.isUserLoggedIn();
   },
   updated() {
-    this.isUserLoggedIn();
+   this.isUserLoggedIn();
   }
 }
 </script>

@@ -44,7 +44,7 @@ export default {
             }
         ).then(data => {
           localStorage.setItem('userToken', data.data.authenticateUser.token); 
-          this.$router.push('login');
+          this.$router.push('/addUser');
         }).catch(e => {
           console.log(e)
         })
