@@ -1,29 +1,56 @@
 <template>
 <div id="app">
-  <Header></Header>
-  <login-form></login-form>
-  <signup-form></signup-form>
+  
+  <router-view></router-view>
 </div>
 </template>
 
 <script>
-import Navbar from './components/sidebar/Navbar.vue'
-import Header from './components/sidebar/Header.vue'
-import LoginForm from './components/login/LoginForm.vue'
-import SignupForm from './components/login/SignupForm.vue'
+
+import gql from 'graphql-tag'
+import VueApollo from 'vue-apollo'
+import {apolloClient} from './apollo'
+import router from './router.js'
 
 export default {
   name: 'app',
-  components: {
-    Navbar,
-    Header,
-    LoginForm,
-    SignupForm,
-  },
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      currentUserId: '',
     }
+  },
+  methods: {
+    isUserLoggedIn() {
+      apolloClient.query(
+        {
+            query: gql`{
+                  loggedInUser{
+                      id
+                  }
+                }`
+            }
+        ).then((data) => {
+            router.beforeEach((to, from, next) => {
+              if(!data.data.loggedInUser) {
+                console.log(data.data.loggedInUser)
+                next({name: "login"})
+              } else {
+                console.log(data.data.loggedInUser)
+                next();
+              }
+            })
+        }).catch((e) => {
+          router.beforeEach((to, from, next) => {
+            next({name: "login"})
+          })
+        })
+        },
+  },
+  created() {
+    this.isUserLoggedIn();
+  },
+  updated() {
+    this.isUserLoggedIn();
   }
 }
 </script>

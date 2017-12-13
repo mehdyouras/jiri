@@ -1,5 +1,6 @@
 <template>
   <div>
+      <h1>Jiri</h1>
       <form method="post" action="#">
         <label :for="emailId">Nom</label>
         <input v-model="email" type="text" :id="emailId">
@@ -15,6 +16,7 @@
 import nanoid from 'nanoid'
 import gql from 'graphql-tag'
 import VueApollo from 'vue-apollo'
+import VueResource from 'vue-resource'
 
 export default {
   name: 'LoginForm',
@@ -24,12 +26,13 @@ export default {
         password: '',
         emailId: nanoid(),
         passwordId: nanoid(),
+        userLoggedIn: false,
       }
   },
   methods: {
       checkLogin() {
         let {email, password} = this
-        let res = this.$apollo.mutate(
+        this.$apollo.mutate(
             {
                 mutation: gql`mutation {
                       authenticateUser(email: "${email}", password: "${password}"){
@@ -39,10 +42,19 @@ export default {
                   }
                 `
             }
-        )
-        console.log(res)
+        ).then(data => {
+          localStorage.setItem('userToken', data.data.authenticateUser.token); 
+          this.$router.push('login');
+        }).catch(e => {
+          console.log(e)
+        })
+      },
+      logoutUser() {
+        localStorage.removeItem('userToken')
+        console.log(localStorage.getItem('userToken'))
+        this.$router.push({name: "home"})
       }
-  }
+  },
 }
 </script>
 

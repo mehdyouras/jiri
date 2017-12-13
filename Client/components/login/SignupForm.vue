@@ -57,18 +57,9 @@ export default {
                     }
                   `
               }
-          )
-          this.$apollo.mutate(
-              {
-                  mutation: gql`mutation {
-                        signupUser(email: "${email}", password: "${password}", name: "${name}", company: "${company}", isAdmin: ${isAdmin}) {
-                            id
-                            token
-                        }
-                    }
-                  `
-              }
-          )
+          ).catch(e => {
+              console.log(e)
+          })
       },
       randomizePassword() {
           let password = nanoid();
