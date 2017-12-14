@@ -8,7 +8,7 @@
 import Clock from './Clock.vue'
 
 export default {
-  name: 'header',
+  name: 'AppHeader',
   components: {
       Clock,
   },
