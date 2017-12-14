@@ -7,7 +7,7 @@ const app = express()
 
 
 app.use(cors())
-app.use(history())
+//app.use(history())
 
 // Connection to remote GraphQL
 app.use(function (req, res, next) {
