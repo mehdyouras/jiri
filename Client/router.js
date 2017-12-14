@@ -5,6 +5,10 @@ import LoginForm from './components/login/LoginForm.vue'
 import SignupForm from './components/login/SignupForm.vue'
 import Dashboard from './components/main/Dashboard.vue'
 
+import {store} from './store'
+import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
+import {apolloClient} from './apollo'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,6 +17,43 @@ const routes = [
     {name: "dashboard", path: "/dashboard", component: Dashboard}
 ]
 
-const router = new VueRouter({routes})
+const router = new VueRouter({mode:'history',routes})
+
+
+function loggedIn(data){
+    return data.data.loggedInUser && data.data.loggedInUser.id !== ''
+}
+
+router.beforeEach((to, from, next) => {
+    apolloClient.query({
+        query: LOGGED_IN_USER,
+      }).then(data => {  
+        // if user IS NOT logged in and access a resource othen than login
+        // goes back to login
+        if(loggedIn(data) === null && to.name !== 'login'){
+          next({name:'login'});
+
+        // if user is logged in and access a resource other than login
+        // stores currentUserId in store
+        // and goes to the resource requested
+        } else if (loggedIn(data) !== null) {
+          store.state.currentUserId = data.data.loggedInUser.id;
+          next();
+
+          // if user IS NOT logged in and access login
+          // goes to the resrource
+        } else {
+            next();
+        }
+
+        // if user IS logged in but access login
+        // goes back to dashboard
+        if (loggedIn(data) !== null && to.name === 'login') {
+          next({name:'dashboard'});
+        }
+      }).catch(error => {
+        console.error(error)
+      });
+})
 
 export default router;
