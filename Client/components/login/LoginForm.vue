@@ -14,7 +14,6 @@
 
 <script>
 import nanoid from 'nanoid'
-import gql from 'graphql-tag'
 import VueApollo from 'vue-apollo'
 import {mapGetters} from 'vuex'
 import {AUTHENTICATE_USER} from '../../constants/authenticateUser.gql'

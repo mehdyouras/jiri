@@ -25,7 +25,6 @@
 
 <script>
 import nanoid from 'nanoid'
-import gql from 'graphql-tag'
 import VueApollo from 'vue-apollo'
 import {SIGNUP_USER} from '../../constants/signupUser.gql'
 
