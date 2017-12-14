@@ -43,7 +43,8 @@ export default {
             }
         ).then(data => {
           localStorage.setItem('userToken', data.data.authenticateUser.token); 
-          this.$router.push('/addUser');
+          this.$router.push({name:'dashboard'});
+          location.assign('/dashboard');
         }).catch(e => {
           console.log(e)
         })
@@ -54,16 +55,6 @@ export default {
         this.$router.push({name: "home"})
       }
   },
-  computed: {
-    ...mapGetters([
-      'currentUserId'
-    ])
-  },
-  beforeCreated() {
-    if(currentUserId !== '') {
-      this.$router.push({name: "signup"})
-    }
-  }
 }
 </script>
 
