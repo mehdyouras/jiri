@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
         // stores currentUserId in store
         // and goes to the resource requested
         } else if (loggedIn(data) !== null) {
-          store.state.currentUserId = data.data.loggedInUser.id;
+          store.commit('currentUserId', data.data.loggedInUser.id);
           next();
 
           // if user IS NOT logged in and access login
@@ -49,6 +49,7 @@ router.beforeEach((to, from, next) => {
         // if user IS logged in but access login
         // goes back to dashboard
         if (loggedIn(data) !== null && to.name === 'login') {
+          store.commit('currentUserId', data.data.loggedInUser.id);
           next({name:'dashboard'});
         }
       }).catch(error => {
