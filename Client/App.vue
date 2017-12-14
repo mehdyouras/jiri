@@ -12,6 +12,7 @@ import VueApollo from 'vue-apollo'
 import {apolloClient} from './apollo'
 import router from './router.js'
 import {mapMutations} from 'vuex'
+import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
 
 export default {
   name: 'app',
@@ -21,11 +22,7 @@ export default {
     ]),
     isUserLoggedIn() {
       this.$apollo.query({
-        query: gql`{
-                    loggedInUser{
-                        id
-                    }
-                  }`,
+        query: LOGGED_IN_USER,
       }).then(data => {  
         if(this.loggedIn(data) === null){
           this.$router.push({name:'login'});

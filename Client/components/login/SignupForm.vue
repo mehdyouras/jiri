@@ -27,6 +27,7 @@
 import nanoid from 'nanoid'
 import gql from 'graphql-tag'
 import VueApollo from 'vue-apollo'
+import {SIGNUP_USER} from '../../constants/signupUser.gql'
 
 export default {
   name: 'SignupForm',
@@ -49,13 +50,14 @@ export default {
           let {email, name, password, isAdmin, company} = this;
           this.$apollo.mutate(
               {
-                  mutation: gql`mutation {
-                        signupUser(email: "${email}", password: "${password}", name: "${name}", company: "${company}", isAdmin: ${isAdmin}) {
-                            id
-                            token
-                        }
-                    }
-                  `
+                  mutation: SIGNUP_USER,
+                  variables: {
+                      email,
+                      name,
+                      password,
+                      isAdmin,
+                      company
+                  }
               }
           ).catch(e => {
               console.log(e)

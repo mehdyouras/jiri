@@ -16,7 +16,8 @@
 import nanoid from 'nanoid'
 import gql from 'graphql-tag'
 import VueApollo from 'vue-apollo'
-import VueResource from 'vue-resource'
+import {mapGetters} from 'vuex'
+import {AUTHENTICATE_USER} from '../../constants/authenticateUser.gql'
 
 export default {
   name: 'LoginForm',
@@ -34,13 +35,11 @@ export default {
         let {email, password} = this
         this.$apollo.mutate(
             {
-                mutation: gql`mutation {
-                      authenticateUser(email: "${email}", password: "${password}"){
-                        id
-                        token
-                      }
-                  }
-                `
+                mutation: AUTHENTICATE_USER,
+                variables: {
+                  email,
+                  password
+                }
             }
         ).then(data => {
           localStorage.setItem('userToken', data.data.authenticateUser.token); 
@@ -55,6 +54,16 @@ export default {
         this.$router.push({name: "home"})
       }
   },
+  computed: {
+    ...mapGetters([
+      'currentUserId'
+    ])
+  },
+  beforeCreated() {
+    if(currentUserId !== '') {
+      this.$router.push({name: "signup"})
+    }
+  }
 }
 </script>
 
