@@ -2,10 +2,10 @@
   <div>
       <h1>Jiri</h1>
       <form method="post" action="#">
-        <label :for="emailId">Adresse email</label>
-        <input v-model="email" type="text" :id="emailId">
-        <label :for="passwordId">Mot de passe</label>
-        <input v-model="password" type="password" :id="passwordId">
+        <label for="email-input">Adresse email</label>
+        <input v-model="email" type="text" id="email-input">
+        <label for="password-input">Mot de passe</label>
+        <input v-model="password" type="password" id="password-input">
 
         <input @click.prevent="checkLogin" type="submit">
       </form>
@@ -24,8 +24,6 @@ export default {
       return {
         email: '',
         password: '',
-        emailId: nanoid(),
-        passwordId: nanoid(),
         userLoggedIn: false,
       }
   },
