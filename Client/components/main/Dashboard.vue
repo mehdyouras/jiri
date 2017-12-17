@@ -2,7 +2,21 @@
   <div>
       <Sidebar></Sidebar>
       <div>
-        <p>Vous êtes connecté en tant {{userType}}</p>
+        <h2>Tableau de bord</h2>
+        <div>
+          <div>
+            <h3>Vous êtes connecté en tant {{userType}}</h3>
+            <p>Vous avez accès aux actions ci-contre.</p>
+          </div>
+          <nav>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newEvent'}">Ajouter un événement</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newStudent'}">Ajouter un étudiant</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newProject'}">Ajouter un projet</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newUser'}">Ajouter un utilisateur</router-link>
+            <router-link :to="{ name: 'newMeeting'}">Ajouter une rencontre</router-link>
+            <router-link :to="{ name: 'meetings'}">Afficher mes rencontres</router-link>
+          </nav>
+        </div>
       </div>
   </div>
 </template>
