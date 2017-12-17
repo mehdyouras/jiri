@@ -2,6 +2,7 @@
   <div>
       <h1>Jiri</h1>
       <p>{{currentUser.name}}</p>
+      <a @click.prevent="logoutUser" href="#">Se déconnecter</a>
       <clock></clock>
   </div>
 </template>
@@ -14,10 +15,16 @@ export default {
   components: {
       Clock,
   },
+  methods: {
+    logoutUser() {
+      localStorage.removeItem('userToken')
+      location.assign('/')
+    }
+  },
   computed: {
     ...mapGetters([
       'currentUser'
     ])
-  }
+  },
 }
 </script>
