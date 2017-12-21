@@ -9,10 +9,10 @@
             <p>Vous avez accès aux actions ci-contre.</p>
           </div>
           <nav>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newEvent'}">Ajouter un événement</router-link>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newStudent'}">Ajouter un étudiant</router-link>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newProject'}">Ajouter un projet</router-link>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newUser'}">Ajouter un utilisateur</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">Ajouter un événement</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Ajouter un étudiant</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</router-link>
+            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Ajouter un utilisateur</router-link>
             <router-link :to="{ name: 'newMeeting'}">Ajouter une rencontre</router-link>
             <router-link :to="{ name: 'meetings'}">Afficher mes rencontres</router-link>
           </nav>

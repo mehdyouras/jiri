@@ -13,11 +13,11 @@
       </div>
       <span>Ajouter</span>
       <div>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newEvent'}">événement</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newStudent'}">étudiant</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newProject'}">projet</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newUser'}">utilisateur</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'newImplementation'}">implémentation</router-link>
+        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">événement</router-link>
+        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">étudiant</router-link>
+        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">projet</router-link>
+        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">utilisateur</router-link>
+        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addImplementation'}">implémentation</router-link>
         <router-link :to="{ name: 'newMeeting'}">Rencontre</router-link>
       </div>
   </nav>
