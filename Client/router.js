@@ -4,6 +4,7 @@ import Vue from 'vue'
 import LoginForm from './components/login/LoginForm.vue'
 import SignupForm from './components/login/SignupForm.vue'
 import Dashboard from './components/main/dashboard/Dashboard.vue'
+import AddEvent from './components/main/event/AddEvent.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
@@ -14,7 +15,8 @@ Vue.use(VueRouter)
 const routes = [
     {name: "login", path: "/", component: LoginForm},
     {name: "signup", path: "/addUser", component: SignupForm},
-    {name: "dashboard", path: "/dashboard", component: Dashboard}
+    {name: "dashboard", path: "/dashboard", component: Dashboard},
+    {name: "addEvent", path: "/events/new", component: AddEvent},
 ]
 
 const router = new VueRouter({mode:'history',routes})
