@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 import LoginForm from './components/login/LoginForm.vue'
 import SignupForm from './components/login/SignupForm.vue'
-import Dashboard from './components/main/Dashboard.vue'
+import Dashboard from './components/main/dashboard/Dashboard.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'

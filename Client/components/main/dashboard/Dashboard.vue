@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import Sidebar from '../sidebar/Sidebar.vue'
+import Sidebar from '../../sidebar/Sidebar.vue'
 import {mapGetters} from 'vuex'
 
 export default {
