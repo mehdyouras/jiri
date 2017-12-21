@@ -1,0 +1,9 @@
+import gql from 'graphql-tag'
+
+export const ALL_PROJECTS = gql`query allProjects{
+    allProjects {
+        id,
+        name,
+        description
+    }
+}`;
