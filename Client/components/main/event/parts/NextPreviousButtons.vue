@@ -1,18 +1,19 @@
 <template>
   <div>
-    <button @click="handleStep('nextStep')">Suivant</button>
     <button v-if="currentStep !== 0" @click="handleStep('previousStep')">Précédent</button>
+    <button v-if="currentStep < (viewCount - 1)" @click="handleStep('nextStep')">Suivant</button>
+    <button v-if="currentStep === (viewCount - 1)" @click="handleStep('complete')">Envoyer</button>
   </div>
 </template>
 <script>
 export default {
   name: 'NextPreviousButtons',
   props: [
-    'currentStep'
+    'currentStep',
+    'viewCount'
   ],
   methods: {
       handleStep(action) {
-          console.log(action)
           this.$emit('handleStep', action)
       },
   }

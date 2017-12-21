@@ -1,32 +1,37 @@
 <template>
-  <div @handleStep="handleStep">
+  <div>
     <h2>Ajouter un événement</h2>
-    <component :is="currentView" :currentStep="currentStep"></component>
+    <keep-alive>
+        <component @handleStep="handleStep" :is="currentView" :currentStep="currentStep" :viewCount="viewCount"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import AddInfos from './parts/AddInfos'
-import AddStudents from './parts/AddStudents'
+import AddItemsToEvent from './parts/AddItemsToEvent'
+import AddProjects from './parts/AddProjects'
 
 export default {
   name: 'AddEvent',
   components: {
       AddInfos,
-      AddStudents,
+      AddItemsToEvent,
+      AddProjects,
   },
   data() {
       return {
         views: [
             'AddInfos',
-            'AddStudents',
+            'AddItemsToEvent',
+            'AddItemsToEvent',
+            'AddItemsToEvent',
         ],
-        currentStep: 1,
+        currentStep: 0,
       }
   },
   methods: {
       handleStep(action) {
-          console.log(action)
           switch (action) {
             case 'nextStep':
                 this.currentStep++
@@ -39,7 +44,10 @@ export default {
   computed: {
       currentView() {
           return this.views[this.currentStep];
-      }
+      },
+      viewCount() {
+          return this.views.length;
+      },
   }
 }
 </script>

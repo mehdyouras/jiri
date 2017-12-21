@@ -1,5 +1,5 @@
 <template>
-  <div @handleStep='handleStep'>
+  <div>
       <label for="course">Nom du cours</label>
       <input v-model='course' type="text" id="course">
       <label for="year">Année académique</label>
@@ -13,7 +13,7 @@
           <option value="juin">Juin</option>
           <option value="septembre">Septembre</option>
       </select>
-      <NextPreviousButtons :currentStep="currentStep"></NextPreviousButtons>
+      <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
   </div>
 </template>
 
@@ -33,11 +33,11 @@ export default {
     }
   },
   props: [
-    'currentStep'
+    'currentStep',
+    'viewCount'
   ],
   methods: {
     handleStep(action) {
-      console.log('test')
       this.$emit('handleStep', action)
     }
   }
