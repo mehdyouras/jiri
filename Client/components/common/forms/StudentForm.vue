@@ -9,7 +9,10 @@
 
 <script>
 export default {
-    name:'StudentForm'
+    name:'StudentForm',
+    created() {
+        this.$emit('formHasChanged')
+    }
 }
 </script>
 

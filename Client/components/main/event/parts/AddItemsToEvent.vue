@@ -2,7 +2,7 @@
   <div>
     <Spinner v-if="!itemsLoaded"></Spinner>
     <template v-if="itemsLoaded">
-      <AddItem :currentStep="currentStep"></AddItem>
+      <AddItem @formHasChanged="handleQuery" :currentStep="currentStep"></AddItem>
       <ol>
           <ListItem v-for="item in items" :item="item" :key="item.id"></ListItem>
       </ol>
@@ -45,15 +45,9 @@ export default {
   methods: {
     handleStep(action) {
       this.$emit('handleStep', action)
-    }
-  },
-  computed: {
-    queryToPerform() {
-      return this.queries[this.currentStep];
-    }
-  },
-  mounted() {
-    if(this.queryToPerform) {
+    },
+    handleQuery() {
+      if(this.queryToPerform) {
       this.$apollo.query({
         query: this.queryToPerform,
       }).then((data) => {
@@ -62,6 +56,15 @@ export default {
         }
       )
     }
+    }
+  },
+  computed: {
+    queryToPerform() {
+      return this.queries[this.currentStep];
+    }
+  },
+  mounted() {
+    this.handleQuery();
   }
 }
 </script>

@@ -21,7 +21,20 @@
 
 <script>
 export default {
-    name: 'UserForm'
+    name: 'UserForm',
+    data() {
+        return {
+            isAdmin: false,
+            name: "",
+            company: "",
+            email: "",
+            emai: "",
+            password: "",
+        }
+    },
+    created() {
+        this.$emit('formHasChanged')
+    }
 }
 </script>
 

@@ -11,7 +11,17 @@
 
 <script>
 export default {
-  name: 'ProjectForm'
+  name: 'ProjectForm',
+  data() {
+    return {
+      name: "",
+      description: "",
+      weight: "",
+    }
+  },
+  created() {
+        this.$emit('formHasChanged')
+    }
 }
 </script>
 
