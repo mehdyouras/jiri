@@ -1,5 +1,9 @@
 type SignupUserPayload {
   id: ID!
+  email: String!
+  name: String!
+  company: String!
+  isAdmin: Boolean!
   token: String!
 }
 

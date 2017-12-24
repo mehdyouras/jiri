@@ -16,21 +16,31 @@
     <input v-model="password" type="password" id="user-password">
 
     <a href="#" @click.prevent="randomizePassword" >Générer un mot de passe</a>
+
+    <button @click.prevent="createUser" >Ajouter</button>
   </div>
 </template>
 
 <script>
+import {Bus} from '../../../Bus'
+
 export default {
     name: 'UserForm',
     data() {
         return {
-            isAdmin: false,
+            email: "",
+            password: "",
             name: "",
             company: "",
-            email: "",
-            emai: "",
-            password: "",
+            isAdmin: false,
         }
+    },
+    methods: {
+        createUser() {
+        let {email, password, name, company, isAdmin} = this;
+
+        Bus.$emit('createUser', {email, password, name, company, isAdmin});
+      }
     },
     created() {
         this.$emit('formHasChanged')

@@ -88,3 +88,26 @@ Bus.$on('createStudent', payload => {
         },
     });
 })
+
+Bus.$on('createUser', payload => {
+    let {email, password, name, company, isAdmin} = payload;
+
+    apolloClient.mutate({
+        mutation: query.SIGNUP_USER,
+            variables: {
+                email,
+                password,
+                name,
+                company,
+                isAdmin
+        },
+        update: (store, {data: {signupUser}}) => {
+            const data = store.readQuery({ query: query.ALL_USERS })
+            signupUser.meetings = [];
+            signupUser.events = [];
+            console.log(signupUser)
+            data.allUsers.push(signupUser)
+            store.writeQuery({ query: query.ALL_USERS, data })
+        },
+    });
+})

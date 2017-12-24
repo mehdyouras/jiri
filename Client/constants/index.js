@@ -5,6 +5,7 @@ export { ALL_USERS} from './allUsers.gql';
 
 export { CREATE_PROJECT } from './createProject.gql';
 export { CREATE_STUDENT } from './createStudent.gql';
+export { SIGNUP_USER } from './signupUser.gql';
 
 export { DELETE_PROJECT } from './deleteProject.gql';
 export { DELETE_USER } from './deleteUser.gql';
