@@ -27,6 +27,7 @@
     "graphql-request": "^1.4.0",
     "graphql-tag": "^2.6.0",
     "graphql-tools": "^2.8.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.13.4",
     "nanoid": "^1.0.1",
     "validator": "^9.0.0",

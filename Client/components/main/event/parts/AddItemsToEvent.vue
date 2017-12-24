@@ -2,9 +2,15 @@
   <div>
     <Spinner v-if="!itemsLoaded"></Spinner>
     <template v-if="itemsLoaded">
-      <AddItem @formHasChanged="handleQuery" :currentStep="currentStep"></AddItem>
-      <ol>
-          <ListItem v-for="item in items" :item="item" :key="item.id"></ListItem>
+      <AddItem :currentStep="currentStep"></AddItem>
+      <ol v-if="currentStep === 1">
+          <ListItem v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
+      </ol>
+      <ol v-if="currentStep === 2">
+          <ListItem v-for="item in allDetails.allUsers" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
+      </ol>
+      <ol v-if="currentStep === 3">
+          <ListItem v-for="item in allDetails.allProjects" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
       </ol>
       <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
     </template>
@@ -12,24 +18,18 @@
 </template>
 
 <script>
+import {ALL_STUDENTS_USERS_PROJECTS} from '../../../../constants/allStudentsUsersProjects.gql'
+
 import NextPreviousButtons from './NextPreviousButtons'
 import ListItem from './ListItem'
 import Spinner from '../../../common/Spinner'
 import AddItem from './AddItem'
 
-import VueApollo from 'vue-apollo'
-
-import {ALL_USERS} from '../../../../constants/allUsers.gql'
-import {ALL_STUDENTS} from '../../../../constants/allStudents.gql'
-import {ALL_PROJECTS} from '../../../../constants/allProjects.gql'
-
 export default {
-  name: 'AddPersons',
+  name: 'AddItemsToEvent',
   data() {
     return {
       itemsLoaded: false,
-      items: {},
-      queries: [false, ALL_STUDENTS, ALL_USERS, ALL_PROJECTS],
     }
   },
   components: {
@@ -42,30 +42,20 @@ export default {
     'currentStep',
     'viewCount',
   ],
+  apollo: {
+    allDetails: {
+      query: ALL_STUDENTS_USERS_PROJECTS,
+      update(data) {
+        this.itemsLoaded = true;
+        return data
+      }
+    }
+  },
   methods: {
     handleStep(action) {
       this.$emit('handleStep', action)
     },
-    handleQuery() {
-      if(this.queryToPerform) {
-      this.$apollo.query({
-        query: this.queryToPerform,
-      }).then((data) => {
-          this.items = data.data[Object.keys(data.data)[0]];
-          this.itemsLoaded = true;
-        }
-      )
-    }
-    }
   },
-  computed: {
-    queryToPerform() {
-      return this.queries[this.currentStep];
-    }
-  },
-  mounted() {
-    this.handleQuery();
-  }
 }
 </script>
 

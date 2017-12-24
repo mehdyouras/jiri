@@ -10,12 +10,17 @@ export const store = new Vuex.Store({
     state: {
         currentUserId: '',
         currentUser: {},
+        allDetails: {},
         currentAddedEvent: {
             course: '',
             year: '',
             session: '',
-            
+            projects:[],
+            users: [],
+            students: [],
         },
+        currentLoadedItems: [],
+        projects: [], 
     },
     getters,
     mutations,

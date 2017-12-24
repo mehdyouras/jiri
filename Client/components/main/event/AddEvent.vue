@@ -10,14 +10,12 @@
 <script>
 import AddInfos from './parts/AddInfos'
 import AddItemsToEvent from './parts/AddItemsToEvent'
-import AddProjects from './parts/AddProjects'
 
 export default {
   name: 'AddEvent',
   components: {
       AddInfos,
       AddItemsToEvent,
-      AddProjects,
   },
   data() {
       return {

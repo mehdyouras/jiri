@@ -1,0 +1,36 @@
+import gql from 'graphql-tag'
+
+export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
+    allStudents {
+        id,
+        email,
+        name,
+        implementations {
+            id
+        },
+        meetings {
+            id
+        },
+        performance {
+            id
+        },
+    }
+    allUsers {
+        id,
+        email,
+        name,
+        company,
+        isAdmin,
+        events {
+            id
+        },
+        meetings {
+            id
+        }
+    }
+    allProjects {
+        id,
+        name,
+        description
+    }
+}`;

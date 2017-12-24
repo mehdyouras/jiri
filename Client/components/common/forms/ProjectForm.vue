@@ -7,14 +7,15 @@
     <label for="project-weight">Pondération</label>
     <input v-model="weight" type="number" name="project-weight" id="project-weight">
 
-    <button @click.prevent="addProject">Ajouter</button>
+    <button @click.prevent="createProject">Ajouter</button>
   </div>
 </template>
 
 <script>
-import {CREATE_PROJECT} from '../../../constants/createProject.gql'
 import VueApollo from 'vue-apollo'
-
+import {CREATE_PROJECT} from '../../../constants/createProject.gql'
+import {ALL_PROJECTS} from '../../../constants/allProjects.gql'
+import {Bus} from '../../../Bus'
 export default {
   name: 'ProjectForm',
   data() {
@@ -25,20 +26,11 @@ export default {
     }
   },
   methods: {
-    addProject() {
+    createProject() {
       let {name, description, weight} = this;
-      this.$apollo.mutate({
-        mutation: CREATE_PROJECT,
-        variables: {
-          name,
-          description,
-          weight : parseFloat(weight)
-        }
-      }).then((data) => {
-        console.log(data);
-      }).catch(e => {
-        console.error(e)
-      })
+      weight = parseFloat(weight);
+      
+      Bus.$emit('createProject', {name, description, weight});
     }
   },
   created() {

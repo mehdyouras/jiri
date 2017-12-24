@@ -90,6 +90,6 @@ type Performance @model {
 type Weight @model {
   id: ID! @isUnique
   weight: Float
-  project: Project! @relation(name: "ProjectOnWeight")
+  project: Project @relation(name: "ProjectOnWeight")
   event: Event @relation(name: "EventOnWeight")
 }
