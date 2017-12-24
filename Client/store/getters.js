@@ -5,10 +5,10 @@ export const getters = {
     currentUser(state) {
         return state.currentUser
     },
-    currentLoadedItems(state) {
-        return state.currentLoadedItems
-    },
     getAllDetails(state) {
         return state.allDetails;
+    },
+    getItemsAddedToEvent(state) {
+        return [state.currentAddedEvent.students, state.currentAddedEvent.users, state.currentAddedEvent.projects]
     }
 }

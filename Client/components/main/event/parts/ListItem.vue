@@ -1,24 +1,61 @@
 <template>
   <li>
-      {{item.name}}
+      <div @click="addItemToEvent" :class="{active : isActive}">
+        {{item.name}}
+      </div>
       <button @click="deleteItem">Supprimer</button>
   </li>
 </template>
 
 <script>
 import {Bus} from '../../../../Bus'
+import {mapGetters} from 'vuex'
+import _ from 'lodash'
 
 export default {
     name: 'ListItem',
+    data() {
+        return {
+            isActive: false,
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'getItemsAddedToEvent'
+        ]),
+    },
     props: [
         'item',
         'currentStep'
     ],
     methods: {
         deleteItem() {
-            let type = [false, 'student', 'user', 'project']
-            Bus.$emit('removeItem', {id: this.item.id, type: type[this.currentStep]})
+            let type = ['student', 'user', 'project']
+            Bus.$emit('removeItem', {id: this.item.id, type: type[this.currentStep - 1]})
+        },
+        addItemToEvent() {
+            if(!this.isActive) {
+                let mutations = ['addStudentToEvent', 'addUserToEvent', 'addProjectToEvent']
+                this.$store.commit(mutations[this.currentStep - 1], this.item.id)
+
+                this.isActive = true;
+            } else if(this.isActive) {
+                let mutations = ['deleteStudentFromEvent', 'deleteUserFromEvent', 'deleteProjectFromEvent']
+                this.$store.commit(mutations[this.currentStep - 1], this.item.id)
+
+                this.isActive = false;
+            }
         }
+    },
+    created() {
+        let isActive = _.find(this.getItemsAddedToEvent[this.currentStep - 1], (id) => id === this.item.id);
+        this.isActive = !!isActive;
     }
 }
 </script>
+
+<style>
+    .active {
+        color: red;
+    }
+</style>
