@@ -22,6 +22,14 @@ export const mutations = {
         state.allDetails.allProjects = payload;
     },
 
+    ///////////
+
+
+
+    // Current added event
+
+        // ADD
+
     addStudentToEvent(state, payload) {
         state.currentAddedEvent.students.push(payload)
     },
@@ -33,6 +41,8 @@ export const mutations = {
     addProjectToEvent(state, payload) {
         state.currentAddedEvent.projects.push(payload)
     },
+    
+        // DELETE
 
     deleteStudentFromEvent(state, payload) {
         _.remove(state.currentAddedEvent.students, (id) => id === payload)
@@ -45,4 +55,6 @@ export const mutations = {
     deleteProjectFromEvent(state, payload) {
         _.remove(state.currentAddedEvent.projects, (id) => id === payload)
     },
+
+    ///////////
 }
