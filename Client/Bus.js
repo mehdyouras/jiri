@@ -71,3 +71,20 @@ Bus.$on('createProject', payload => {
         },
     });
 })
+
+Bus.$on('createStudent', payload => {
+    let {email, name} = payload;
+
+    apolloClient.mutate({
+        mutation: query.CREATE_STUDENT,
+            variables: {
+                email,
+                name,
+        },
+        update: (store, {data: {createStudent}}) => {
+            const data = store.readQuery({ query: query.ALL_STUDENTS })
+            data.allStudents.push(createStudent)
+            store.writeQuery({ query: query.ALL_STUDENTS, data })
+        },
+    });
+})

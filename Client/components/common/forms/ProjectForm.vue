@@ -12,10 +12,8 @@
 </template>
 
 <script>
-import VueApollo from 'vue-apollo'
-import {CREATE_PROJECT} from '../../../constants/createProject.gql'
-import {ALL_PROJECTS} from '../../../constants/allProjects.gql'
 import {Bus} from '../../../Bus'
+
 export default {
   name: 'ProjectForm',
   data() {

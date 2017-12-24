@@ -39,7 +39,7 @@ type Student @model {
   email: String
   implementations: [Implementation!]! @relation(name: "StudentOnImplementation")
   meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
-  performance: Performance! @relation(name: "StudentOnPerformance")
+  performance: Performance @relation(name: "StudentOnPerformance")
 }
 
 type Project @model {
