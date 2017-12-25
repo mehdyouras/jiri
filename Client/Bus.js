@@ -114,7 +114,6 @@ Bus.$on('createUser', payload => {
 })
 
 Bus.$on('createEvent', payload => {
-    console.log(payload);
     let {year, course, session, students, weights, users} = payload,
         currentUserId = store.getters.currentUserId;
 

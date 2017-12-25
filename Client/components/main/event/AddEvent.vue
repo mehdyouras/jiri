@@ -41,8 +41,8 @@ export default {
                 this.currentStep--
                 break;
             case 'complete':
-                console.log(this.getCurrentAddedEvent)
                 Bus.$emit('createEvent', this.getCurrentAddedEvent)
+                this.$router.push({name: 'dashboard'});
                 break;
           }
       },
