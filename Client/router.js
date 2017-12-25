@@ -15,8 +15,9 @@ Vue.use(VueRouter)
 const routes = [
     {name: "login", path: "/", component: LoginForm},
     {name: "dashboard", path: "/dashboard", component: Dashboard},
-    {name: "addEvent", path: "/events/new", component: AddEvent},
     {name: "indexEvents", path: "/events", component: IndexEvents},
+      {name: "addEvent", path: "/events/new", component: AddEvent},
+      {name: "eventResults", path: "/events/results/:eventId", component: AddEvent},
 ]
 
 const router = new VueRouter({mode:'history',routes})

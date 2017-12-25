@@ -11,7 +11,29 @@ export const USER = gql`query User($id: ID!) {
             id
         },
         events {
-            id
+            id,
+            courseName,
+            academicYear,
+            students {
+                id
+                name
+                email
+            },
+            jurys{
+                id
+                name
+                email
+                company
+            },
+            examSession,
+            weights {
+                id
+                weight
+                project {
+                    id
+                    name
+                }
+            }
         }
     }
 }
