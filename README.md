@@ -1,19 +1,23 @@
 # Jiri
-## Teacher's repo : https://github.com/hepl-pw/jiri/
+## A GraphCool-powered backend coupled with VueJS
+> Teacher's repo : https://github.com/hepl-pw/jiri/
+
+| [Serverside (GraphCool)](https://github.com/mehdyouras/jiri/tree/master/Server) | [Clientside (VueJS + Apollo)](https://github.com/mehdyouras/jiri/tree/master/Client) | [Wireframe](https://github.com/mehdyouras/jiri/tree/master/design) |
+|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
 
 You need to have Docker and Graphcool CLI installed
 
-To deploy graphcool server
+## Deploying graphcool server
 ```
-graphcool local up
+gcf local up
 cd Server
-graphcool deploy
+gcf deploy
 cd ..
 ```
 
 ```
 yarn install
-yarn run dev
+yarn run vue
 ```
 
-You can access the site via http://localhost:8080 and GraphQL Playground via http://localhost:3000/playground
+> Access Jiri via http://localhost:8080
