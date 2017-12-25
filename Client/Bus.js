@@ -129,10 +129,10 @@ Bus.$on('createEvent', payload => {
                 weights,
 
         },
-        // update: (store, {data: {createEvent}}) => {
-        //     const data = store.readQuery({ query: query.ALL_EVENTS })
-        //     data.allEvents.push(createEvent)
-        //     store.writeQuery({ query: query.ALL_EVENTS, data })
-        // },
+        update: (store, {data: {createEvent}}) => {
+            const data = store.readQuery({ query: query.USER, variables: {id: currentUserId} })
+            data.User.events.push(createEvent)
+            store.writeQuery({ query: query.USER, data })
+        },
     });
 })

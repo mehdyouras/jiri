@@ -1,3 +1,5 @@
+export { USER } from './user.gql'
+
 export { ALL_PROJECTS } from './allProjects.gql';
 export { ALL_STUDENTS } from './allStudents.gql';
 export { ALL_STUDENTS_USERS_PROJECTS } from './allStudentsUsersProjects.gql';

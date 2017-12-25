@@ -12,7 +12,29 @@ export const CREATE_EVENT = gql`mutation createEvent($year: String!, $course: St
                                     meetingsIds: [], 
                                 ) 
                             {
-                            id
+                            id,
+                            courseName,
+                            academicYear,
+                            students {
+                                id
+                                name
+                                email
+                            },
+                            jurys{
+                                id
+                                name
+                                email
+                                company
+                            },
+                            examSession,
+                            weights {
+                                id
+                                weight
+                                project {
+                                    id
+                                    name
+                                }
+                            }
                         }
                     }
                   `;
