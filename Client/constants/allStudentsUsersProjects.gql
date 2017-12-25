@@ -31,6 +31,9 @@ export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
     allProjects {
         id,
         name,
-        description
+        description,
+        weight {
+            id
+        }
     }
 }`;

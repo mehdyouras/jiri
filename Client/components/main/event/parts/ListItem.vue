@@ -34,21 +34,24 @@ export default {
             Bus.$emit('removeItem', {id: this.item.id, type: type[this.currentStep - 1]})
         },
         addItemToEvent() {
+            let idToUse = this.currentStep === 3 ? this.item.weight.id : this.item.id;
+
             if(!this.isActive) {
                 let mutations = ['addStudentToEvent', 'addUserToEvent', 'addProjectToEvent']
-                this.$store.commit(mutations[this.currentStep - 1], this.item.id)
+                this.$store.commit(mutations[this.currentStep - 1], idToUse)
 
                 this.isActive = true;
             } else if(this.isActive) {
                 let mutations = ['deleteStudentFromEvent', 'deleteUserFromEvent', 'deleteProjectFromEvent']
-                this.$store.commit(mutations[this.currentStep - 1], this.item.id)
+                this.$store.commit(mutations[this.currentStep - 1], idToUse)
 
                 this.isActive = false;
             }
         }
     },
     created() {
-        let isActive = _.find(this.getItemsAddedToEvent[this.currentStep - 1], (id) => id === this.item.id);
+        let idToCheck = this.currentStep === 3 ? this.item.weight.id : this.item.id;
+        let isActive = _.find(this.getItemsAddedToEvent[this.currentStep - 1], (id) => id === idToCheck);
         this.isActive = !!isActive;
     }
 }
