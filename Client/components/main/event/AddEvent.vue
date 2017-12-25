@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import AddInfos from './parts/AddInfos'
-import AddItemsToEvent from './parts/AddItemsToEvent'
+import AddInfos from './addParts/AddInfos'
+import AddItemsToEvent from './addParts/AddItemsToEvent'
 import {mapGetters} from 'vuex'
 
 import {Bus} from '../../../Bus'
