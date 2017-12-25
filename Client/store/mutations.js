@@ -39,7 +39,13 @@ export const mutations = {
     },
 
     addProjectToEvent(state, payload) {
-        state.currentAddedEvent.projects.push(payload)
+        state.currentAddedEvent.weights.push(payload)
+    },
+
+    addInfosToEvent(state, payload){
+        state.currentAddedEvent.course = payload.course;
+        state.currentAddedEvent.year = payload.year;
+        state.currentAddedEvent.session = payload.session;
     },
     
         // DELETE
@@ -53,7 +59,7 @@ export const mutations = {
     },
 
     deleteProjectFromEvent(state, payload) {
-        _.remove(state.currentAddedEvent.projects, (id) => id === payload)
+        _.remove(state.currentAddedEvent.weights, (id) => id === payload)
     },
 
     ///////////

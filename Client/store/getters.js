@@ -9,6 +9,9 @@ export const getters = {
         return state.allDetails;
     },
     getItemsAddedToEvent(state) {
-        return [state.currentAddedEvent.students, state.currentAddedEvent.users, state.currentAddedEvent.projects]
+        return [state.currentAddedEvent.students, state.currentAddedEvent.users, state.currentAddedEvent.weights]
+    },
+    getCurrentAddedEvent(state) {
+        return state.currentAddedEvent
     }
 }

@@ -30,6 +30,7 @@ type User @model {
   password: String
   company: String
   events: [Event!]! @relation(name: "UserOnEvent")
+  juryTo: [Event!]! @relation(name: "JuryOnEvent")
   meetings: [Meeting!]! @relation(name: "UserOnMeeting")
 }
 
@@ -37,6 +38,7 @@ type Student @model {
   id: ID! @isUnique
   name: String
   email: String
+  event: Event @relation(name: "StudentOnEvent")
   implementations: [Implementation!]! @relation(name: "StudentOnImplementation")
   meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
   performance: Performance @relation(name: "StudentOnPerformance")
@@ -53,8 +55,10 @@ type Event @model {
   id: ID! @isUnique
   courseName: String
   academicYear: String
-  examSession: Int
+  examSession: String
   user: User! @relation(name: "UserOnEvent")
+  jurys: [User!]! @relation(name: "JuryOnEvent")
+  students: [Student!]! @relation(name: "StudentOnEvent")
   meetings: [Meeting!]! @relation(name: "EventOnMeeting")
   performances: [Performance!]! @relation(name: "EventOnPerformance")
   weights: [Weight!]! @relation(name: "EventOnWeight")
@@ -83,8 +87,8 @@ type Performance @model {
   id: ID! @isUnique
   calculatedScore: Float
   manualScore: Float
-  event: Event! @relation(name: "EventOnPerformance")
-  student: Student! @relation(name: "StudentOnPerformance")
+  event: Event @relation(name: "EventOnPerformance")
+  student: Student @relation(name: "StudentOnPerformance")
 }
 
 type Weight @model {

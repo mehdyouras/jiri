@@ -38,8 +38,14 @@ export default {
   ],
   methods: {
     handleStep(action) {
-      this.$emit('handleStep', action)
-    }
+      let {course, year, session} = this;
+      if(course !== '' && year !== '' && session !== '') {
+        this.$store.commit('addInfosToEvent', {course, year, session})
+        this.$emit('handleStep', action)
+      } else {
+        console.log({error: 'Le nom du cours est manquant.'})
+      }
+    },
   }
 }
 </script>

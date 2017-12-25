@@ -10,6 +10,9 @@
 <script>
 import AddInfos from './parts/AddInfos'
 import AddItemsToEvent from './parts/AddItemsToEvent'
+import {mapGetters} from 'vuex'
+
+import {Bus} from '../../../Bus'
 
 export default {
   name: 'AddEvent',
@@ -31,21 +34,29 @@ export default {
   methods: {
       handleStep(action) {
           switch (action) {
-            case 'nextStep':
+              case 'nextStep':
                 this.currentStep++
                 break;
             case 'previousStep':
                 this.currentStep--
+                break;
+            case 'complete':
+                console.log(this.getCurrentAddedEvent)
+                Bus.$emit('createEvent', this.getCurrentAddedEvent)
+                break;
           }
-      }
+      },
   },
   computed: {
-      currentView() {
-          return this.views[this.currentStep];
-      },
-      viewCount() {
-          return this.views.length;
-      },
+        ...mapGetters([
+            'getCurrentAddedEvent',
+        ]),
+        currentView() {
+            return this.views[this.currentStep];
+        },
+        viewCount() {
+            return this.views.length;
+        },
   }
 }
 </script>

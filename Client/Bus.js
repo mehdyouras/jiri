@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { apolloClient } from './apollo';
 import * as query from './constants/index.js'
 import _ from 'lodash'
+import {store} from './store'
 
 export const Bus = new Vue();
 
@@ -109,5 +110,30 @@ Bus.$on('createUser', payload => {
             data.allUsers.push(signupUser)
             store.writeQuery({ query: query.ALL_USERS, data })
         },
+    });
+})
+
+Bus.$on('createEvent', payload => {
+    console.log(payload);
+    let {year, course, session, students, weights, users} = payload,
+        currentUserId = store.getters.currentUserId;
+
+    apolloClient.mutate({
+        mutation: query.CREATE_EVENT,
+            variables: {
+                year,
+                course,
+                session,
+                currentUserId,
+                users,
+                students,
+                weights,
+
+        },
+        // update: (store, {data: {createEvent}}) => {
+        //     const data = store.readQuery({ query: query.ALL_EVENTS })
+        //     data.allEvents.push(createEvent)
+        //     store.writeQuery({ query: query.ALL_EVENTS, data })
+        // },
     });
 })

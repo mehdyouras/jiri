@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
             course: '',
             year: '',
             session: '',
-            projects:[],
+            weights:[],
             users: [],
             students: [],
         },
