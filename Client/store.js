@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
             users: [],
             students: [],
         },
+        isLoggingIn: false,
     },
     getters,
     mutations,

@@ -46,6 +46,15 @@ export const mutations = {
     },
 
     ///////////
+
+    isLoggingIn(state) {
+        state.isLoggingIn = true;
+    },
+
+    isNotLoggingIn(state) {
+        state.isLoggingIn = false;
+    },
+
     appIsLoaded(state) {
         state.isAppLoaded = true;
     }

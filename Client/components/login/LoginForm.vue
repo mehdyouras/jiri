@@ -7,7 +7,8 @@
         <label for="password-input">Mot de passe</label>
         <input v-model="password" type="password" id="password-input">
 
-        <input @click.prevent="checkLogin" type="submit">
+        <input v-if="!isLoggingIn" @click.prevent="checkLogin" type="submit">
+        <Spinner v-else></Spinner>
       </form>
   </div>
 </template>
@@ -15,15 +16,24 @@
 <script>
 import nanoid from 'nanoid'
 import {Bus} from '../../Bus'
+import Spinner from '../common/Spinner'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'LoginForm',
+  components: {
+    Spinner
+  },
   data() {
       return {
         email: '',
         password: '',
-        userLoggedIn: false,
       }
+  },
+  computed: {
+    ...mapGetters([
+      'isLoggingIn'
+    ])
   },
   methods: {
       checkLogin() {

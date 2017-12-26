@@ -7,7 +7,10 @@ export const getters = {
     },
     getCurrentAddedEvent(state) {
         return state.currentAddedEvent
-    }
+    },
+    isLoggingIn(state) {
+        return state.isLoggingIn
+    },
     isAppLoaded(state) {
         return state.isAppLoaded;
     },
