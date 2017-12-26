@@ -20,8 +20,5 @@ export default {
   },
   methods: {
   },
-  created() {
-      this.$store.dispatch('setCurrentUser')
-  }
 }
 </script>
