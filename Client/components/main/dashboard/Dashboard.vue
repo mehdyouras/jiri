@@ -1,6 +1,5 @@
 <template>
   <div>
-      <Sidebar></Sidebar>
       <div>
         <h2>Tableau de bord</h2>
         <div>
