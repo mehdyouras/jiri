@@ -23,21 +23,40 @@
 <script>
 import Sidebar from '../../sidebar/Sidebar.vue'
 import {mapGetters} from 'vuex'
+import {USER} from '../../../constants'
 
 export default {
   name: 'dashboard',
   components: {
     Sidebar,
   },
+  data() {
+    return {
+      currentUser: {},
+    }
+  },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUserId'
     ]),
     userType() {
       if(this.currentUser.isAdmin) {
         return 'qu\'administrateur'
       } else {
         return 'que ' + this.currentUser.name
+      }
+    }
+  },
+  apollo: {
+    currentUser: {
+      query: USER,
+      variables() {
+        return {
+          id: this.currentUserId
+        }
+      },
+      update(data) {
+        return data.User
       }
     }
   },
