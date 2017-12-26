@@ -29,6 +29,10 @@ const routes = [
     {name: "indexUsers", path: "/users", component: IndexUsers},
 
     {name: "indexProjects", path: "/projects", component: IndexProjects},
+
+    {name: "addMeeting", path: "/meetings/new", component: AddMeeting},
+      {name: "addImplementationsToMeeting", path: "/meetings/new/:studentId", component: AddMeeting},
+      
     
 ]
 
