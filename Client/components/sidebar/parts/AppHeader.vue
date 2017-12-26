@@ -8,23 +8,20 @@
 </template>
 <script>
 import Clock from './Clock.vue'
-import {mapGetters} from 'vuex'
 
 export default {
   name: 'AppHeader',
   components: {
       Clock,
   },
+  props: [
+    'currentUser'
+  ],
   methods: {
     logoutUser() {
       localStorage.removeItem('userToken')
       this.$router.push({name: 'login'})
     }
-  },
-  computed: {
-    ...mapGetters([
-      'currentUser'
-    ])
   },
 }
 </script>

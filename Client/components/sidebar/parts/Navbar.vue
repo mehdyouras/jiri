@@ -24,16 +24,11 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-
 export default {
   name: 'navbar',
-  computed: {
-    ...mapGetters([
-      'currentUser'
-    ])
-  }
-
+  props: [
+    'currentUser'
+  ]
 }
 </script>
 

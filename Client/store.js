@@ -9,8 +9,6 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         currentUserId: '',
-        currentUser: {},
-        allDetails: {},
         currentAddedEvent: {
             course: '',
             year: '',
@@ -19,8 +17,6 @@ export const store = new Vuex.Store({
             users: [],
             students: [],
         },
-        currentLoadedItems: [],
-        projects: [], 
     },
     getters,
     mutations,
