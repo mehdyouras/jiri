@@ -18,7 +18,7 @@ export default {
   methods: {
     logoutUser() {
       localStorage.removeItem('userToken')
-      location.assign('/')
+      this.$router.push({name: 'login'})
     }
   },
   computed: {

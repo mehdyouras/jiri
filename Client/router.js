@@ -30,6 +30,7 @@ function loggedIn(data){
 router.beforeEach((to, from, next) => {
     apolloClient.query({
         query: LOGGED_IN_USER,
+        fetchPolicy: 'network-only',
       }).then(data => {  
         // if user IS NOT logged in and access a resource othen than login
         // goes back to login

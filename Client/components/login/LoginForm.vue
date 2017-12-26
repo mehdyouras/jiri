@@ -41,7 +41,6 @@ export default {
         ).then(data => {
           localStorage.setItem('userToken', data.data.authenticateUser.token); 
           this.$router.push({name:'dashboard'});
-          location.assign('/dashboard');
         }).catch(e => {
           console.log(e)
         })
