@@ -4,7 +4,26 @@ import * as query from './constants/index.js'
 import _ from 'lodash'
 import {store} from './store'
 
+import {router} from './router'
+
 export const Bus = new Vue();
+
+Bus.$on('authenticateUser', payload => {
+    let {email, password} = payload;
+
+    apolloClient.mutate({
+        mutation: query.AUTHENTICATE_USER,
+            variables: {
+                email,
+                password
+        },
+        update: (store, {data: {authenticateUser}}) => {
+            localStorage.setItem('userToken', authenticateUser.token); 
+            router.push({name:'dashboard'});
+        },
+    });
+})
+
 
 Bus.$on('removeItem', payload => {
     let {id, type} = payload;
@@ -127,7 +146,6 @@ Bus.$on('createEvent', payload => {
                 users,
                 students,
                 weights,
-
         },
         update: (store, {data: {createEvent}}) => {
             const data = store.readQuery({ query: query.USER, variables: {id: currentUserId} })

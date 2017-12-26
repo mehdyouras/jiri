@@ -20,7 +20,7 @@ const routes = [
       {name: "eventResults", path: "/events/results/:eventId", component: AddEvent},
 ]
 
-const router = new VueRouter({mode:'history',routes})
+export const router = new VueRouter({mode:'history',routes})
 
 
 function loggedIn(data){

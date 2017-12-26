@@ -8,6 +8,7 @@ export { ALL_USERS} from './allUsers.gql';
 export { CREATE_PROJECT } from './createProject.gql';
 export { CREATE_STUDENT } from './createStudent.gql';
 export { SIGNUP_USER } from './signupUser.gql';
+export { AUTHENTICATE_USER } from './authenticateUser.gql'
 export { CREATE_EVENT } from './createEvent.gql';
 
 export { DELETE_PROJECT } from './deleteProject.gql';

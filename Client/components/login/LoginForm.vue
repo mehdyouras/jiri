@@ -14,9 +14,7 @@
 
 <script>
 import nanoid from 'nanoid'
-import VueApollo from 'vue-apollo'
-import {mapGetters} from 'vuex'
-import {AUTHENTICATE_USER} from '../../constants/authenticateUser.gql'
+import {Bus} from '../../Bus'
 
 export default {
   name: 'LoginForm',
@@ -30,24 +28,10 @@ export default {
   methods: {
       checkLogin() {
         let {email, password} = this
-        this.$apollo.mutate(
-            {
-                mutation: AUTHENTICATE_USER,
-                variables: {
-                  email,
-                  password
-                }
-            }
-        ).then(data => {
-          localStorage.setItem('userToken', data.data.authenticateUser.token); 
-          this.$router.push({name:'dashboard'});
-        }).catch(e => {
-          console.log(e)
-        })
+        Bus.$emit('authenticateUser', {email, password})
       },
       logoutUser() {
         localStorage.removeItem('userToken')
-        console.log(localStorage.getItem('userToken'))
         this.$router.push({name: "home"})
       }
   },
