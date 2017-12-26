@@ -6,6 +6,7 @@ import Dashboard from './components/main/dashboard/Dashboard.vue'
 import AddEvent from './components/main/event/AddEvent.vue'
 import IndexEvents from './components/main/event/IndexEvents.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
+import IndexUsers from './components/main/user/IndexUsers.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
@@ -22,7 +23,8 @@ const routes = [
       {name: "addEvent", path: "/events/new", component: AddEvent},
       {name: "eventResults", path: "/events/results/:eventId", component: AddEvent},
 
-    {name: "indexStudents", path: "/students", component: IndexStudents}
+    {name: "indexStudents", path: "/students", component: IndexStudents},
+    {name: "indexUsers", path: "/users", component: IndexUsers},
     
 ]
 
