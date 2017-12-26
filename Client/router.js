@@ -32,6 +32,14 @@ router.beforeEach((to, from, next) => {
         query: LOGGED_IN_USER,
         fetchPolicy: 'network-only',
       }).then(data => {  
+
+        // if user IS logged in but access login
+        // goes back to dashboard
+        if (loggedIn(data) !== null && to.name === 'login') {
+          store.commit('currentUserId', data.data.loggedInUser.id);
+          next({name:'dashboard'});
+        }
+
         // if user IS NOT logged in and access a resource othen than login
         // goes back to login
         if(loggedIn(data) === null && to.name !== 'login'){
@@ -48,13 +56,6 @@ router.beforeEach((to, from, next) => {
           // goes to the resrource
         } else {
             next();
-        }
-
-        // if user IS logged in but access login
-        // goes back to dashboard
-        if (loggedIn(data) !== null && to.name === 'login') {
-          store.commit('currentUserId', data.data.loggedInUser.id);
-          next({name:'dashboard'});
         }
       }).catch(error => {
         console.error(error)
