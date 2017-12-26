@@ -7,6 +7,7 @@ import AddEvent from './components/main/event/AddEvent.vue'
 import IndexEvents from './components/main/event/IndexEvents.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
 import IndexUsers from './components/main/user/IndexUsers.vue'
+import IndexProjects from './components/main/project/IndexProjects.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
@@ -24,7 +25,10 @@ const routes = [
       {name: "eventResults", path: "/events/results/:eventId", component: AddEvent},
 
     {name: "indexStudents", path: "/students", component: IndexStudents},
+
     {name: "indexUsers", path: "/users", component: IndexUsers},
+
+    {name: "indexProjects", path: "/projects", component: IndexProjects},
     
 ]
 
@@ -40,14 +44,6 @@ router.beforeEach((to, from, next) => {
         query: LOGGED_IN_USER,
         fetchPolicy: 'network-only',
       }).then(data => {  
-
-        // if user IS logged in but access login
-        // goes back to dashboard
-        if (loggedIn(data) !== null && to.name === 'login') {
-          store.commit('currentUserId', data.data.loggedInUser.id);
-          next({name:'dashboard'});
-        }
-
         // if user IS NOT logged in and access a resource othen than login
         // goes back to login
         if(loggedIn(data) === null && to.name !== 'login'){
@@ -65,6 +61,16 @@ router.beforeEach((to, from, next) => {
         } else {
             next();
         }
+
+        // if user IS logged in but access login
+        // goes back to dashboard
+        if (loggedIn(data) !== null && to.name === 'login') {
+          store.commit('currentUserId', data.data.loggedInUser.id);
+          next({name:'dashboard'});
+        }
+
+        store.commit('appIsLoaded')
+
       }).catch(error => {
         console.error(error)
       });
