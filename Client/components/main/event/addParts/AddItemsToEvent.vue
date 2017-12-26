@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Spinner v-if="!itemsLoaded"></Spinner>
-    <template v-if="itemsLoaded">
+    <Spinner v-if="isLoading"></Spinner>
+    <template v-if="!isLoading">
       <AddItem :currentStep="currentStep"></AddItem>
       <ol v-if="currentStep === 1">
           <ListItem v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
@@ -29,7 +29,7 @@ export default {
   name: 'AddItemsToEvent',
   data() {
     return {
-      itemsLoaded: false,
+      isLoading: 0,
     }
   },
   components: {
@@ -46,9 +46,9 @@ export default {
     allDetails: {
       query: ALL_STUDENTS_USERS_PROJECTS,
       update(data) {
-        this.itemsLoaded = true;
         return data
-      }
+      },
+      loadingKey: 'isLoading'
     }
   },
   methods: {
