@@ -18,7 +18,7 @@ Bus.$on('authenticateUser', payload => {
                 password
         },
 
-        update: (store, {data: {authenticateUser}}) => {
+        update: (cache, {data: {authenticateUser}}) => {
             localStorage.setItem('userToken', authenticateUser.token);
             router.push({name:'dashboard'});
             store.commit('isNotLoggingIn')
@@ -35,12 +35,12 @@ Bus.$on('removeItem', payload => {
             variables: {
               id
             },
-            update: (store, {data: {deleteProject}}) => {
-                const data = store.readQuery({ query: query.ALL_PROJECTS })
+            update: (cache, {data: {deleteProject}}) => {
+                const data = cache.readQuery({ query: query.ALL_PROJECTS })
                 _.remove(data.allProjects, (item) => {
                     return item.id === deleteProject.id
                 })
-                store.writeQuery({ query: query.ALL_PROJECTS, data })
+                cache.writeQuery({ query: query.ALL_PROJECTS, data })
             }
           });
     } else if (type === 'user') {
@@ -49,12 +49,12 @@ Bus.$on('removeItem', payload => {
             variables: {
               id
             },
-            update: (store, {data: {deleteUser}}) => {
-                const data = store.readQuery({ query: query.ALL_USERS })
+            update: (cache, {data: {deleteUser}}) => {
+                const data = cache.readQuery({ query: query.ALL_USERS })
                 _.remove(data.allUsers, (item) => {
                     return item.id === deleteUser.id
                 })
-                store.writeQuery({ query: query.ALL_USERS, data })
+                cache.writeQuery({ query: query.ALL_USERS, data })
             }
           });
     } else if (type === 'student') {
@@ -63,12 +63,12 @@ Bus.$on('removeItem', payload => {
             variables: {
               id
             },
-            update: (store, {data: {deleteStudent}}) => {
-                const data = store.readQuery({ query: query.ALL_STUDENTS })
+            update: (cache, {data: {deleteStudent}}) => {
+                const data = cache.readQuery({ query: query.ALL_STUDENTS })
                 _.remove(data.allStudents, (item) => {
                     return item.id === deleteStudent.id
                 })
-                store.writeQuery({ query: query.ALL_STUDENTS, data })
+                cache.writeQuery({ query: query.ALL_STUDENTS, data })
             }
           });
     }
@@ -85,10 +85,10 @@ Bus.$on('createProject', payload => {
             description,
             weight
         },
-        update: (store, {data: {createProject}}) => {
-            const data = store.readQuery({ query: query.ALL_PROJECTS })
+        update: (cache, {data: {createProject}}) => {
+            const data = cache.readQuery({ query: query.ALL_PROJECTS })
             data.allProjects.push(createProject)
-            store.writeQuery({ query: query.ALL_PROJECTS, data })
+            cache.writeQuery({ query: query.ALL_PROJECTS, data })
         },
     });
 })
@@ -102,10 +102,10 @@ Bus.$on('createStudent', payload => {
                 email,
                 name,
         },
-        update: (store, {data: {createStudent}}) => {
-            const data = store.readQuery({ query: query.ALL_STUDENTS })
+        update: (cache, {data: {createStudent}}) => {
+            const data = cache.readQuery({ query: query.ALL_STUDENTS })
             data.allStudents.push(createStudent)
-            store.writeQuery({ query: query.ALL_STUDENTS, data })
+            cache.writeQuery({ query: query.ALL_STUDENTS, data })
         },
     });
 })
@@ -122,20 +122,20 @@ Bus.$on('createUser', payload => {
                 company,
                 isAdmin
         },
-        update: (store, {data: {signupUser}}) => {
-            const data = store.readQuery({ query: query.ALL_USERS })
+        update: (cache, {data: {signupUser}}) => {
+            const data = cache.readQuery({ query: query.ALL_USERS })
             signupUser.meetings = [];
             signupUser.events = [];
             console.log(signupUser)
             data.allUsers.push(signupUser)
-            store.writeQuery({ query: query.ALL_USERS, data })
+            cache.writeQuery({ query: query.ALL_USERS, data })
         },
     });
 })
 
 Bus.$on('createEvent', payload => {
     let {year, course, session, students, weights, users} = payload,
-        currentUserId = store.getters.currentUserId;
+        currentUserId = cache.getters.currentUserId;
 
     apolloClient.mutate({
         mutation: query.CREATE_EVENT,
@@ -148,10 +148,10 @@ Bus.$on('createEvent', payload => {
                 students,
                 weights,
         },
-        update: (store, {data: {createEvent}}) => {
-            const data = store.readQuery({ query: query.USER, variables: {id: currentUserId} })
+        update: (cache, {data: {createEvent}}) => {
+            const data = cache.readQuery({ query: query.USER, variables: {id: currentUserId} })
             data.User.events.push(createEvent)
-            store.writeQuery({ query: query.USER, data })
+            cache.writeQuery({ query: query.USER, data })
         },
     });
 })
