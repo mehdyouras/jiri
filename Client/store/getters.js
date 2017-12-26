@@ -8,4 +8,7 @@ export const getters = {
     getCurrentAddedEvent(state) {
         return state.currentAddedEvent
     }
+    isAppLoaded(state) {
+        return state.isAppLoaded;
+    },
 }

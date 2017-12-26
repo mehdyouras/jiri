@@ -1,21 +1,31 @@
 <template>
 <div id="app">
-  <Sidebar v-if="route !== 'login'"></Sidebar>
-  <router-view></router-view>
+  <template v-if="isAppLoaded">
+    <Sidebar v-if="route !== 'login'"></Sidebar>
+    <router-view></router-view>
+  </template>
+  <Spinner v-if="!isAppLoaded"></Spinner>
 </div>
 </template>
 
 <script>
 import Sidebar from './components/sidebar/Sidebar'
+import {mapGetters} from 'vuex'
+import Spinner from './components/common/Spinner'
+
 export default {
   name: 'app',
   components: {
-    Sidebar
+    Sidebar,
+    Spinner
   },
-  data() {
-    return {
-      route: this.$route.name,
+  computed: {
+    ...mapGetters([
+      'isAppLoaded',
+    ]),
+    route() {
+      return this.$route.name;
     }
-  }
+  },
 }
 </script>

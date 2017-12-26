@@ -46,4 +46,7 @@ export const mutations = {
     },
 
     ///////////
+    appIsLoaded(state) {
+        state.isAppLoaded = true;
+    }
 }
