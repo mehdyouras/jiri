@@ -24,11 +24,37 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {USER} from '../../../constants'
+
 export default {
   name: 'navbar',
-  props: [
-    'currentUser'
-  ]
+  data() {
+    return {
+      currentUser: {
+        name: '',
+        isAdmin: false,
+      },
+    }
+  },
+  computed: {
+      ...mapGetters([
+          'currentUserId'
+      ])
+  },
+  apollo: {
+    currentUser: {
+      query: USER,
+      variables() {
+        return {
+          id: this.currentUserId
+        }
+      },
+      update(data) {
+        return data.User
+      }
+    }
+  },
 }
 </script>
 
