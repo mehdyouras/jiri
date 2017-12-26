@@ -7,23 +7,6 @@ export const mutations = {
     currentUserId(state, payload) {
         state.currentUserId = payload;
     },
-    currentUser(state, payload) {
-        state.currentUser = payload;
-    },
-
-
-    // Current Loaded Items
-
-    setAllDetails(state, payload) {
-        state.allDetails = payload;
-    },
-
-    setAllProjects(state, payload) {
-        state.allDetails.allProjects = payload;
-    },
-
-    ///////////
-
 
 
     // Current added event
