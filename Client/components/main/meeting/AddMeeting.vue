@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Organiser une rencontre avec un étudiant</h2>
-        <component :is="currentView"></component>
+        <component @chooseRoute="chooseRoute" :is="currentView"></component>
     </div>
 </template>
 
@@ -23,24 +23,34 @@ export default {
             currentView: '',
         }
     },
-    created() {
-        // Choose the appropriate component depending on studentId in route
-        if(this.$route.params.studentId) {
-            this.$apollo.query({
-                query: STUDENT,
-                variables: {
-                    id: this.$route.params.studentId
-                }
-            }).then(data => {
-                if(data.data.Student === null) {
-                    this.currentView = 'ChooseStudent'
-                } else {
-                    this.currentView = 'ChooseImplementations'
-                }
-            });
-        } else {
-            this.currentView = 'ChooseStudent'
+    methods: {
+        chooseRoute(payload = '') {
+            // Choose the appropriate component depending on studentId in route
+            console.log(payload)
+            if(payload !== '') {
+                this.$router.push({name:'addImplementationsToMeeting', params: {studentId: payload}})
+                return;
+            }
+            if(this.$route.params.studentId) {
+                this.$apollo.query({
+                    query: STUDENT,
+                    variables: {
+                        id: this.$route.params.studentId
+                    }
+                }).then(data => {
+                    if(data.data.Student === null) {
+                        this.currentView = 'ChooseStudent'
+                    } else {
+                        this.currentView = 'ChooseImplementations'
+                    }
+                });
+            } else {
+                this.currentView = 'ChooseStudent'
+            }
         }
+    },
+    created() {
+        this.chooseRoute();
     },
     apollo: {
         allStudents: {
