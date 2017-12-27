@@ -18,7 +18,7 @@
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">projet</router-link>
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">utilisateur</router-link>
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addImplementation'}">implémentation</router-link>
-        <router-link :to="{ name: 'newMeeting'}">Rencontre</router-link>
+        <router-link :to="{ name: 'addMeeting'}">Rencontre</router-link>
       </div>
   </nav>
 </template>

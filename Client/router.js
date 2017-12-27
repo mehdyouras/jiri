@@ -8,6 +8,7 @@ import IndexEvents from './components/main/event/IndexEvents.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
 import IndexUsers from './components/main/user/IndexUsers.vue'
 import IndexProjects from './components/main/project/IndexProjects.vue'
+import AddMeeting from './components/main/meeting/AddMeeting.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
