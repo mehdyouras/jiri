@@ -173,3 +173,23 @@ Bus.$on('createImplementation', payload => {
         },
     });
 })
+
+Bus.$on('createScore', payload => {
+    let {studentId, implementationId, comment, score} = payload,
+        userId = store.getters.currentUserId;
+    apolloClient.mutate({
+        mutation: query.CREATE_SCORE,
+            variables: {
+                studentId,
+                userId,
+                implementationId,
+                comment,
+                score,
+        },
+        update: (cache, {data: {createScore}}) => {
+            const data = cache.readQuery({ query: query.STUDENT, variables: {id: studentId} })
+            data.Student.scores.push(createScore)
+            cache.writeQuery({ query: query.STUDENT, data })
+        },
+    });
+})
