@@ -8,8 +8,10 @@ import IndexEvents from './components/main/event/IndexEvents.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
 import IndexUsers from './components/main/user/IndexUsers.vue'
 import IndexProjects from './components/main/project/IndexProjects.vue'
-import ChooseStudent from './components/main/meeting/ChooseStudent.vue'
-import ChooseImplementations from './components/main/meeting/ChooseImplementations.vue'
+import ChooseStudentForMeeting from './components/main/meeting/ChooseStudent.vue'
+import ChooseImplementationsForMeeting from './components/main/meeting/ChooseImplementations.vue'
+import AddImplementation from './components/main/implementation/AddImplementation.vue'
+import ChooseStudentForImplementation from './components/main/implementation/ChooseStudent.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
@@ -32,8 +34,16 @@ const routes = [
 
     {name: "indexProjects", path: "/projects", component: IndexProjects},
 
-    {name: "addMeeting", path: "/meetings/new", component: ChooseStudent},
-      {name: "addImplementationsToMeeting", path: "/meetings/new/:studentId", component: ChooseImplementations},
+    {name: "addMeeting", path: "/meetings/new", component: ChooseStudentForMeeting},
+      {name: "addImplementationsToMeeting", path: "/meetings/new/:studentId", component: ChooseImplementationsForMeeting},
+
+    {name: "addImplementation", path: "/implementation/", component: ChooseStudentForImplementation},
+      {name: "addImplementationToStudent", path: "/implementation/:studentId", component: AddImplementation},
+
+    {name: "indexImplementations", path: "/implementation/", component: ChooseStudentForImplementation},
+
+    
+
       
     
 ]

@@ -19,7 +19,7 @@
 import {STUDENT} from '../../../constants'
 
 export default {
-    name: 'ChooseImplementations',
+    name: 'ChooseImplementationsForMeeting',
     data() {
         return {
             student: {},

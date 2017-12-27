@@ -15,7 +15,7 @@
 import {ALL_STUDENTS} from '../../../constants'
 
 export default {
-    name: 'ChooseStudent',
+    name: 'ChooseStudentForMeeting',
     data() {
         return {
             students: {},
