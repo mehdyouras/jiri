@@ -2,7 +2,7 @@
   <div>
       <h2>Vue d'ensemble des étudiants</h2>
       <ol>
-          <li v-for="student in students" :key="student.id">
+          <li @click="goToAddMeeting(student.id)" v-for="student in students" :key="student.id">
               <span>{{student.name}}</span>
               <span>{{student.email}}</span>
           </li>
@@ -26,6 +26,11 @@ export default {
             update(data) {
                 return data.allStudents
             }
+        }
+    },
+    methods: {
+        goToAddMeeting(id) {
+            this.$router.push({name:'addImplementationsToMeeting', params: {studentId: id}})
         }
     }
 }
