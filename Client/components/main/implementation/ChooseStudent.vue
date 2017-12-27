@@ -1,7 +1,7 @@
 <template>
   <div>
-      <h2>Ajouter des implémentations à un étudiant</h2>
-      <p>Choisissez un étudiant auquel ajouter des implémentations</p>
+      <h2>Vue d'ensemble des implémentations</h2>
+      <p>Choisissez un étudiant pour afficher/ajouter des implémentations</p>
       <Students @studentClicked="goToAddImplementations" ></Students>
   </div>
 </template>
