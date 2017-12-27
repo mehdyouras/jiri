@@ -18,8 +18,7 @@ type Implementation @model {
   student: Student! @relation(name: "StudentOnImplementation")
   urlProject: String
   urlRepo: String
-  event: Int!
-  score: Score! @relation(name: "ImplementationOnScore")
+  score: Score @relation(name: "ImplementationOnScore")
 }
 
 type User @model {

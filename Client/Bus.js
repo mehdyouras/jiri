@@ -155,3 +155,21 @@ Bus.$on('createEvent', payload => {
         },
     });
 })
+
+Bus.$on('createImplementation', payload => {
+    let {urlRepo, urlProject, projectId, studentId} = payload;
+    apolloClient.mutate({
+        mutation: query.CREATE_IMPLEMENTATION,
+            variables: {
+                urlRepo,
+                urlProject,
+                projectId,
+                studentId
+        },
+        update: (cache, {data: {createImplementation}}) => {
+            const data = cache.readQuery({ query: query.STUDENT, variables: {id: studentId} })
+            data.Student.implementations.push(createImplementation)
+            cache.writeQuery({ query: query.STUDENT, data })
+        },
+    });
+})

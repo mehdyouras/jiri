@@ -49,6 +49,12 @@ export const STUDENT = gql`query Student($id: ID!) {
         }
         implementations {
             id
+            project {
+                id
+                name
+            }
+            urlProject
+            urlRepo
         }
         performance {
             id
