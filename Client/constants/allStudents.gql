@@ -8,9 +8,6 @@ export const ALL_STUDENTS = gql`query allStudents{
         implementations {
             id
         },
-        meetings {
-            id
-        },
         performance {
             id
         },

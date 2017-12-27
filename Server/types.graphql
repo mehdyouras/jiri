@@ -28,9 +28,10 @@ type User @model {
   email: String! @isUnique
   password: String
   company: String
+  scores: [Score!]! @relation(name: "UserOnScore")
   events: [Event!]! @relation(name: "UserOnEvent")
   juryTo: [Event!]! @relation(name: "JuryOnEvent")
-  meetings: [Meeting!]! @relation(name: "UserOnMeeting")
+  # meetings: [Meeting!]! @relation(name: "UserOnMeeting")
 }
 
 type Student @model {
@@ -39,7 +40,8 @@ type Student @model {
   email: String
   event: Event @relation(name: "StudentOnEvent")
   implementations: [Implementation!]! @relation(name: "StudentOnImplementation")
-  meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
+  # meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
+  scores: [Score!]! @relation(name: "StudentOnScore")
   performance: Performance @relation(name: "StudentOnPerformance")
 }
 
@@ -66,19 +68,21 @@ type Event @model {
 
 type Meeting @model {
   id: ID! @isUnique
-  user: User! @relation(name: "UserOnMeeting")
-  student: Student! @relation(name: "StudentOnMeeting")
+  # user: User! @relation(name: "UserOnMeeting")
+  # student: Student! @relation(name: "StudentOnMeeting")
   event: Event! @relation(name: "EventOnMeeting")
   startTime: DateTime
   endTime: DateTime
   generalEvaluation: Float
-  scores: [Score!]! @relation(name: "MeetingOnScore")
+  # scores: [Score!]! @relation(name: "MeetingOnScore")
 }
 
 type Score @model {
   id: ID! @isUnique
-  meeting: Meeting! @relation(name: "MeetingOnScore")
-  implementation: Implementation! @relation(name: "ImplementationOnScore")
+  # meeting: Meeting! @relation(name: "MeetingOnScore")
+  user: User @relation(name: "UserOnScore")
+  student: Student @relation(name: "StudentOnScore")
+  implementation: Implementation @relation(name: "ImplementationOnScore")
   score: Float
   comment: String
 }
