@@ -2,6 +2,9 @@ export const getters = {
     currentUserId(state){
         return state.currentUserId
     },
+    isAdmin(state) {
+        return state.isAdmin;
+    },
     getItemsAddedToEvent(state) {
         return [state.currentAddedEvent.students, state.currentAddedEvent.users, state.currentAddedEvent.weights]
     },

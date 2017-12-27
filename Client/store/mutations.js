@@ -8,6 +8,10 @@ export const mutations = {
         state.currentUserId = payload;
     },
 
+    setIsAdmin(state, payload) {
+        state.isAdmin = payload;
+    },
+
 
     // Current added event
 

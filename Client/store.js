@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
     state: {
         isAppLoaded: false,
         currentUserId: '',
+        isAdmin: false,
         currentAddedEvent: {
             course: '',
             year: '',
