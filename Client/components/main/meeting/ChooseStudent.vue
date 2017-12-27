@@ -1,5 +1,6 @@
 <template>
   <div>
+      <h2>Organiser une rencontre avec un étudiant</h2>
       <p>Choisissez un étudiant</p>
       <ol>
           <li @click="goToAddMeeting(student.id)" v-for="student in students" :key="student.id">
@@ -11,7 +12,7 @@
 </template>
 
 <script>
-import {ALL_STUDENTS} from '../../../../constants'
+import {ALL_STUDENTS} from '../../../constants'
 
 export default {
     name: 'ChooseStudent',
@@ -30,7 +31,7 @@ export default {
     },
     methods: {
         goToAddMeeting(id) {
-            this.$emit('chooseRoute', id);
+            this.$router.push({name: 'addImplementationsToMeeting', params: {studentId: id}})
         }
     }
 }
