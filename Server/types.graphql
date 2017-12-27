@@ -14,7 +14,7 @@ type File @model {
 
 type Implementation @model {
   id: ID! @isUnique
-  project: String
+  project: Project! @relation(name: "ImplementationOnProject")
   student: Student! @relation(name: "StudentOnImplementation")
   urlProject: String
   urlRepo: String
@@ -49,6 +49,7 @@ type Project @model {
   name: String
   description: String
   weight: Weight! @relation(name: "ProjectOnWeight")
+  implementations: [Implementation!]! @relation(name: "ImplementationOnProject")
 }
 
 type Event @model {
