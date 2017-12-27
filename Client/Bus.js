@@ -135,7 +135,7 @@ Bus.$on('createUser', payload => {
 
 Bus.$on('createEvent', payload => {
     let {year, course, session, students, weights, users} = payload,
-        currentUserId = cache.getters.currentUserId;
+        currentUserId = store.getters.currentUserId;
 
     apolloClient.mutate({
         mutation: query.CREATE_EVENT,
