@@ -1,0 +1,23 @@
+import gql from 'graphql-tag'
+
+export const STUDENT = gql`query Student($id: ID!) {
+    Student(id: $id) {
+        id,
+        email,
+        name,
+        event {
+            id
+        }
+        meetings {
+            id
+        }
+        implementations {
+            id
+        }
+        performance {
+            id
+        }
+
+    }
+}
+                `;
