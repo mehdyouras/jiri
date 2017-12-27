@@ -3,8 +3,13 @@
       <h2>Organiser une rencontre avec un étudiant</h2>
       <h3>{{student.name}}</h3>
       <ol>
-          <li v-for="project in student.event.weights" :key="project.id">
+          <li @click="showScoreForm(project)" v-for="project in student.event.weights" :key="project.id">
               {{project.project.name}}
+          </li>
+      </ol>
+      <ol>
+          <li v-if="isAdding">
+
           </li>
       </ol>
   </div>
@@ -18,7 +23,11 @@ export default {
     data() {
         return {
             student: {},
+            isAdding: false,
         }
+    },
+    methods: {
+
     },
     created() {
         // Checks if the studentId in route exists
