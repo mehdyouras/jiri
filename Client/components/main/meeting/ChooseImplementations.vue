@@ -2,10 +2,11 @@
   <div>
       <h2>Organiser une rencontre avec un étudiant</h2>
       <h3>{{student.name}}</h3>
+        <pre>{{implementationToShow}}</pre>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>   
             <ol>
-                <li @click="showScoreForm(implementation)" v-for="implementation in student.implementations" :key="implementation.id">
+                <li @click="showScoreForm(implementation)" v-for="implementation in implementationToShow" :key="implementation.id">
                     {{implementation.project.name}}
                 </li>
             </ol>
@@ -20,10 +21,23 @@
 
                     <button @click="addScore">Noter</button>
                 </li>
-                <li v-for="score in student.scores" :key="score.id">
-                    <h4>{{score.implementation.project.name}}</h4>
-                    <p>{{score.comment}}</p>
-                    <p>Note : {{score.score}}</p>
+                <li v-for="implementationScore in student.scores" :key="implementationScore.id">
+                    <h4>{{implementationScore.implementation.project.name}}</h4>
+
+                    <button @click="showEdit(implementationScore.id, implementationScore.comment, implementationScore.score)">Modifier</button>
+
+                    <template v-if="editing !== implementationScore.id">
+                        <p>{{implementationScore.comment}}</p>
+                        <p>Note : {{implementationScore.score}}</p>
+                    </template>
+                    <template v-else>
+                        <label for="comment">Commentaire</label>
+                        <textarea v-model="comment" name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <label for="score">Note</label>
+                        <input v-model.number="score" type="number" name="score" id="">
+
+                        <button @click="editScore(implementationScore.id)">Noter</button>
+                    </template>
                 </li>
             </ol>
         </template>
@@ -34,6 +48,8 @@
 import {STUDENT} from '../../../constants'
 import {Bus} from '../../../Bus'
 import Spinner from '../../common/Spinner'
+import _ from 'lodash'
+import {mapGetters} from 'vuex'
 
 export default {
     name: 'ChooseImplementationsForMeeting',
@@ -42,6 +58,7 @@ export default {
             isLoading: 0,
             student: {},
             isAdding: false,
+            editing: '',
             implementationAdded: {},
             comment: '',
             score: '',
@@ -49,6 +66,20 @@ export default {
     },
     components: {
         Spinner
+    },
+    computed: {
+        ...mapGetters([
+            'currentUserId'
+        ]),
+        implementationToShow() {
+            return _.filter(this.student.implementations, (implementation) => {
+                if(implementation.score) {
+                    return implementation.score.user.id !== this.currentUserId;
+                } else {
+                    return implementation;
+                }
+            })
+        },
     },
     methods: {
         showScoreForm(implementation) {
@@ -65,6 +96,22 @@ export default {
             Bus.$emit('createScore', payload)
             this.isAdding = false;
             this.comment, this.score = '';
+            this.$apollo.queries.student.refetch();
+        },
+        showEdit(id, comment, score) {
+            this.editing = id;
+            this.comment = comment;
+            this.score = score;
+        },
+        editScore(id) {
+            let {comment, score} = this;
+            let payload = {
+                id,
+                comment,
+                score
+            }
+            Bus.$emit('updateScore', payload);
+            this.editing, this.comment, this.score = '';
         }
     },
     apollo: {

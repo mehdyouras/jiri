@@ -5,6 +5,7 @@ import * as query from './constants/index.js'
 import _ from 'lodash'
 import {store} from './store'
 import {router} from './router'
+import gql from 'graphql-tag';
 
 export const Bus = new Vue();
 
@@ -190,6 +191,25 @@ Bus.$on('createScore', payload => {
             const data = cache.readQuery({ query: query.STUDENT, variables: {id: studentId} })
             data.Student.scores.push(createScore)
             cache.writeQuery({ query: query.STUDENT, data })
+        },
+    });
+})
+
+Bus.$on('updateScore', payload => {
+    let {id, score, comment} = payload;
+    apolloClient.mutate({
+        mutation: query.UPDATE_SCORE,
+            variables: {
+                id,
+                score,
+                comment
+        },
+        update: (cache, {data: {updateScore}}) => {
+            const data = cache.readQuery({ query: query.STUDENT, variables: {id} })
+            // let index
+            // data.Score.scores.push(updateScore)
+            console.log(data)
+            cache.writeQuery({query: query.SCORE, updateScore })
         },
     });
 })
