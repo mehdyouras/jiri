@@ -8,9 +8,6 @@ export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
         implementations {
             id
         },
-        meetings {
-            id
-        },
         performance {
             id
         },
@@ -24,9 +21,6 @@ export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
         events {
             id
         },
-        meetings {
-            id
-        }
     }
     allProjects(orderBy: name_ASC) {
         id,

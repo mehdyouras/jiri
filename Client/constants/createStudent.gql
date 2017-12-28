@@ -11,9 +11,6 @@ export const CREATE_STUDENT = gql`mutation createStudent($email: String!, $name:
                             implementations {
                                 id
                             }
-                            meetings {
-                                id
-                            }
                         }
                     }
                   `;

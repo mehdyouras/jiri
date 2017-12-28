@@ -10,8 +10,5 @@ export const ALL_USERS = gql`query allUsers{
         events {
             id
         },
-        meetings {
-            id
-        }
     }
 }`;
