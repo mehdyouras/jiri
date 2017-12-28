@@ -24,6 +24,7 @@ export default {
         let {email, name} = this;
 
         Bus.$emit('createStudent', {email, name});
+        this.$emit('studentCreated');
       }
     },
     created() {
