@@ -9,7 +9,7 @@
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexUsers'}">utilisateurs</router-link>
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexImplementations'}">implémentations</router-link>
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexResults'}">résultats</router-link>
-        <router-link :to="{ name: 'meetings'}">Rencontres</router-link>
+        <router-link :to="{ name: 'indexMeetings'}">Rencontres</router-link>
       </div>
       <span>Ajouter</span>
       <div>
