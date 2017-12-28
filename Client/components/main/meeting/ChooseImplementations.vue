@@ -2,17 +2,16 @@
   <div>
       <h2>Organiser une rencontre avec un étudiant</h2>
       <h3>{{student.name}}</h3>
-        <pre>{{implementationToShow}}</pre>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>   
             <ol>
-                <li @click="showScoreForm(implementation)" v-for="implementation in implementationToShow" :key="implementation.id">
+                <li @click="showScoreForm(implementation)" v-for="implementation in implementationNotAdded" :key="implementation.id">
                     {{implementation.project.name}}
                 </li>
             </ol>
             <ol>
                 <li v-if="isAdding">
-                    <h4>{{implementationAdded.project.name}}</h4>
+                    <h4>{{implementationAdding.project.name}}</h4>
                     <label for="comment">Description</label>
                     <textarea v-model="comment" name="comment" id="comment" cols="30" rows="10"></textarea>
 
@@ -21,14 +20,14 @@
 
                     <button @click="addScore">Noter</button>
                 </li>
-                <li v-for="implementationScore in student.scores" :key="implementationScore.id">
-                    <h4>{{implementationScore.implementation.project.name}}</h4>
+                <li v-for="implementation in implementationAdded" :key="implementation.id">
+                    <h4>{{implementation.project.name}}</h4>
 
-                    <button @click="showEdit(implementationScore.id, implementationScore.comment, implementationScore.score)">Modifier</button>
+                    <button @click="showEdit(implementation.score.id, implementation.score.comment, implementation.score.score)">Modifier</button>
 
-                    <template v-if="editing !== implementationScore.id">
-                        <p>{{implementationScore.comment}}</p>
-                        <p>Note : {{implementationScore.score}}</p>
+                    <template v-if="editing !== implementation.score.id">
+                        <p>{{implementation.score.comment}}</p>
+                        <p>Note : {{implementation.score.score}}</p>
                     </template>
                     <template v-else>
                         <label for="comment">Commentaire</label>
@@ -36,7 +35,7 @@
                         <label for="score">Note</label>
                         <input v-model.number="score" type="number" name="score" id="">
 
-                        <button @click="editScore(implementationScore.id)">Noter</button>
+                        <button @click="editScore(implementation.score.id)">Noter</button>
                     </template>
                 </li>
             </ol>
@@ -59,7 +58,7 @@ export default {
             student: {},
             isAdding: false,
             editing: '',
-            implementationAdded: {},
+            implementationAdding: {},
             comment: '',
             score: '',
         }
@@ -71,7 +70,7 @@ export default {
         ...mapGetters([
             'currentUserId'
         ]),
-        implementationToShow() {
+        implementationNotAdded() {
             return _.filter(this.student.implementations, (implementation) => {
                 if(implementation.score) {
                     return implementation.score.user.id !== this.currentUserId;
@@ -80,23 +79,29 @@ export default {
                 }
             })
         },
+        implementationAdded() {
+            return _.filter(this.student.implementations, (implementation) => {
+                if(implementation.score) {
+                    return implementation.score.user.id === this.currentUserId;
+                }
+            })
+        }
     },
     methods: {
         showScoreForm(implementation) {
             this.isAdding = true;
-            this.implementationAdded = implementation;
+            this.implementationAdding = implementation;
         },
         addScore() {
             let payload = {
                 studentId: this.student.id,
-                implementationId: this.implementationAdded.id,
+                implementationId: this.implementationAdding.id,
                 comment: this.comment,
                 score: this.score,
             }
             Bus.$emit('createScore', payload)
             this.isAdding = false;
             this.comment, this.score = '';
-            this.$apollo.queries.student.refetch();
         },
         showEdit(id, comment, score) {
             this.editing = id;
@@ -111,7 +116,9 @@ export default {
                 score
             }
             Bus.$emit('updateScore', payload);
-            this.editing, this.comment, this.score = '';
+            this.editing= '';
+            this.score = '';
+            this.comment = '';
         }
     },
     apollo: {
