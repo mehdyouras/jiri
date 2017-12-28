@@ -4,6 +4,7 @@ export { SCORE } from './score.gql'
 
 export { ALL_PROJECTS } from './allProjects.gql';
 export { ALL_STUDENTS } from './allStudents.gql';
+export { STUDENTS_MET } from './studentsMet.gql';
 export { ALL_STUDENTS_USERS_PROJECTS } from './allStudentsUsersProjects.gql';
 export { ALL_USERS} from './allUsers.gql';
 
