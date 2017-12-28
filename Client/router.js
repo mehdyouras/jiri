@@ -7,6 +7,7 @@ import AddEvent from './components/main/event/AddEvent.vue'
 import IndexEvents from './components/main/event/IndexEvents.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
 import AddStudent from './components/main/student/AddStudent.vue'
+import EditStudent from './components/main/student/EditStudent.vue'
 import IndexUsers from './components/main/user/IndexUsers.vue'
 import IndexProjects from './components/main/project/IndexProjects.vue'
 import ChooseStudentForMeeting from './components/main/meeting/ChooseStudent.vue'
@@ -32,6 +33,8 @@ const routes = [
 
     {name: "indexStudents", path: "/students", component: IndexStudents},
       {name: "addStudent", path: "/students/new", component: AddStudent},
+      {name: "editStudent", path: "/students/:studentId", component: EditStudent},
+
 
 
     {name: "indexUsers", path: "/users", component: IndexUsers},
