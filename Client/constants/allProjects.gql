@@ -4,6 +4,17 @@ export const ALL_PROJECTS = gql`query allProjects{
     allProjects(orderBy: name_ASC, filter: {softDelete_not: true}) {
         id,
         name,
-        description
+        description,
+        implementations {
+            id
+            urlRepo
+            urlProject
+            student {
+                id
+            }
+            project {
+                id
+            }
+        }
     }
 }`;
