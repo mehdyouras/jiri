@@ -181,16 +181,14 @@ Bus.$on('createScore', payload => {
     apolloClient.mutate({
         mutation: query.CREATE_SCORE,
             variables: {
+                implementationId,
                 studentId,
                 userId,
-                implementationId,
                 comment,
                 score,
         },
-        update: (cache, {data: {createScore}}) => {
-            const data = cache.readQuery({ query: query.STUDENT, variables: {id: studentId} })
-            data.Student.scores.push(createScore)
-            cache.writeQuery({ query: query.STUDENT, data })
+        update: (cache, {data: {updateImplementation}}) => {
+            apolloClient.resetStore()
         },
     });
 })
@@ -205,11 +203,7 @@ Bus.$on('updateScore', payload => {
                 comment
         },
         update: (cache, {data: {updateScore}}) => {
-            const data = cache.readQuery({ query: query.STUDENT, variables: {id} })
-            // let index
-            // data.Score.scores.push(updateScore)
-            console.log(data)
-            cache.writeQuery({query: query.SCORE, updateScore })
+            apolloClient.resetStore();
         },
     });
 })

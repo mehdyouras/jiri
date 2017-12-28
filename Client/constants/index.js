@@ -16,6 +16,7 @@ export { CREATE_IMPLEMENTATION } from './createImplementation.gql';
 export { CREATE_SCORE } from './createScore.gql';
 
 export { UPDATE_SCORE } from './updateScore.gql'
+export { UPDATE_SCORE_QUERY } from './updateScore.gql'
 
 export { DELETE_PROJECT } from './deleteProject.gql';
 export { DELETE_USER } from './deleteUser.gql';
