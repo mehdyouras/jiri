@@ -1,30 +1,33 @@
 <template>
   <div>
       <h2>Ajouter un étudiant</h2>
-      <p v-if="currentView === 'StudentForm'">Informations sur l'étudiant</p>
-      <p v-else>Ajoutez ses implémentations</p>
-      <component :is="currentView"></component> 
+      <p>Informations sur l'étudiant</p>
+      <StudentForm @studentCreated="nextStep"></StudentForm>
   </div>
 </template>
 
 <script>
 import StudentForm from '../../common/forms/StudentForm'
-import AddImplementationsToStudent from './addParts/AddImplementationsToStudent'
+import {mapGetters} from 'vuex'
 
 export default {
     name: 'AddStudent',
+    components: {
+        StudentForm,
+    },
     data() {
         return {
             currentView: 'StudentForm'
         }
     },
-    components: {
-        StudentForm,
-        AddImplementationsToStudent
+    computed: {
+        ...mapGetters([
+            'lastAddedId'
+        ])
     },
     methods: {
         nextStep() {
-            this.currentView = 'AddImplementationsToStudent';
+            this.$router.push({name: 'editStudent', params: {studentId: this.lastAddedId}})
         }
     }
 }
