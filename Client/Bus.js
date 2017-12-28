@@ -86,9 +86,11 @@ Bus.$on('createProject', payload => {
             description,
             weight
         },
-        update: (cache, {data: {createProject}}) => {
-            apolloClient.resetStore()
-        },
+        refetchQueries: [
+            {
+                query: query.ALL_PROJECTS,
+            }
+        ]
     });
 })
 
@@ -101,9 +103,11 @@ Bus.$on('createStudent', payload => {
                 email,
                 name,
         },
-        update: (cache, {data: {createStudent}}) => {
-            apolloClient.resetStore()
-        },
+        refetchQueries: [
+            {
+                query: query.ALL_STUDENTS,
+            }
+        ]
     });
 })
 
@@ -119,9 +123,11 @@ Bus.$on('createUser', payload => {
                 company,
                 isAdmin
         },
-        update: (cache, {data: {signupUser}}) => {
-            apolloClient.resetStore()
-        },
+        refetchQueries: [
+            {
+                query: query.ALL_USERS,
+            }
+        ]
     });
 })
 
@@ -158,9 +164,14 @@ Bus.$on('createImplementation', payload => {
                 projectId,
                 studentId
         },
-        update: (cache, {data: {createImplementation}}) => {
-            apolloClient.resetStore()
-        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id: studentId,
+                },
+            }
+        ]
     });
 })
 
@@ -176,14 +187,19 @@ Bus.$on('createScore', payload => {
                 comment,
                 score,
         },
-        update: (cache, {data: {updateImplementation}}) => {
-            apolloClient.resetStore()
-        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id: studentId,
+                },
+            }
+        ]
     });
 })
 
 Bus.$on('updateScore', payload => {
-    let {id, score, comment} = payload;
+    let {id, score, comment, studentId} = payload;
     apolloClient.mutate({
         mutation: query.UPDATE_SCORE,
             variables: {
@@ -191,8 +207,13 @@ Bus.$on('updateScore', payload => {
                 score,
                 comment
         },
-        update: (cache, {data: {updateScore}}) => {
-            apolloClient.resetStore();
-        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id: studentId,
+                },
+            }
+        ]
     });
 })

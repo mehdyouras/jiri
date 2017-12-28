@@ -113,7 +113,8 @@ export default {
             let payload = {
                 id,
                 comment,
-                score
+                score,
+                studentId: this.student.id,
             }
             Bus.$emit('updateScore', payload);
             this.editing= '';
