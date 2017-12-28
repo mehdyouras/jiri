@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const USER = gql`query User($id: ID!) {
-    User(id: $id) {
+    User(id: $id, softDelete: false) {
         id,
         email,
         name,

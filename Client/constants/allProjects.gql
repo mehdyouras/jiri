@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const ALL_PROJECTS = gql`query allProjects{
-    allProjects(orderBy: name_ASC) {
+    allProjects(orderBy: name_ASC, filter: {softDelete_not: true}) {
         id,
         name,
         description

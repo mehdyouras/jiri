@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
-    allStudents(orderBy: name_ASC) {
+    allStudents(orderBy: name_ASC, filter: {softDelete_not: true}) {
         id,
         email,
         name,
@@ -12,7 +12,7 @@ export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
             id
         },
     }
-    allUsers(orderBy: name_ASC) {
+    allUsers(orderBy: name_ASC, filter: {softDelete_not: true}) {
         id,
         email,
         name,
@@ -22,7 +22,7 @@ export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
             id
         },
     }
-    allProjects(orderBy: name_ASC) {
+    allProjects(orderBy: name_ASC, filter: {softDelete_not: true}) {
         id,
         name,
         description,

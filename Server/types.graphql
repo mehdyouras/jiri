@@ -19,6 +19,7 @@ type Implementation @model {
   urlProject: String
   urlRepo: String
   score: Score @relation(name: "ImplementationOnScore")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type User @model {
@@ -32,6 +33,7 @@ type User @model {
   events: [Event!]! @relation(name: "UserOnEvent")
   juryTo: [Event!]! @relation(name: "JuryOnEvent")
   # meetings: [Meeting!]! @relation(name: "UserOnMeeting")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Student @model {
@@ -43,6 +45,7 @@ type Student @model {
   # meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
   scores: [Score!]! @relation(name: "StudentOnScore")
   performance: Performance @relation(name: "StudentOnPerformance")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Project @model {
@@ -51,6 +54,7 @@ type Project @model {
   description: String
   weight: Weight! @relation(name: "ProjectOnWeight")
   implementations: [Implementation!]! @relation(name: "ImplementationOnProject")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Event @model {
@@ -64,6 +68,7 @@ type Event @model {
   meetings: [Meeting!]! @relation(name: "EventOnMeeting")
   performances: [Performance!]! @relation(name: "EventOnPerformance")
   weights: [Weight!]! @relation(name: "EventOnWeight")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Meeting @model {
@@ -75,6 +80,7 @@ type Meeting @model {
   endTime: DateTime
   generalEvaluation: Float
   # scores: [Score!]! @relation(name: "MeetingOnScore")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Score @model {
@@ -85,6 +91,7 @@ type Score @model {
   implementation: Implementation @relation(name: "ImplementationOnScore")
   score: Float
   comment: String
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Performance @model {
@@ -93,6 +100,7 @@ type Performance @model {
   manualScore: Float
   event: Event @relation(name: "EventOnPerformance")
   student: Student @relation(name: "StudentOnPerformance")
+  softDelete: Boolean @defaultValue(value:  false)
 }
 
 type Weight @model {
@@ -100,4 +108,5 @@ type Weight @model {
   weight: Float
   project: Project @relation(name: "ProjectOnWeight")
   event: Event @relation(name: "EventOnWeight")
+  softDelete: Boolean @defaultValue(value:  false)
 }
