@@ -25,6 +25,9 @@ export const STUDENT = gql`query Student($id: ID!) {
                 id
                 score
                 comment
+                user {
+                    id
+                }
             }
             urlProject
             urlRepo

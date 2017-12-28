@@ -1,5 +1,6 @@
 export { USER } from './user.gql'
 export { STUDENT } from './student.gql'
+export { SCORE } from './score.gql'
 
 export { ALL_PROJECTS } from './allProjects.gql';
 export { ALL_STUDENTS } from './allStudents.gql';
@@ -13,6 +14,8 @@ export { AUTHENTICATE_USER } from './authenticateUser.gql'
 export { CREATE_EVENT } from './createEvent.gql';
 export { CREATE_IMPLEMENTATION } from './createImplementation.gql';
 export { CREATE_SCORE } from './createScore.gql';
+
+export { UPDATE_SCORE } from './updateScore.gql'
 
 export { DELETE_PROJECT } from './deleteProject.gql';
 export { DELETE_USER } from './deleteUser.gql';
