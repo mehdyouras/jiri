@@ -1,160 +1,139 @@
 <template>
-    <div class="sk-fading-circle">
-        <div class="sk-circle1 sk-circle"></div>
-        <div class="sk-circle2 sk-circle"></div>
-        <div class="sk-circle3 sk-circle"></div>
-        <div class="sk-circle4 sk-circle"></div>
-        <div class="sk-circle5 sk-circle"></div>
-        <div class="sk-circle6 sk-circle"></div>
-        <div class="sk-circle7 sk-circle"></div>
-        <div class="sk-circle8 sk-circle"></div>
-        <div class="sk-circle9 sk-circle"></div>
-        <div class="sk-circle10 sk-circle"></div>
-        <div class="sk-circle11 sk-circle"></div>
-        <div class="sk-circle12 sk-circle"></div>
-    </div>
+  <div>
+    <div class="vue-simple-spinner" :style="spinner_style"></div>
+    <div class="vue-simple-spinner-text" :style="text_style" v-if="message.length > 0">{{message}}</div>
+  </div>
 </template>
 
 <script>
-export default {
-    name: 'Spinner'
-}
+  var isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n)
+  }
+  export default {
+    name: 'vue-simple-spinner',
+    props: {
+      'size': {
+        // either a number (pixel width/height) or 'tiny', 'small',
+        // 'medium', 'large', 'huge', 'massive' for common sizes
+        default: 32
+      },
+      'line-size': {
+        type: Number,
+        default: 3
+      },
+      'line-bg-color': {
+        type: String,
+        default: '#eee'
+      },
+      'line-fg-color': {
+        type: String,
+        default: '#2196f3' // match .blue color to Material Design's 'Blue 500' color
+      },
+      'speed': {
+        type: Number,
+        default: 0.8
+      },
+      'spacing': {
+        type: Number,
+        default: 4
+      },
+      'message': {
+        type: String,
+        default: ''
+      },
+      'font-size': {
+        type: Number,
+        default: 13
+      },
+      'text-fg-color': {
+        type: String,
+        default: '#555'
+      }
+    },
+    computed: {
+      size_px() {
+        switch (this.size)
+        {
+          case 'tiny':    return 12
+          case 'small':   return 16
+          case 'medium':  return 32
+          case 'large':   return 48
+          case 'big':     return 64
+          case 'huge':    return 96
+          case 'massive': return 128
+        }
+        return isNumber(this.size) ? this.size : 32
+      },
+      line_size_px() {
+        switch (this.size)
+        {
+          case 'tiny':    return 1
+          case 'small':   return 2
+          case 'medium':  return 3
+          case 'large':   return 3
+          case 'big':     return 4
+          case 'huge':    return 4
+          case 'massive': return 5
+        }
+        return isNumber(this.lineSize) ? this.lineSize : 4
+      },
+      text_margin_top() {
+        switch (this.size)
+        {
+          case 'tiny':
+          case 'small':
+          case 'medium':
+          case 'large':
+          case 'big':
+          case 'huge':
+          case 'massive':
+            return Math.min(Math.max(Math.ceil(this.size_px/8), 3), 12)
+        }
+        return isNumber(this.spacing) ? this.spacing : 4
+      },
+      text_font_size() {
+        switch (this.size)
+        {
+          case 'tiny':
+          case 'small':
+          case 'medium':
+          case 'large':
+          case 'big':
+          case 'huge':
+          case 'massive':
+            return Math.min(Math.max(Math.ceil(this.size_px*0.4), 11), 32)
+        }
+        return isNumber(this.fontSize) ? this.fontSize : 13
+      },
+      spinner_style() {
+        return {
+          'margin': '0 auto',
+          'border-radius': '100%',
+          'border': this.line_size_px+'px solid '+this.lineBgColor,
+          'border-top': this.line_size_px+'px solid '+this.lineFgColor,
+          'width': this.size_px+'px',
+          'height': this.size_px+'px',
+          'animation': 'vue-simple-spinner-spin '+this.speed+'s linear infinite'
+        }
+      },
+      text_style() {
+        return {
+          'margin-top': this.text_margin_top+'px',
+          'color': this.textFgColor,
+          'font-size': this.text_font_size+'px',
+          'text-align': 'center'
+        }
+      }
+    }
+  }
 </script>
 
 <style>
-  .sk-fading-circle {
-  margin: 100px auto;
-  width: 40px;
-  height: 40px;
-  position: relative;
-}
-
-.sk-fading-circle .sk-circle {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.sk-fading-circle .sk-circle:before {
-  content: '';
-  display: block;
-  margin: 0 auto;
-  width: 15%;
-  height: 15%;
-  background-color: #333;
-  border-radius: 100%;
-  -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
-          animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
-}
-.sk-fading-circle .sk-circle2 {
-  -webkit-transform: rotate(30deg);
-      -ms-transform: rotate(30deg);
-          transform: rotate(30deg);
-}
-.sk-fading-circle .sk-circle3 {
-  -webkit-transform: rotate(60deg);
-      -ms-transform: rotate(60deg);
-          transform: rotate(60deg);
-}
-.sk-fading-circle .sk-circle4 {
-  -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-          transform: rotate(90deg);
-}
-.sk-fading-circle .sk-circle5 {
-  -webkit-transform: rotate(120deg);
-      -ms-transform: rotate(120deg);
-          transform: rotate(120deg);
-}
-.sk-fading-circle .sk-circle6 {
-  -webkit-transform: rotate(150deg);
-      -ms-transform: rotate(150deg);
-          transform: rotate(150deg);
-}
-.sk-fading-circle .sk-circle7 {
-  -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
-}
-.sk-fading-circle .sk-circle8 {
-  -webkit-transform: rotate(210deg);
-      -ms-transform: rotate(210deg);
-          transform: rotate(210deg);
-}
-.sk-fading-circle .sk-circle9 {
-  -webkit-transform: rotate(240deg);
-      -ms-transform: rotate(240deg);
-          transform: rotate(240deg);
-}
-.sk-fading-circle .sk-circle10 {
-  -webkit-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-          transform: rotate(270deg);
-}
-.sk-fading-circle .sk-circle11 {
-  -webkit-transform: rotate(300deg);
-      -ms-transform: rotate(300deg);
-          transform: rotate(300deg); 
-}
-.sk-fading-circle .sk-circle12 {
-  -webkit-transform: rotate(330deg);
-      -ms-transform: rotate(330deg);
-          transform: rotate(330deg); 
-}
-.sk-fading-circle .sk-circle2:before {
-  -webkit-animation-delay: -1.1s;
-          animation-delay: -1.1s; 
-}
-.sk-fading-circle .sk-circle3:before {
-  -webkit-animation-delay: -1s;
-          animation-delay: -1s; 
-}
-.sk-fading-circle .sk-circle4:before {
-  -webkit-animation-delay: -0.9s;
-          animation-delay: -0.9s; 
-}
-.sk-fading-circle .sk-circle5:before {
-  -webkit-animation-delay: -0.8s;
-          animation-delay: -0.8s; 
-}
-.sk-fading-circle .sk-circle6:before {
-  -webkit-animation-delay: -0.7s;
-          animation-delay: -0.7s; 
-}
-.sk-fading-circle .sk-circle7:before {
-  -webkit-animation-delay: -0.6s;
-          animation-delay: -0.6s; 
-}
-.sk-fading-circle .sk-circle8:before {
-  -webkit-animation-delay: -0.5s;
-          animation-delay: -0.5s; 
-}
-.sk-fading-circle .sk-circle9:before {
-  -webkit-animation-delay: -0.4s;
-          animation-delay: -0.4s;
-}
-.sk-fading-circle .sk-circle10:before {
-  -webkit-animation-delay: -0.3s;
-          animation-delay: -0.3s;
-}
-.sk-fading-circle .sk-circle11:before {
-  -webkit-animation-delay: -0.2s;
-          animation-delay: -0.2s;
-}
-.sk-fading-circle .sk-circle12:before {
-  -webkit-animation-delay: -0.1s;
-          animation-delay: -0.1s;
-}
-
-@-webkit-keyframes sk-circleFadeDelay {
-  0%, 39%, 100% { opacity: 0; }
-  40% { opacity: 1; }
-}
-
-@keyframes sk-circleFadeDelay {
-  0%, 39%, 100% { opacity: 0; }
-  40% { opacity: 1; } 
-}
+  .vue-simple-spinner {
+    transition: all 0.3s linear;
+  }
+  @keyframes vue-simple-spinner-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
