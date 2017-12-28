@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const SCORE = gql`query Score($id: ID!) {
-    Score(id: $id, softDelete: false) {
+    Score(id: $id) {
         id
         score
         comment
