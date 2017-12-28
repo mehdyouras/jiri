@@ -87,9 +87,7 @@ Bus.$on('createProject', payload => {
             weight
         },
         update: (cache, {data: {createProject}}) => {
-            const data = cache.readQuery({ query: query.ALL_PROJECTS })
-            data.allProjects.push(createProject)
-            cache.writeQuery({ query: query.ALL_PROJECTS, data })
+            apolloClient.resetStore()
         },
     });
 })
@@ -104,9 +102,7 @@ Bus.$on('createStudent', payload => {
                 name,
         },
         update: (cache, {data: {createStudent}}) => {
-            const data = cache.readQuery({ query: query.ALL_STUDENTS })
-            data.allStudents.push(createStudent)
-            cache.writeQuery({ query: query.ALL_STUDENTS, data })
+            apolloClient.resetStore()
         },
     });
 })
@@ -124,12 +120,7 @@ Bus.$on('createUser', payload => {
                 isAdmin
         },
         update: (cache, {data: {signupUser}}) => {
-            const data = cache.readQuery({ query: query.ALL_USERS })
-            signupUser.meetings = [];
-            signupUser.events = [];
-            console.log(signupUser)
-            data.allUsers.push(signupUser)
-            cache.writeQuery({ query: query.ALL_USERS, data })
+            apolloClient.resetStore()
         },
     });
 })
@@ -168,9 +159,7 @@ Bus.$on('createImplementation', payload => {
                 studentId
         },
         update: (cache, {data: {createImplementation}}) => {
-            const data = cache.readQuery({ query: query.STUDENT, variables: {id: studentId} })
-            data.Student.implementations.push(createImplementation)
-            cache.writeQuery({ query: query.STUDENT, data })
+            apolloClient.resetStore()
         },
     });
 })
