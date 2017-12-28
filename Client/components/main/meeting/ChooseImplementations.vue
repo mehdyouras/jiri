@@ -135,7 +135,7 @@ export default {
                 this.$router.push({name: 'addMeeting'})
             },
             update(data) {
-                if(!data.Student) {
+                if(!data.Student || data.Student.softDelte) {
                     this.$router.push({name: 'addMeeting'})
                 } else {
                     return data.Student
