@@ -17,4 +17,7 @@ export const getters = {
     isAppLoaded(state) {
         return state.isAppLoaded;
     },
+    lastAddedId(state) {
+        return state.lastAddedId
+    }
 }

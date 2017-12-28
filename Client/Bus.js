@@ -103,6 +103,9 @@ Bus.$on('createStudent', payload => {
                 email,
                 name,
         },
+        update: (cache, {data: {createStudent} }) => {
+            store.commit('lastAddedId', createStudent.id)
+        },
         refetchQueries: [
             {
                 query: query.ALL_STUDENTS,

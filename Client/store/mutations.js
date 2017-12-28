@@ -61,5 +61,9 @@ export const mutations = {
 
     appIsLoaded(state) {
         state.isAppLoaded = true;
+    },
+
+    lastAddedId(state, payload) {
+        state.lastAddedId = payload;
     }
 }
