@@ -2,7 +2,7 @@
   <div>
       <h2>Vue d'ensemble des événements</h2>
       <Spinner v-if="isLoading"></Spinner>
-      <single-event v-if="!isLoading" v-for="event in currentUser.events" :key="event.id" :event="event"></single-event>
+      <single-event v-if="!isLoading" v-for="event in events" :key="event.id" :event="event"></single-event>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   name: 'IndexEvents',
   data() {
     return {
-      currentUser: {},
+      events: {},
       isLoading: 0,
     }
   },
@@ -32,7 +32,7 @@ export default {
     ]),
   },
   apollo: {
-    currentUser: {
+    events: {
       query: USER,
       variables() {
         return {
@@ -41,7 +41,10 @@ export default {
       },
       loadingKey: 'isLoading',
       update(data) {
-        return data.User
+        let eventsToShow = _.filter(data.User.events, event => {
+          return event.softDelete === false;
+        })
+        return eventsToShow
       }
     }
   },

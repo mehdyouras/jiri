@@ -3,6 +3,7 @@
       <h3>{{event.courseName}} {{event.academicYear}} - {{examSession}}</h3>
       <a href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</a>
       <a href="#" @click.prevent="goToEditEvent">Modifier l'événement</a>
+      <a href="#" @click.prevent="removeEvent">Supprimer l'événement</a>
       <div>
           <h4>Jurys</h4>
           <ol>
@@ -30,6 +31,8 @@
 </template>
 
 <script>
+import {Bus} from '../../../../Bus'
+
 export default {
     name: 'SingleEvent',
     props: [
@@ -47,6 +50,13 @@ export default {
         },
         goToEditEvent() {
             this.$router.push({name: 'editEvent', params: {eventId: this.event.id}})
+        },
+        removeEvent() {
+            let payload = {
+                type: 'event',
+                id: this.event.id,
+            }
+            Bus.$emit('removeItem', payload);
         }
     },
 }

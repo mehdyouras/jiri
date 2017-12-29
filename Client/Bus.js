@@ -32,44 +32,63 @@ Bus.$on('authenticateUser', payload => {
 Bus.$on('removeItem', payload => {
     let {id, type} = payload;
 
-    if(type === 'project') {
-        apolloClient.mutate({
-            mutation: query.DELETE_PROJECT,
-            variables: {
-              id
-            },
-            refetchQueries: [
-                {
-                    query: query.ALL_PROJECTS,
-                }
-            ]
-          });
-    } else if (type === 'user') {
-        apolloClient.mutate({
-            mutation: query.DELETE_USER,
-            variables: {
-              id
-            },
-            refetchQueries: [
-                {
-                    query: query.ALL_USERS,
-                }
-            ]
-          });
-    } else if (type === 'student') {
-        apolloClient.mutate({
-            mutation: query.DELETE_STUDENT,
-            variables: {
-              id
-            },
-            refetchQueries: [
-                {
-                    query: query.ALL_STUDENTS,
-                }
-            ]
-          });
+    switch (type) {  
+        case 'project' :
+            apolloClient.mutate({
+                mutation: query.DELETE_PROJECT,
+                variables: {
+                  id
+                },
+                refetchQueries: [
+                    {
+                        query: query.ALL_PROJECTS,
+                    }
+                ]
+            });
+            break;
+        case 'user' :
+            apolloClient.mutate({
+                mutation: query.DELETE_USER,
+                variables: {
+                  id
+                },
+                refetchQueries: [
+                    {
+                        query: query.ALL_USERS,
+                    }
+                ]
+            });
+            break;
+        case 'student' :
+            apolloClient.mutate({
+                mutation: query.DELETE_STUDENT,
+                variables: {
+                  id
+                },
+                refetchQueries: [
+                    {
+                        query: query.ALL_STUDENTS,
+                    }
+                ]
+            });
+            break;
+        case 'event' :
+            apolloClient.mutate({
+                mutation: query.DELETE_EVENT,
+                variables: {
+                  id
+                },
+                refetchQueries: [
+                    {
+                        query: query.USER,
+                        variables: {
+                            id: store.state.currentUserId
+                        }
+                    }
+                ]
+            });
+            break;
     }
-
 })
 
 Bus.$on('createProject', payload => {
