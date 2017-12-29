@@ -19,5 +19,8 @@ export const getters = {
     },
     lastAddedId(state) {
         return state.lastAddedId
+    },
+    currentAddedImplementations(state) {
+        return state.currentAddedImplementations
     }
 }

@@ -20,6 +20,7 @@ export const store = new Vuex.Store({
             users: [],
             students: [],
         },
+        currentAddedImplementations: [],
         isLoggingIn: false,
     },
     getters,

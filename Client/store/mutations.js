@@ -65,5 +65,16 @@ export const mutations = {
 
     lastAddedId(state, payload) {
         state.lastAddedId = payload;
+    },
+
+    currentAddedImplementations(state, payload) {
+        let index = _.findIndex(state.currentAddedImplementations, implementation => {
+            return implementation.projectId === payload.projectId
+        });
+        if(index === -1) {
+            state.currentAddedImplementations.push(payload)
+        } else {
+            state.currentAddedImplementations[index] = payload;
+        }
     }
 }
