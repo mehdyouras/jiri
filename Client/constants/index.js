@@ -21,7 +21,8 @@ export { UPDATE_SCORE } from './updateScore.gql'
 export { UPDATE_SCORE_QUERY } from './updateScore.gql'
 export { UPDATE_USER } from './updateUser.gql'
 export { UPDATE_USER_PASSWORD } from './updateUser.gql'
-export {UPDATE_IMPLEMENTATION} from './updateImplementation.gql'
+export { UPDATE_EVENT } from './updateEvent.gql'
+export { UPDATE_IMPLEMENTATION } from './updateImplementation.gql'
 
 export { DELETE_PROJECT } from './deleteProject.gql';
 export { DELETE_USER } from './deleteUser.gql';
