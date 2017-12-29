@@ -29,6 +29,7 @@ export default {
       weight = parseFloat(weight);
       
       Bus.$emit('createProject', {name, description, weight});
+      this.$emit('projectCreated')
     }
   },
   created() {
