@@ -23,6 +23,7 @@
 
 <script>
 import {Bus} from '../../../Bus'
+import nanoid from 'nanoid'
 
 export default {
     name: 'UserForm',
@@ -40,7 +41,12 @@ export default {
         let {email, password, name, company, isAdmin} = this;
 
         Bus.$emit('createUser', {email, password, name, company, isAdmin});
-      }
+        this.$emit('userCreated');
+        },
+        randomizePassword() {
+            let password = nanoid();
+            this.password = password.slice(14);
+        },
     },
     created() {
         this.$emit('formHasChanged')

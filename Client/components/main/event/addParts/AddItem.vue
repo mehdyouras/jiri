@@ -41,10 +41,6 @@ export default {
         addType() {
             this.isAdding = true;
         },
-        randomizePassword() {
-            let password = nanoid();
-            this.password = password.slice(14);
-        },
         closeForm() {
             this.isAdding = false;
         },
