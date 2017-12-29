@@ -5,6 +5,7 @@
       <div v-else v-for="project in projects" :key="project.id">
           <SingleProjectForm :project="project" :student="student"></SingleProjectForm>
       </div>
+      <button @click="saveEdit">Envoyer</button>
   </div>
 </template>
 
@@ -12,6 +13,8 @@
 import {ALL_PROJECTS, STUDENT} from '../../../constants'
 import SingleProjectForm from './editParts/SingleProjectForm.vue'
 import Spinner from '../../common/Spinner'
+import {mapGetters} from 'vuex'
+import {Bus} from '../../../Bus'
 
 export default {
     name: 'EditStudent',
@@ -27,6 +30,21 @@ export default {
         }
     },
     computed: {
+        ...mapGetters([
+            'currentAddedImplementations'
+        ])
+    },
+    methods: {
+        saveEdit() {
+            // Determines if implementation need update or create
+            this.currentAddedImplementations.forEach(implementation => {
+                if(implementation.id) {
+                    Bus.$emit('updateImplementation', implementation)
+                } else {
+                    Bus.$emit('createImplementation', implementation)
+                }
+            });
+        }
     },
     apollo: {
         projects: {
