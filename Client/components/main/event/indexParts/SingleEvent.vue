@@ -2,6 +2,7 @@
   <div>
       <h3>{{event.courseName}} {{event.academicYear}} - {{examSession}}</h3>
       <a href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</a>
+      <a href="#" @click.prevent="goToEditEvent">Modifier l'événement</a>
       <div>
           <h4>Jurys</h4>
           <ol>
@@ -43,6 +44,9 @@ export default {
     methods: {
         goToEventResults() {
             this.$router.push({name: 'eventResults', params: {eventId: this.event.id}})
+        },
+        goToEditEvent() {
+            this.$router.push({name: 'editEvent', params: {eventId: this.event.id}})
         }
     },
 }

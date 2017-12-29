@@ -5,6 +5,7 @@ import LoginForm from './components/login/LoginForm.vue'
 import Dashboard from './components/main/dashboard/Dashboard.vue'
 import AddEvent from './components/main/event/AddEvent.vue'
 import IndexEvents from './components/main/event/IndexEvents.vue'
+import EditEvent from './components/main/event/EditEvent.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
 import AddStudent from './components/main/student/AddStudent.vue'
 import EditStudent from './components/main/student/EditStudent.vue'
@@ -33,12 +34,11 @@ const routes = [
     {name: "indexEvents", path: "/events", component: IndexEvents},
       {name: "addEvent", path: "/events/new", component: AddEvent},
       {name: "eventResults", path: "/events/results/:eventId", component: AddEvent},
+      {name: "editEvent", path: "/events/:eventId", component: EditEvent},
 
     {name: "indexStudents", path: "/students", component: IndexStudents},
       {name: "addStudent", path: "/students/new", component: AddStudent},
       {name: "editStudent", path: "/students/:studentId", component: EditStudent},
-
-
 
     {name: "indexUsers", path: "/users", component: IndexUsers},
       {name: "addUser", path: "/users/new", component: AddUser},
