@@ -1,7 +1,7 @@
 <template>
   <nav>
       <router-link :to="{ name: 'dashboard'}">Tableau de bord</router-link>
-      <router-link :to="{ name: 'overview'}">Vue d'ensemble</router-link>
+      <span>Vue d'ensemble</span>
       <div>
         <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexEvents'}">événements</router-link>
         <router-link :to="{ name: 'indexStudents'}">étudiants</router-link>
