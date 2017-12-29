@@ -223,3 +223,23 @@ Bus.$on('updateScore', payload => {
         ]
     });
 })
+
+Bus.$on('updateImplementation', payload => {
+    let {urlRepo, urlProject, id} = payload;
+    apolloClient.mutate({
+        mutation: query.UPDATE_IMPLEMENTATION,
+            variables: {
+                id,
+                urlRepo,
+                urlProject,
+        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id: studentId,
+                },
+            }
+        ]
+    });
+})
