@@ -12,8 +12,8 @@
             <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Ajouter un étudiant</router-link>
             <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</router-link>
             <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Ajouter un utilisateur</router-link>
-            <router-link :to="{ name: 'newMeeting'}">Ajouter une rencontre</router-link>
-            <router-link :to="{ name: 'meetings'}">Afficher mes rencontres</router-link>
+            <router-link :to="{ name: 'addMeeting'}">Ajouter une rencontre</router-link>
+            <router-link :to="{ name: 'indexMeetings'}">Afficher mes rencontres</router-link>
           </nav>
         </div>
       </div>
