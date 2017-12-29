@@ -1,7 +1,7 @@
 import { fromEvent, FunctionEvent } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
-import * as bcrypt from 'bcryptjs'
 import * as validator from 'validator'
+import {encrypt} from '../../crypto'
 
 interface User {
   id: string
@@ -38,8 +38,9 @@ export default async (event: FunctionEvent<EventData>) => {
     }
 
     // create password hash
-    const salt = bcrypt.genSaltSync(SALT_ROUNDS)
-    const hash = await bcrypt.hash(password, salt)
+    //const salt = bcrypt.genSaltSync(SALT_ROUNDS)
+    // const hash = await bcrypt.hash(password, salt)
+    const hash = encrypt(password);
 
     // create new user
     const userId = await createGraphcoolUser(api, email, hash, name, company, isAdmin)

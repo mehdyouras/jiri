@@ -7,7 +7,7 @@ import {store} from './store'
 import {router} from './router'
 import gql from 'graphql-tag';
 
-import bcrypt from 'bcryptjs'
+import {encrypt} from './crypto'
 
 export const Bus = new Vue();
 
@@ -264,24 +264,22 @@ Bus.$on('updateUser', payload => {
         ]
     });
     if(password !== "") {
-        const salt = bcrypt.genSaltSync(10)
-        bcrypt.hash(password, salt).then(data => {
-            apolloClient.mutate({
-                mutation: query.UPDATE_USER_PASSWORD,
+        let hash = encrypt(password)
+        apolloClient.mutate({
+            mutation: query.UPDATE_USER_PASSWORD,
+                variables: {
+                    id,
+                    password: hash,
+            },
+            refetchQueries: [
+                {
+                    query: query.USER,
                     variables: {
                         id,
-                        password: data,
-                },
-                refetchQueries: [
-                    {
-                        query: query.USER,
-                        variables: {
-                            id,
-                        },
-                    }
-                ]
-            });
-        })
+                    },
+                }
+            ]
+        });
 
 
         

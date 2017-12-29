@@ -1,6 +1,6 @@
 import { fromEvent, FunctionEvent } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
-import * as bcrypt from 'bcryptjs'
+import {decrypt} from '../../crypto'
 
 interface User {
   id: string
@@ -33,7 +33,7 @@ export default async (event: FunctionEvent<EventData>) => {
     }
 
     // check password
-    const passwordIsCorrect = await bcrypt.compare(password, user.password)
+    const passwordIsCorrect = password === decrypt(user.password)
     if (!passwordIsCorrect) {
       return { error: 'Invalid credentials!' }
     }
