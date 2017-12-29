@@ -1,6 +1,5 @@
 <template>
   <div>
-      <Sidebar></SideBar>
       <h2>Vue d'ensemble des événements</h2>
       <Spinner v-if="isLoading"></Spinner>
       <single-event v-if="!isLoading" v-for="event in currentUser.events" :key="event.id" :event="event"></single-event>
