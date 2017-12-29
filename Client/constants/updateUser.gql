@@ -1,0 +1,8 @@
+import gql from 'graphql-tag'
+
+export const UPDATE_USER = gql`mutation updateUser($id: ID!, $email: String!, $password: String!, $company: String!, $isAdmin: Boolean!) {
+                        updateUser(id: $id, email: $email, password: $password, company: $company, isAdmin: $isAdmin) {
+                            id
+                        }
+                    }
+                  `;
