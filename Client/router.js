@@ -10,6 +10,7 @@ import AddStudent from './components/main/student/AddStudent.vue'
 import EditStudent from './components/main/student/EditStudent.vue'
 import IndexUsers from './components/main/user/IndexUsers.vue'
 import AddUser from './components/main/user/AddUser.vue'
+import EditUser from './components/main/user/EditUser.vue'
 import IndexProjects from './components/main/project/IndexProjects.vue'
 import AddProject from './components/main/project/AddProject.vue'
 import ChooseStudentForMeeting from './components/main/meeting/ChooseStudent.vue'
@@ -41,6 +42,7 @@ const routes = [
 
     {name: "indexUsers", path: "/users", component: IndexUsers},
       {name: "addUser", path: "/users/new", component: AddUser},
+      {name: "editUser", path: "/users/:userId", component: EditUser},
 
     {name: "indexProjects", path: "/projects", component: IndexProjects},
       {name: "addProject", path: "/projects/new", component: AddProject},

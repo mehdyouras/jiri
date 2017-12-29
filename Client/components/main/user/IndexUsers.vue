@@ -2,7 +2,7 @@
   <div>
       <h2>Vue d'ensemble des utilisateurs</h2>
       <ol>
-          <li v-for="user in users" :key="user.id">
+          <li @click="editUser(user.id)" v-for="user in users" :key="user.id">
               <span>{{user.name}}</span>
               <span>{{user.email}}</span>
           </li>
@@ -18,6 +18,11 @@ export default {
     data() {
         return {
             users: {},
+        }
+    },
+    methods: {
+        editUser(id) {
+            this.$router.push({name: 'editUser', params: {userId: id}})
         }
     },
     apollo: {
