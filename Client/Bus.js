@@ -243,17 +243,14 @@ Bus.$on('updateImplementation', payload => {
 Bus.$on('updateUser', payload => {
     let {id, email, password, company, isAdmin} = payload;
 
-    if(password !== "") {
-        const salt = bcrypt.genSaltSync(10)
-        const hash = bcrypt.hash(password, salt)
-    }
+    console.log(password)
 
     apolloClient.mutate({
         mutation: query.UPDATE_USER,
             variables: {
                 id,
                 email,
-                password: hash,
+                // password: hash,
                 company,
                 isAdmin
         },
@@ -266,4 +263,27 @@ Bus.$on('updateUser', payload => {
             }
         ]
     });
+    if(password !== "") {
+        const salt = bcrypt.genSaltSync(10)
+        bcrypt.hash(password, salt).then(data => {
+            apolloClient.mutate({
+                mutation: query.UPDATE_USER_PASSWORD,
+                    variables: {
+                        id,
+                        password: data,
+                },
+                refetchQueries: [
+                    {
+                        query: query.USER,
+                        variables: {
+                            id,
+                        },
+                    }
+                ]
+            });
+        })
+
+
+        
+    }
 })

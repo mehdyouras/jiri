@@ -18,6 +18,8 @@ export { CREATE_SCORE } from './createScore.gql';
 
 export { UPDATE_SCORE } from './updateScore.gql'
 export { UPDATE_SCORE_QUERY } from './updateScore.gql'
+export { UPDATE_USER } from './updateUser.gql'
+export { UPDATE_USER_PASSWORD } from './updateUser.gql'
 export {UPDATE_IMPLEMENTATION} from './updateImplementation.gql'
 
 export { DELETE_PROJECT } from './deleteProject.gql';
