@@ -24,6 +24,8 @@ export default {
         isChecked: false,
         urlRepo: '',
         urlProject: '',
+        implementationIndex: '',
+        implementationId: '',
       }
     },
     props: [
@@ -32,7 +34,13 @@ export default {
     ],
     methods: {
       save() {
+        if(this.implementationIndex !== -1) {
+          this.implementationId = this.student.implementations[this.implementationIndex].id;
+        } else {
+          this.implementationId = false;
+        }
         let payload = {
+          id: this.implementationId,
           studentId: this.$route.params.studentId,
           projectId: this.project.id,
           urlRepo: this.urlRepo,
@@ -42,11 +50,11 @@ export default {
       }
     },
     created() {
-      let implementationIndex = _.findIndex(this.student.implementations, {project: {id: this.project.id}});
-        if(implementationIndex !== -1) {
+       this.implementationIndex = _.findIndex(this.student.implementations, {project: {id: this.project.id}});
+        if(this.implementationIndex !== -1) {
           this.isChecked = true;
-          this.urlRepo = this.student.implementations[implementationIndex].urlRepo;
-          this.urlProject = this.student.implementations[implementationIndex].urlProject;
+          this.urlRepo = this.student.implementations[this.implementationIndex].urlRepo;
+          this.urlProject = this.student.implementations[this.implementationIndex].urlProject;
         }
     }
 }
