@@ -5,6 +5,9 @@ export const ALL_STUDENTS = gql`query allStudents{
         id,
         email,
         name,
+        event {
+            id
+        },
         implementations {
             id
             score {

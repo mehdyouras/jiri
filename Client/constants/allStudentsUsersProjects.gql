@@ -5,6 +5,9 @@ export const ALL_STUDENTS_USERS_PROJECTS = gql`query allStudentsUsersProjects{
         id,
         email,
         name,
+        event {
+            id
+        },
         implementations {
             id
         },
