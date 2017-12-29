@@ -34,6 +34,12 @@ export const mutations = {
         state.currentAddedEvent.year = payload.year;
         state.currentAddedEvent.session = payload.session;
     },
+
+    setEventItem(state, payload) {
+        state.currentAddedEvent.students = payload.students
+        state.currentAddedEvent.weights = payload.weights
+        state.currentAddedEvent.users = payload.users
+    },
     
         // DELETE
 
