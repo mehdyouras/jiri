@@ -2,7 +2,7 @@
   <div>
       <h2>Ajouter un étudiant</h2>
       <p>Informations sur l'étudiant</p>
-      <StudentForm @studentCreated="nextStep"></StudentForm>
+      <StudentForm :nextStep="true" @studentCreated="nextStep"></StudentForm>
   </div>
 </template>
 

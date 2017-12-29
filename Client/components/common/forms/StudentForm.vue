@@ -19,11 +19,14 @@ export default {
         name: '',
       }
     },
+    props: [
+      'nextStep'
+    ],
     methods: {
       createStudent() {
-        let {email, name} = this;
+        let {email, name, nextStep} = this;
 
-        Bus.$emit('createStudent', {email, name});
+        Bus.$emit('createStudent', {email, name, nextStep: !!nextStep});
         this.$emit('studentCreated');
       }
     },

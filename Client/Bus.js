@@ -95,7 +95,7 @@ Bus.$on('createProject', payload => {
 })
 
 Bus.$on('createStudent', payload => {
-    let {email, name} = payload;
+    let {email, name, nextStep} = payload;
 
     apolloClient.mutate({
         mutation: query.CREATE_STUDENT,
@@ -105,6 +105,9 @@ Bus.$on('createStudent', payload => {
         },
         update: (cache, {data: {createStudent} }) => {
             store.commit('lastAddedId', createStudent.id)
+            if(nextStep) {
+                router.push({name: 'editStudent', params: {studentId: createStudent.id}})
+            }
         },
         refetchQueries: [
             {
