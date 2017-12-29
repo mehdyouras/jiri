@@ -1,0 +1,30 @@
+import gql from 'graphql-tag'
+
+export const EVENT = gql`query Event($id: ID!) {
+    Event(id: $id) {
+        id,
+        courseName,
+        academicYear,
+        students {
+            id
+            name
+            email
+        },
+        jurys{
+            id
+            name
+            email
+            company
+        },
+        examSession,
+        weights {
+            id
+            weight
+            project {
+                id
+                name
+            }
+        }
+    }
+}
+                `;

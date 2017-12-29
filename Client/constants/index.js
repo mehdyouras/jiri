@@ -1,6 +1,7 @@
 export { USER } from './user.gql'
 export { STUDENT } from './student.gql'
 export { SCORE } from './score.gql'
+export { EVENT } from './event.gql'
 
 export { ALL_PROJECTS } from './allProjects.gql';
 export { ALL_STUDENTS } from './allStudents.gql';
