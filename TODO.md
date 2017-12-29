@@ -8,8 +8,8 @@
 
 - [x] Création d'utilisateur avec ajout des implementations aisés
     - [x] Réaliser la query pour les implémentations du student
-- [ ] Ajout d'utilisateur
-- [ ] Ajout d'un projet
+- [x] Ajout d'utilisateur
+- [x] Ajout d'un projet
 - [ ] Résultats des étudiants
 - [ ] Gestion des suppressions de tous les items possibles
 - [ ] Gestion modification d'event

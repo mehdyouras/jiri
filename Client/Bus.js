@@ -36,13 +36,11 @@ Bus.$on('removeItem', payload => {
             variables: {
               id
             },
-            update: (cache, {data: {deleteProject}}) => {
-                const data = cache.readQuery({ query: query.ALL_PROJECTS })
-                _.remove(data.allProjects, (item) => {
-                    return item.id === deleteProject.id
-                })
-                cache.writeQuery({ query: query.ALL_PROJECTS, data })
-            }
+            refetchQueries: [
+                {
+                    query: query.ALL_PROJECTS,
+                }
+            ]
           });
     } else if (type === 'user') {
         apolloClient.mutate({
@@ -50,13 +48,11 @@ Bus.$on('removeItem', payload => {
             variables: {
               id
             },
-            update: (cache, {data: {deleteUser}}) => {
-                const data = cache.readQuery({ query: query.ALL_USERS })
-                _.remove(data.allUsers, (item) => {
-                    return item.id === deleteUser.id
-                })
-                cache.writeQuery({ query: query.ALL_USERS, data })
-            }
+            refetchQueries: [
+                {
+                    query: query.ALL_USERS,
+                }
+            ]
           });
     } else if (type === 'student') {
         apolloClient.mutate({
@@ -64,13 +60,11 @@ Bus.$on('removeItem', payload => {
             variables: {
               id
             },
-            update: (cache, {data: {deleteStudent}}) => {
-                const data = cache.readQuery({ query: query.ALL_STUDENTS })
-                _.remove(data.allStudents, (item) => {
-                    return item.id === deleteStudent.id
-                })
-                cache.writeQuery({ query: query.ALL_STUDENTS, data })
-            }
+            refetchQueries: [
+                {
+                    query: query.ALL_STUDENTS,
+                }
+            ]
           });
     }
 
