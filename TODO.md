@@ -1,12 +1,13 @@
 # TODO
 ## 28/12
 - [x] Commencer par la gestion de l'edit des scores
-- [ ] Fixer l'update de l'affichage score
-- [ ] Indexer liste des étudiants déjà rencontré pour pouvoir revenir plus facilement sur le meeting
+- [x] Fixer l'update de l'affichage score
+- [x] Indexer liste des étudiants déjà rencontré pour pouvoir revenir plus facilement sur le meeting
 - [ ] Création d'utilisateur avec ajout des implementations aisés
 
 ## 29/12
 
+- [ ] Réaliser la query pour les implémentations du student
 - [ ] Ajout d'utilisateur
 - [ ] Ajout d'un projet
 - [ ] Résultats des étudiants
