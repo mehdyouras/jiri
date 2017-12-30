@@ -23,6 +23,7 @@ export { UPDATE_USER } from './updateUser.gql'
 export { UPDATE_USER_PASSWORD } from './updateUser.gql'
 export { UPDATE_EVENT } from './updateEvent.gql'
 export { UPDATE_IMPLEMENTATION } from './updateImplementation.gql'
+export { ADD_STUDENT_TO_EVENT } from './addStudentToEvent.gql'
 
 export { DELETE_PROJECT } from './deleteProject.gql';
 export { DELETE_USER } from './deleteUser.gql';
