@@ -3,7 +3,7 @@
       <h2>Vue d'ensemble des événements</h2>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
-        <router-link :to="{name: 'addEvent'}">Créé un événement</router-link>
+        <router-link :to="{name: 'addEvent'}">Créer un événement</router-link>
         <template v-if="!events[0]">
             <p>Vous n'avez pas encore créé d'événement.</p>
         </template>
