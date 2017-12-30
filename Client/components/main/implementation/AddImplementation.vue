@@ -15,9 +15,9 @@
                 </div>
             </template>
             <template v-else>
-                <button @click="showForm">Ajouter une implémentation</button>
-                <div v-if="isAdding">
-                    <ImplementationForm></ImplementationForm>
+                <button v-if="showAdd" @click="showForm">Ajouter une implémentation</button>
+                <div v-show="isAdding">
+                    <ImplementationForm @dontShowAdd="dontShowAdd"></ImplementationForm>
                 </div>
                 <ol>
                     <li v-for="implementation in student.implementations" :key="implementation.id">
@@ -49,6 +49,7 @@ export default {
             isAdding: false,
             isLoading: 0,
             eventId: '',
+            showAdd: true,
         }
     },
     components: {
@@ -71,6 +72,9 @@ export default {
                 studentId: this.student.id 
             }
             Bus.$emit('addStudentToEvent', payload)
+        },
+        dontShowAdd() {
+            this.showAdd = false;
         }
     },  
     apollo: {
