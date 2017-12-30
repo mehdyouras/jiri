@@ -10,6 +10,12 @@
     - [x] Réaliser la query pour les implémentations du student
 - [x] Ajout d'utilisateur
 - [x] Ajout d'un projet
+- [x] Gestion modification d'event
+
+## 30/12
+
 - [ ] Résultats des étudiants
 - [ ] Gestion des suppressions de tous les items possibles
-- [ ] Gestion modification d'event
+- [ ] Validation de tous les formulaires
+    - [ ] Dépeuplement des champs à l'ajout
+- [ ] Gestion route admin/user
