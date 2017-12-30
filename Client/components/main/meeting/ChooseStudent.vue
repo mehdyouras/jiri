@@ -2,20 +2,19 @@
   <div>
       <h2>Organiser une rencontre avec un étudiant</h2>
       <p>Choisissez un étudiant</p>
-      <ol>
-          <li @click="goToAddMeeting(student.id)" v-for="student in students" :key="student.id">
-              <span>{{student.name}}</span>
-              <span>{{student.email}}</span>
-          </li>
-      </ol>
+      <Students @studentClicked="goToAddMeeting"></Students>
   </div>
 </template>
 
 <script>
 import {ALL_STUDENTS} from '../../../constants'
+import Students from '../../common/indexes/Students'
 
 export default {
     name: 'ChooseStudentForMeeting',
+    components: {
+        Students
+    },
     data() {
         return {
             students: {},

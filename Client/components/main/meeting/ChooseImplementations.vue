@@ -3,7 +3,11 @@
       <h2>Organiser une rencontre avec un étudiant</h2>
       <h3>{{student.name}}</h3>
         <Spinner v-if="isLoading"></Spinner>
-        <template v-else>   
+        <template v-else>
+            <template v-if="!student.implementations[0]">
+                <p>Cet étudiant ne possède aucune implémentation.</p>
+                <router-link v-if="isAdmin" :to="{name: 'addImplementationToStudent', params: {studentId: student.id}}">Lui ajouter des implémentations</router-link>
+            </template>   
             <ol>
                 <li @click="showScoreForm(implementation)" v-for="implementation in implementationNotAdded" :key="implementation.id">
                     {{implementation.project.name}}
@@ -68,7 +72,8 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'currentUserId'
+            'currentUserId',
+            'isAdmin'
         ]),
         implementationNotAdded() {
             return _.filter(this.student.implementations, (implementation) => {

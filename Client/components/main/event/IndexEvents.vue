@@ -2,7 +2,13 @@
   <div>
       <h2>Vue d'ensemble des événements</h2>
       <Spinner v-if="isLoading"></Spinner>
-      <single-event v-if="!isLoading" v-for="event in events" :key="event.id" :event="event"></single-event>
+      <template v-else>
+        <router-link :to="{name: 'addEvent'}">Créé un événement</router-link>
+        <template v-if="!events[0]">
+            <p>Vous n'avez pas encore créé d'événement.</p>
+        </template>
+        <single-event v-for="event in events" :key="event.id" :event="event"></single-event>
+      </template>
   </div>
 </template>
 
