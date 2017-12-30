@@ -7,9 +7,12 @@
             <p>Il n'y a pas encore d'étudiant</p>
         </template>
         <ol v-else>
-            <li @click="studentClicked(student.id)" v-for="student in students" :key="student.id">
-                <span>{{student.name}}</span>
-                <span>{{student.email}}</span>
+            <li v-for="student in students" :key="student.id">
+                <div @click="studentClicked(student.id)">
+                    <span>{{student.name}}</span>
+                    <span>{{student.email}}</span>
+                </div>
+                <button v-if="editable && isAdmin" @click="editStudent(student.id)">Modifier</button>
             </li>
         </ol>
       </template>
@@ -19,6 +22,7 @@
 <script>
 import {ALL_STUDENTS} from '../../../constants'
 import Spinner from '../../common/Spinner'
+import {mapGetters} from 'vuex'
 
 export default {
     name: 'IndexStudents',
@@ -30,6 +34,14 @@ export default {
             students: {},
             isLoading: 0,
         }
+    },
+    props: [
+        'editable'
+    ],
+    computed: {
+        ...mapGetters([
+            'isAdmin'
+        ])
     },
     apollo: {
         students: {
@@ -43,6 +55,9 @@ export default {
     methods: {
         studentClicked(id) {
             this.$emit('studentClicked', id)
+        },
+        editStudent(id) {
+            this.$router.push({name: 'editStudent', params: {studentId: id}})
         }
     }
 }

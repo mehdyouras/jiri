@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2>Vue d'ensemble des étudiants</h2>
-      <Students @studentClicked="goToAddMeeting"></Students>
+      <Students :editable="true" @studentClicked="goToAddMeeting"></Students>
   </div>
 </template>
 
