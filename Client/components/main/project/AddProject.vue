@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Ajouter un utilisateur</h2>
+      <h2>Ajouter un projet</h2>
       <ProjectForm @projectCreated="finish"></ProjectForm>
   </div>
 </template>
