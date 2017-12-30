@@ -331,3 +331,29 @@ Bus.$on('updateEvent', payload => {
         ]
     });
 })
+
+Bus.$on('addStudentToEvent', payload => {
+    let {eventId, studentId} = payload;
+
+    apolloClient.mutate({
+        mutation: query.ADD_STUDENT_TO_EVENT,
+            variables: {
+                studentId,
+                eventId,
+        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id: studentId,
+                },
+            },
+            {
+                query: query.EVENT,
+                variables: {
+                    id: eventId,
+                },
+            }
+        ]
+    });
+})
