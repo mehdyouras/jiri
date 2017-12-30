@@ -44,6 +44,7 @@ export default {
                     Bus.$emit('createImplementation', implementation)
                 }
             });
+            this.$router.push({name: 'indexStudents'})
         }
     },
     apollo: {
