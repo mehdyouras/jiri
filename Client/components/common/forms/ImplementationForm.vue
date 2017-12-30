@@ -1,10 +1,10 @@
 <template>
   <div>
-        <template v-if="projectsToShow[0]">
+        <template v-if="weightsToShow[0]">
             <label for="project">Nom du projet</label>
             <select v-model="projectId" name="project" id="project">
                 <option disabled value="">Choisissez</option>
-                <option v-for="weight in projectsToShow" :key="weight.project.id" :value="weight.project.id">
+                <option v-for="weight in weightsToShow" :key="weight.project.id" :value="weight.project.id">
                     {{weight.project.name}}
                 </option>
             </select>
@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             student: {},
-            projectsToShow: {},
+            weightsToShow: {},
             urlRepo: '',
             urlProject: '',
             projectId: '',
@@ -45,6 +45,8 @@ export default {
                 projectId: this.projectId,
             }
             Bus.$emit('createImplementation', payload)
+            this.urlRepo = '';
+            this.urlProject = '';
         }
     },
     apollo: {
@@ -61,16 +63,28 @@ export default {
                 data.Student.implementations.forEach(element => {
                     projectsToHide.push(element.project.id)
                 });
-                
-                let projectsToShow = _.filter(data.Student.event.weights, weight => {
-                    return !!_.find(projectsToHide, weight.project.id)
-                }) 
 
-                if(!projectsToShow[0]) {
+                let allProjects = [];
+
+                data.Student.event.weights.forEach(element => {
+                    allProjects.push(element.project.id)
+                });
+                
+                let projectsToShow = _.difference(allProjects, projectsToHide)
+
+                let weightsToShow= [];
+                
+                projectsToShow.forEach(project => {
+                    let itemToPush = _.find(data.Student.event.weights, weight => {
+                        return weight.project.id === project
+                    })
+                    weightsToShow.push(itemToPush);
+                })
+                if(!weightsToShow[0]) {
                     this.$emit('dontShowAdd');
                 }
 
-                this.projectsToShow = projectsToShow;
+                this.weightsToShow = weightsToShow;
 
                 return data.Student
             }
