@@ -16,6 +16,6 @@
 
 - [ ] Résultats des étudiants
 - [ ] Gestion des suppressions de tous les items possibles
-- [ ] Validation de tous les formulaires
-    - [ ] Dépeuplement des champs à l'ajout
+- [x] Validation de tous les formulaires
+    - [x] Dépeuplement des champs à l'ajout
 - [ ] Gestion route admin/user

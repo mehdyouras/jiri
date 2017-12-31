@@ -49,6 +49,11 @@ export default {
         
                     Bus.$emit('createUser', {email, password, name, company, isAdmin});
                     this.$emit('userCreated');
+                    this.email = "";
+                    this.password = "";
+                    this.name = "";
+                    this.company = "";
+                    this.isAdmin = false;
                     return;
                 }
             });

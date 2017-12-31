@@ -34,6 +34,8 @@ export default {
     
             Bus.$emit('createStudent', {email, name, nextStep: !!nextStep});
             this.$emit('studentCreated');
+            this.email = '';
+            this.name = '';
             return;
           }
         });

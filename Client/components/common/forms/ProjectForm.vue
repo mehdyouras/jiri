@@ -37,6 +37,10 @@ export default {
           
           Bus.$emit('createProject', {name, description, weight});
           this.$emit('projectCreated')
+          this.name = "";
+          this.description = "";
+          this.weight = "";
+
           return;
         }
       });
