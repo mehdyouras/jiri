@@ -4,6 +4,13 @@ export const mutations = {
 
     // Current User logged in
 
+    setBasicDetails(state, payload) {
+        let {id, isAdmin} = payload
+
+        state.currentUserId = id;
+        state.isAdmin = isAdmin;
+    },
+
     currentUserId(state, payload) {
         state.currentUserId = payload;
     },
