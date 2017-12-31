@@ -27,34 +27,34 @@ import {apolloClient} from './apollo'
 Vue.use(VueRouter)
 
 const routes = [
-    {name: "login", path: "/", component: LoginForm},
+    {name: "login", path: "/", component: LoginForm, meta: {adminRoute: false}},
 
-    {name: "dashboard", path: "/dashboard", component: Dashboard},
+    {name: "dashboard", path: "/dashboard", component: Dashboard, meta: {adminRoute: false}},
 
-    {name: "indexEvents", path: "/events", component: IndexEvents},
-      {name: "addEvent", path: "/events/new", component: AddEvent},
-      {name: "eventResults", path: "/events/results/:eventId", component: AddEvent},
-      {name: "editEvent", path: "/events/:eventId", component: EditEvent},
+    {name: "indexEvents", path: "/events", component: IndexEvents, meta: {adminRoute: true}},
+      {name: "addEvent", path: "/events/new", component: AddEvent, meta: {adminRoute: true}},
+      {name: "eventResults", path: "/events/results/:eventId", component: AddEvent, meta: {adminRoute: true}},
+      {name: "editEvent", path: "/events/:eventId", component: EditEvent, meta: {adminRoute: true}},
 
-    {name: "indexStudents", path: "/students", component: IndexStudents},
-      {name: "addStudent", path: "/students/new", component: AddStudent},
-      {name: "editStudent", path: "/students/:studentId", component: EditStudent},
+    {name: "indexStudents", path: "/students", component: IndexStudents, meta: {adminRoute: false}},
+      {name: "addStudent", path: "/students/new", component: AddStudent, meta: {adminRoute: true}},
+      {name: "editStudent", path: "/students/:studentId", component: EditStudent, meta: {adminRoute: true}},
 
-    {name: "indexUsers", path: "/users", component: IndexUsers},
-      {name: "addUser", path: "/users/new", component: AddUser},
-      {name: "editUser", path: "/users/:userId", component: EditUser},
+    {name: "indexUsers", path: "/users", component: IndexUsers, meta: {adminRoute: true}},
+      {name: "addUser", path: "/users/new", component: AddUser, meta: {adminRoute: true}},
+      {name: "editUser", path: "/users/:userId", component: EditUser, meta: {adminRoute: true}},
 
-    {name: "indexProjects", path: "/projects", component: IndexProjects},
-      {name: "addProject", path: "/projects/new", component: AddProject},
+    {name: "indexProjects", path: "/projects", component: IndexProjects, meta: {adminRoute: true}},
+      {name: "addProject", path: "/projects/new", component: AddProject, meta: {adminRoute: true}},
 
-    {name: "indexMeetings", path: "/meetings", component: IndexMeetings},
-      {name: "addMeeting", path: "/meetings/new", component: ChooseStudentForMeeting},
-      {name: "addImplementationsToMeeting", path: "/meetings/:studentId", component: ChooseImplementationsForMeeting},
+    {name: "indexMeetings", path: "/meetings", component: IndexMeetings, meta: {adminRoute: false}},
+      {name: "addMeeting", path: "/meetings/new", component: ChooseStudentForMeeting, meta: {adminRoute: false}},
+      {name: "addImplementationsToMeeting", path: "/meetings/:studentId", component: ChooseImplementationsForMeeting, meta: {adminRoute: false}},
 
-    {name: "addImplementation", path: "/implementation/", component: ChooseStudentForImplementation},
-      {name: "addImplementationToStudent", path: "/implementation/:studentId", component: AddImplementation},
+    {name: "addImplementation", path: "/implementations/", component: ChooseStudentForImplementation, meta: {adminRoute: true}},
+      {name: "addImplementationToStudent", path: "/implementations/:studentId", component: AddImplementation, meta: {adminRoute: true}},
 
-    {name: "indexImplementations", path: "/implementation/", component: ChooseStudentForImplementation},
+    {name: "indexImplementations", path: "/implementations/", component: ChooseStudentForImplementation, meta: {adminRoute: true}},
 
     
 
@@ -74,6 +74,10 @@ router.beforeEach((to, from, next) => {
         query: LOGGED_IN_USER,
         fetchPolicy: 'network-only',
       }).then(data => {  
+        if(to.meta.adminRoute === true && data.data.loggedInUser.isAdmin === true) {
+          next({name: 'dashboard'})
+          return;
+        }
         // if user IS NOT logged in and access a resource othen than login
         // goes back to login
         if(loggedIn(data) === null && to.name !== 'login'){
@@ -83,6 +87,12 @@ router.beforeEach((to, from, next) => {
         // stores currentUserId in store
         // and goes to the resource requested
         } else if (loggedIn(data) !== null) {
+          if (to.name === 'login') {
+            // if user IS logged in but access login
+            // goes back to dashboard
+            store.commit('setBasicDetails', {id : data.data.loggedInUser.id, isAdmin: data.data.loggedInUser.isAdmin})
+            next({name:'dashboard'});
+          }
           store.commit('setBasicDetails', {id : data.data.loggedInUser.id, isAdmin: data.data.loggedInUser.isAdmin})
           next();
 
@@ -90,13 +100,6 @@ router.beforeEach((to, from, next) => {
           // goes to the resrource
         } else {
             next();
-        }
-
-        // if user IS logged in but access login
-        // goes back to dashboard
-        if (loggedIn(data) !== null && to.name === 'login') {
-          store.commit('setBasicDetails', {id : data.data.loggedInUser.id, isAdmin: data.data.loggedInUser.isAdmin})
-          next({name:'dashboard'});
         }
 
         store.commit('appIsLoaded')
