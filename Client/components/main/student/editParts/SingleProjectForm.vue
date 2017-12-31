@@ -5,10 +5,12 @@
     
     <div v-show="isChecked">
       <label :for="project.id + 'a'">URL repo Github</label>
-      <input @input="save" v-model="urlRepo" type="text" :name="project.id + 'a'" :id="project.id + 'a'">
+      <input v-validate="'url'" @input="save" v-model="urlRepo" type="text" :name="project.id + 'a'" :id="project.id + 'a'">
+      <span v-show="this.errors.has('urlRepo')">{{this.errors.first('urlRepo')}}</span>
 
       <label :for="project.id + 'b'">URL du site</label>
-      <input @input="save" v-model="urlProject" type="text" :name="project.id + 'b'" :id="project.id + 'b'">
+      <input v-validate="'url'" @input="save" v-model="urlProject" type="text" :name="project.id + 'b'" :id="project.id + 'b'">
+      <span v-show="this.errors.has('urlProject')">{{this.errors.first('urlProject')}}</span>
     </div>
 
   </div>
@@ -39,14 +41,19 @@ export default {
         } else {
           this.implementationId = false;
         }
-        let payload = {
-          id: this.implementationId,
-          studentId: this.$route.params.studentId,
-          projectId: this.project.id,
-          urlRepo: this.urlRepo,
-          urlProject: this.urlProject,
-        };
-        this.$store.commit('currentAddedImplementations', payload)
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            let payload = {
+              id: this.implementationId,
+              studentId: this.$route.params.studentId,
+              projectId: this.project.id,
+              urlRepo: this.urlRepo,
+              urlProject: this.urlProject,
+            };
+            this.$store.commit('currentAddedImplementations', payload)
+            return;
+          }
+        });
       }
     },
     created() {

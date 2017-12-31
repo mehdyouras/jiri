@@ -16,11 +16,13 @@
             <ol>
                 <li v-if="isAdding">
                     <h4>{{implementationAdding.project.name}}</h4>
-                    <label for="comment">Description</label>
-                    <textarea v-model="comment" name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <label for="comment">Commentaire</label>
+                    <textarea v-validate="'required'" v-model="comment" name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <span v-show="this.errors.has('comment')">{{this.errors.first('comment')}}</span>
 
                     <label for="score">Note</label>
-                    <input v-model.number="score" type="number" name="score" id="score">
+                    <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="score" id="score">
+                    <span v-show="this.errors.has('score')">{{this.errors.first('score')}}</span>
 
                     <button @click="addScore">Noter</button>
                 </li>
@@ -35,9 +37,12 @@
                     </template>
                     <template v-else>
                         <label for="comment">Commentaire</label>
-                        <textarea v-model="comment" name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <textarea v-validate="'required'" v-model="comment" name="edit-comment" id="edit-comment" cols="30" rows="10"></textarea>
+                        <span v-show="this.errors.has('edit-comment')">{{this.errors.first('edit-comment')}}</span>
+
                         <label for="score">Note</label>
-                        <input v-model.number="score" type="number" name="score" id="">
+                        <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="edit-score" id="edit-score">
+                        <span v-show="this.errors.has('edit-score')">{{this.errors.first('edit-score')}}</span>
 
                         <button @click="editScore(implementation.score.id)">Noter</button>
                     </template>

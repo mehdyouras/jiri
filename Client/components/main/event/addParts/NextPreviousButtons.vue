@@ -10,7 +10,7 @@ export default {
   name: 'NextPreviousButtons',
   props: [
     'currentStep',
-    'viewCount'
+    'viewCount',
   ],
   methods: {
       handleStep(action) {

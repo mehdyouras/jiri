@@ -6,10 +6,12 @@
                     <h4>{{project.name}}</h4>
                 </header>
                 <label for="comment">Commentaire</label>
-                <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
-
+                <textarea v-validate="'required'" name="comment" id="comment" cols="30" rows="10"></textarea>
+                <span v-show="this.errors.has('comment')">{{this.errors.first('comment')}}</span>
+                
                 <label for="result">Note</label>
-                <input type="number" name="result" id="result">
+                <input v-validate="'decimal:2'" type="number" name="result" id="result">
+                <span v-show="this.errors.has('result')">{{this.errors.first('result')}}</span>
 
                 <button>Envoyer</button>
             </form>
@@ -19,7 +21,7 @@
 
 <script>
 export default {
-
+    name:'AddMeeting'
 }
 </script>
 

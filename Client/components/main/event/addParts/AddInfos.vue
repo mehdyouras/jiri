@@ -1,19 +1,23 @@
 <template>
   <div>
       <label for="course">Nom du cours</label>
-      <input v-model='course' type="text" id="course">
+      <input v-validate="'required'" v-model='course' type="text" id="course" name="course">
+      <span v-show="this.errors.has('course')">{{this.errors.first('course')}}</span>
+
       <label for="year">Année académique</label>
       <select v-model='year' name="year" id="year">
-          <option value="2018-2019">2018-2019</option>
-          <option value="2017-2018">2017-2018</option>
+        <option value="" disabled>Choisissez</option>
+        <option value="2018-2019">2018-2019</option>
+        <option value="2017-2018">2017-2018</option>
       </select>
       <label for="session">Session d'examen</label>
       <select v-model='session' name="session" id="session">
-          <option value="janvier">Janvier</option>
-          <option value="juin">Juin</option>
-          <option value="septembre">Septembre</option>
+          <option value="" disabled>Choisissez</option>
+          <option value="Janvier">Janvier</option>
+          <option value="Juin">Juin</option>
+          <option value="Septembre">Septembre</option>
       </select>
-      <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
+      <NextPreviousButtons :errors="errors" @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
   </div>
 </template>
 
@@ -28,8 +32,8 @@ export default {
   data() {
     return {
       course: '',
-      year: '2017-2018',
-      session: 'janvier',
+      year: '',
+      session: '',
     }
   },
   props: [
@@ -39,12 +43,13 @@ export default {
   methods: {
     handleStep(action) {
       let {course, year, session} = this;
-      if(course !== '' && year !== '' && session !== '') {
-        this.$store.commit('addInfosToEvent', {course, year, session})
-        this.$emit('handleStep', action)
-      } else {
-        console.log({error: 'Le nom du cours est manquant.'})
-      }
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.$store.commit('addInfosToEvent', {course, year, session})
+          this.$emit('handleStep', action)
+          return;
+        }
+      });
     },
   }
 }
