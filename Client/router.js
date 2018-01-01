@@ -74,7 +74,7 @@ router.beforeEach((to, from, next) => {
         query: LOGGED_IN_USER,
         fetchPolicy: 'network-only',
       }).then(data => {  
-        if(to.meta.adminRoute === true && data.data.loggedInUser.isAdmin === true) {
+        if(to.meta.adminRoute === true && data.data.loggedInUser.isAdmin === false) {
           next({name: 'dashboard'})
           return;
         }
