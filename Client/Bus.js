@@ -20,12 +20,14 @@ Bus.$on('authenticateUser', payload => {
                 email,
                 password
         },
-
         update: (cache, {data: {authenticateUser}}) => {
             localStorage.setItem('userToken', authenticateUser.token);
             router.push({name:'dashboard'});
             store.commit('isNotLoggingIn')
         },
+    }).catch(e => {
+        Bus.$emit('authenticateUserError', "L'adresse email ou le mot de passe est incorrect.")
+        store.commit('isNotLoggingIn')
     });
 })
 
