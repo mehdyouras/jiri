@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <b-card>
       <h2>Vue d'ensemble des événements</h2>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
-        <router-link :to="{name: 'addEvent'}">Créer un événement</router-link>
         <template v-if="!events[0]">
             <p>Vous n'avez pas encore créé d'événement.</p>
         </template>
+        <b-button variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
         <single-event v-for="event in events" :key="event.id" :event="event"></single-event>
       </template>
-  </div>
+  </b-card>
 </template>
 
 <script>
