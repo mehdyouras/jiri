@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <b-card>
     <h2>Ajouter un événement</h2>
     <keep-alive>
         <component @handleStep="handleStep" :is="currentView" :currentStep="currentStep" :viewCount="viewCount"></component>
     </keep-alive>
-  </div>
+  </b-card>
 </template>
 
 <script>

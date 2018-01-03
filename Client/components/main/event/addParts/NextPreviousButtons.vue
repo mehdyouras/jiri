@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button v-if="currentStep !== 0" @click="handleStep('previousStep')">Précédent</button>
-    <button v-if="currentStep < (viewCount - 1)" @click="handleStep('nextStep')">Suivant</button>
-    <button v-if="currentStep === (viewCount - 1)" @click="handleStep('complete')">Envoyer</button>
+    <b-button v-if="currentStep !== 0" @click="handleStep('previousStep')">Précédent</b-button>
+    <b-button variant="primary" v-if="currentStep < (viewCount - 1)" @click="handleStep('nextStep')">Suivant</b-button>
+    <b-button variant="primary" v-if="currentStep === (viewCount - 1)" @click="handleStep('complete')">Envoyer</b-button>
   </div>
 </template>
 <script>
