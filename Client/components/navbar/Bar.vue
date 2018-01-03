@@ -1,18 +1,20 @@
 <template>
   <div>
     <b-navbar toggleable="md" type="light" variant="light">
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand :to="{ name: 'dashboard'}">
-        <h1>Jiri</h1>
-      </b-navbar-brand>
-      <b-collapse is-nav id="nav_collapse">
-        <Navbar></Navbar>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown :text="currentUser.name" right>
-            <b-dropdown-item href="#" @click.prevent="logoutUser">Se déconnecter</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse>
+      <div class="container">
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-navbar-brand :to="{ name: 'dashboard'}">
+          <h1>Jiri</h1>
+        </b-navbar-brand>
+        <b-collapse is-nav id="nav_collapse">
+          <Navbar></Navbar>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item-dropdown :text="currentUser.name" right>
+              <b-dropdown-item href="#" @click.prevent="logoutUser">Se déconnecter</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
+        </b-collapse>
+      </div>
     </b-navbar>
   </div>
 </template>
