@@ -1,23 +1,25 @@
 <template>
-  <div>
-      <div>
+  <b-card class="container">
+    <b-row>
+      <div class="card-text col">
         <h2>Tableau de bord</h2>
         <div>
           <div>
             <h3>Vous êtes connecté en tant {{userType}}</h3>
             <p>Vous avez accès aux actions ci-contre.</p>
           </div>
-          <nav>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">Ajouter un événement</router-link>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Ajouter un étudiant</router-link>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</router-link>
-            <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Ajouter un utilisateur</router-link>
-            <router-link :to="{ name: 'addMeeting'}">Ajouter une rencontre</router-link>
-            <router-link :to="{ name: 'indexMeetings'}">Afficher mes rencontres</router-link>
-          </nav>
         </div>
       </div>
-  </div>
+      <b-list-group class="col">
+        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">Organiser un événement</b-list-group-item>
+        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Ajouter un étudiant</b-list-group-item>
+        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</b-list-group-item>
+        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Ajouter un membre du jury</b-list-group-item>
+        <b-list-group-item :to="{ name: 'addMeeting'}">Organiser une rencontre avec un étudiant</b-list-group-item>
+        <b-list-group-item :to="{ name: 'indexMeetings'}">Afficher mes rencontres déjà réalisées</b-list-group-item>
+      </b-list-group>
+    </b-row>
+  </b-card>
 </template>
 <script>
 import Sidebar from '../../sidebar/Sidebar.vue'
