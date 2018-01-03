@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <span>
       <time :datetime="datetime">{{datetime}}</time>
-  </div>
+  </span>
 </template>
 <script>
 function padZero(number) {

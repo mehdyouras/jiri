@@ -1,26 +1,26 @@
 <template>
-  <nav>
-      <router-link :to="{ name: 'dashboard'}">Tableau de bord</router-link>
-      <span>Vue d'ensemble</span>
-      <div>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexEvents'}">événements</router-link>
-        <router-link :to="{ name: 'indexStudents'}">étudiants</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexProjects'}">projets</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexUsers'}">utilisateurs</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexImplementations'}">implémentations</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'indexResults'}">résultats</router-link>
-        <router-link :to="{ name: 'indexMeetings'}">Rencontres</router-link>
-      </div>
-      <span>Ajouter</span>
-      <div>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">événement</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">étudiant</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">projet</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">utilisateur</router-link>
-        <router-link :v-if="currentUser.isAdmin" :to="{ name: 'addImplementation'}">implémentation</router-link>
-        <router-link :to="{ name: 'addMeeting'}">Rencontre</router-link>
-      </div>
-  </nav>
+  <b-navbar-nav>
+      <b-nav-item :to="{ name: 'dashboard'}">Tableau de bord</b-nav-item>
+      <b-nav-item-dropdown text="Vue d'ensemble">
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexEvents'}">Événements</b-dropdown-item>
+        <b-dropdown-item :to="{ name: 'indexStudents'}">étudiants</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexProjects'}">Projets</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexUsers'}">Utilisateurs</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexImplementations'}">Implémentations</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexResults'}">Résultats</b-dropdown-item>
+        <b-dropdown-item :to="{ name: 'indexMeetings'}">Rencontres</b-dropdown-item>
+      </b-nav-item-dropdown>
+
+      <b-nav-item-dropdown text="Ajouter">
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">Événement</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Étudiant</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Projet</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Utilisateur</b-dropdown-item>
+        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addImplementation'}">Implémentation</b-dropdown-item>
+        <b-dropdown-item :to="{ name: 'addMeeting'}">Rencontre</b-dropdown-item>
+      </b-nav-item-dropdown>
+
+  </b-navbar-nav>
 </template>
 
 <script>
