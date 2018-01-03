@@ -22,15 +22,11 @@
   </b-card>
 </template>
 <script>
-import Sidebar from '../../sidebar/Sidebar.vue'
 import {mapGetters} from 'vuex'
 import {USER} from '../../../constants'
 
 export default {
   name: 'dashboard',
-  components: {
-    Sidebar,
-  },
   data() {
     return {
       currentUser: {},

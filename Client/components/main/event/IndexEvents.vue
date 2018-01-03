@@ -15,7 +15,6 @@
 <script>
 import SingleEvent from './indexParts/SingleEvent'
 import {mapGetters} from 'vuex'
-import Sidebar from '../../sidebar/Sidebar'
 import {USER} from '../../../constants'
 import Spinner from '../../common/Spinner'
 
@@ -29,7 +28,6 @@ export default {
   },
   components: {
     SingleEvent,
-    Sidebar,
     Spinner
   },
   computed: {
