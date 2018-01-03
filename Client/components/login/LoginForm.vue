@@ -1,22 +1,38 @@
 <template>
-  <section class="section columns is-medium column is-centered">
-    <div class="card column is-one-quarter">
-      <h1 class="title is-1 has-text-centered">Jiri</h1>
-      <b-message v-show="mutationError !== ''" type="is-danger" has-icon>
-        {{mutationError}}
-      </b-message>
-      <form method="post" action="#">
-        <b-field :type="this.errors.has('email') ? 'is-danger' : null" label="Adresse email">
-          <b-input v-validate="'required|email'" v-model="email" type="email" name="email"></b-input>
-        </b-field>
-        <b-field :type="this.errors.has('password') ? 'is-danger' : null" label="Mot de passe">
-          <b-input v-validate="'required'" name="password" v-model="password" type="password"></b-input>
-        </b-field>
-
-        <a @click.prevent="checkLogin" :class="['button', 'is-primary', {'is-loading': isLoggingIn}, 'mdi', 'mdi-login', 'mdi-18px', 'is-pulled-right']" href="#">
-          Se connecter
-        </a>
-      </form>
+  <section class="container">
+    <div class="row justify-content-md-center">
+      <div class="card col col-lg-4 login-form">
+        <div class="card-body">
+          <h1>Jiri</h1>
+          <b-alert :show="mutationError !== ''" variant="danger">
+            {{mutationError}}
+          </b-alert>
+          <b-form>
+            <b-form-group
+              label="Adresse email"
+              label-for="email"
+              :invalid-feedback="this.errors.first('email')"
+              :state="!this.errors.has('email')"
+            >
+              <b-form-input id="email" name="email" type="email" v-validate="'required|email'" v-model.trim="email" :state="!this.errors.has('email')"></b-form-input>
+            </b-form-group>
+            <b-form-group
+              label="Mot de passe"
+              label-for="password"
+              :invalid-feedback="this.errors.first('password')"
+              :state="!this.errors.has('password')"
+            >
+              <b-form-input id="password" type="password" name="password" v-validate="'required'" v-model.trim="password" :state="!this.errors.has('password')"></b-form-input>
+            </b-form-group>
+            <b-button type="submit" variant="primary" @click.prevent="checkLogin">
+              <template v-if="!isLoggingIn">
+                Se connecter
+              </template>
+              <Spinner v-else></Spinner>
+            </b-button>
+          </b-form>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -66,4 +82,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .login-form {
+    margin-top: 4em;
+  }
+</style>
 

@@ -5,10 +5,11 @@ import App from './App.vue'
 import router from './router.js'
 import { store } from './store'
 import VeeValidate from 'vee-validate';
-import Buefy from 'buefy';
-import 'buefy/lib/buefy.css';
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.use(Buefy);
+Vue.use(BootstrapVue);
 
 Vue.use(VeeValidate);
 
