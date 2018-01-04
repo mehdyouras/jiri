@@ -1,12 +1,12 @@
 <template>
   <b-card>
-      <h2>Vue d'ensemble des événements</h2>
+      <h2 class="mb-3">Vue d'ensemble des événements</h2>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
         <template v-if="!events[0]">
             <p>Vous n'avez pas encore créé d'événement.</p>
         </template>
-        <b-button variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
+        <b-button class="mb-3" variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
         <single-event v-for="event in events" :key="event.id" :event="event"></single-event>
       </template>
   </b-card>
