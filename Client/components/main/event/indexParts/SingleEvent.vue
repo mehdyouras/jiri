@@ -3,7 +3,7 @@
       <div class="d-flex mb-3">
         <b-dropdown variant="secondary">
             <b-dropdown-item @click="goToEditEvent">Modifier</b-dropdown-item>
-            <b-dropdown-item class="text-danger" @click="removeEvent">Supprimer</b-dropdown-item>
+            <b-dropdown-item v-b-modal.delete class="text-danger">Supprimer</b-dropdown-item>
         </b-dropdown>
         <h3 class="col">{{event.courseName}} {{event.academicYear}} - {{examSession}}</h3>
       </div>
@@ -31,6 +31,9 @@
               </li>
           </ol>
       </div>
+      <b-modal @ok="removeEvent" id="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
+          Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'événement <strong>{{event.courseName}} {{event.academicYear}} - {{examSession}}</strong> ?
+      </b-modal>
   </b-card>
 </template>
 
