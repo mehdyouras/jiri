@@ -1,9 +1,18 @@
 <template>
-  <li>
-      <div @click="addItemToEvent" :class="{active : isActive}">
-        {{item.name}}
-      </div>
-      <button @click="deleteItem">Supprimer</button>
+  <li class="col-md-4 col-lg-3">
+      <b-card @click="addItemToEvent" no-body show variant="secondary" :class="{'bg-primary': isActive, 'mb-3': true}">
+          <b-card-body class="card-text d-flex justify-content-between align-items-center">
+            <div>
+                <span :class="{'text-white': isActive}">
+                    {{item.name}}
+                </span>
+            </div>
+            <b-dropdown variant="light">
+                <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
+                <b-dropdown-item @click="deleteItem">Supprimer</b-dropdown-item>
+            </b-dropdown>
+          </b-card-body>
+      </b-card>
   </li>
 </template>
 
@@ -32,6 +41,10 @@ export default {
         deleteItem() {
             let type = ['student', 'user', 'project']
             Bus.$emit('removeItem', {id: this.item.id, type: type[this.currentStep - 1]})
+        },
+        editItem() {
+            let type = ['students', 'users', 'projects']
+            this.$router.push(`/${type[this.currentStep - 1]}/${this.item.id}`)
         },
         addItemToEvent() {
             let idToUse = this.currentStep === 3 ? this.item.weight.id : this.item.id;

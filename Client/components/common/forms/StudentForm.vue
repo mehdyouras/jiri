@@ -26,7 +26,7 @@
     <input v-validate="'required|alpha_spaces'" v-model="name" type="text" id="student-name">
     <span v-show="this.errors.has('student-name')">{{this.errors.first('student-name')}}</span> -->
 
-    <button @click.prevent="createStudent">Ajouter</button>
+    <b-button variant="primary" @click.prevent="createStudent">Ajouter</b-button>
   </b-card>
 </template>
 
