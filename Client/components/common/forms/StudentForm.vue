@@ -1,5 +1,5 @@
 <template>
-  <b-card class="col-md-5">
+  <div>
     <b-form-group
               label="Adresse email"
               label-for="student-email"
@@ -8,11 +8,6 @@
             >
               <b-form-input id="student-email" name="student-email" type="email" v-validate="'required|email'" v-model.trim="email" :state="!this.errors.has('student-email')"></b-form-input>
     </b-form-group>
-<!--     
-    <label for="student-email">Adresse email</label>
-    <input v-validate="'required|email'" v-model="email" type="email" id="student-email">
-    <span v-show="this.errors.has('student-email')">{{this.errors.first('student-email')}}</span> -->
-
     <b-form-group
               label="Nom"
               label-for="student-name"
@@ -21,13 +16,8 @@
             >
               <b-form-input id="student-name" name="student-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :state="!this.errors.has('student-name')"></b-form-input>
     </b-form-group>
-
-    <!-- <label for="student-name">Nom</label>
-    <input v-validate="'required|alpha_spaces'" v-model="name" type="text" id="student-name">
-    <span v-show="this.errors.has('student-name')">{{this.errors.first('student-name')}}</span> -->
-
     <b-button variant="primary" @click.prevent="createStudent">Ajouter</b-button>
-  </b-card>
+  </div>
 </template>
 
 <script>
