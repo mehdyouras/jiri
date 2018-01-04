@@ -10,24 +10,36 @@
       <b-button class="mb-3" variant="primary" href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
       <div>
           <h4>Jurys</h4>
-          <ol>
-              <li v-for="jury in event.jurys" :key="jury.id">
-                  <span>{{jury.name}}</span>
-                  <span>{{jury.company}}</span>
-                  <span>{{jury.email}}</span>
+          <ol class="list-unstyled row">
+              <li class="col-md-4 col-lg-3 mb-3" v-for="jury in event.jurys" :key="jury.id">
+                  <b-card class="text-center" no-body show>
+                    <strong slot="header" class="d-block">{{jury.name}}</strong>
+                    <b-card-body>
+                        <span class="d-block">{{jury.company}}</span>
+                        <span class="d-block">{{jury.email}}</span>
+                    </b-card-body>
+                  </b-card>
               </li>
           </ol>
           <h4>Projets</h4>
-          <ol>
-              <li v-for="project in event.weights" :key="project.id">
-                  <span>{{project.project.name}}</span>
+          <ol class="list-unstyled row">
+              <li class="col-md-4 col-lg-3 mb-3" v-for="project in event.weights" :key="project.id">
+                  <b-card class="text-center" no-body show>
+                    <b-card-body>
+                        <span>{{project.project.name}}</span>
+                    </b-card-body>
+                  </b-card>
               </li>
           </ol>
           <h4>Etudiants</h4>
-          <ol>
-              <li v-for="student in event.students" :key="student.id">
-                  <span>{{student.name}}</span>
-                  <span>{{student.email}}</span>
+          <ol class="list-unstyled row">
+              <li class="col-md-4 col-lg-3 mb-3" v-for="student in event.students" :key="student.id">
+                  <b-card class="text-center" no-body show>
+                    <strong slot="header" class="d-block">{{student.name}}</strong>
+                    <b-card-body>
+                        <span>{{student.email}}</span>
+                    </b-card-body>
+                  </b-card>
               </li>
           </ol>
       </div>
