@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="">
     <Spinner v-if="isLoading"></Spinner>
     <template v-if="!isLoading">
       <AddItem :currentStep="currentStep"></AddItem>
-      <ol v-if="currentStep === 1">
+      <ol class="list-unstyled row" v-if="currentStep === 1">
           <ListItem v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
       </ol>
-      <ol v-if="currentStep === 2">
+      <ol class="list-unstyled row" v-if="currentStep === 2">
           <ListItem v-for="item in allDetails.allUsers" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
       </ol>
-      <ol v-if="currentStep === 3">
+      <ol class="list-unstyled row" v-if="currentStep === 3">
           <ListItem v-for="item in allDetails.allProjects" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
       </ol>
       <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
