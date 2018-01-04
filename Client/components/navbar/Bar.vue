@@ -26,7 +26,7 @@ import {mapGetters} from 'vuex'
 import {USER} from '../../constants'
 
 export default {
-  name: 'Sidebar',
+  name: 'Bar',
   components: {
       Navbar,
       Clock
