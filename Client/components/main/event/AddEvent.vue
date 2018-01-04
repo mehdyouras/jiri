@@ -1,6 +1,7 @@
 <template>
   <b-card>
-    <h2>Ajouter un événement</h2>
+    <stepper class="mb-5" :currentStep="currentStepToSend" :steps="steps"></stepper>
+    <h2 class="mb-3">Ajouter un événement</h2>
     <keep-alive>
         <component @handleStep="handleStep" :is="currentView" :currentStep="currentStep" :viewCount="viewCount"></component>
     </keep-alive>
@@ -11,6 +12,7 @@
 import AddInfos from './addParts/AddInfos'
 import AddItemsToEvent from './addParts/AddItemsToEvent'
 import {mapGetters} from 'vuex'
+import Stepper from '../../common/Stepper';
 
 import {Bus} from '../../../Bus'
 
@@ -19,6 +21,7 @@ export default {
   components: {
       AddInfos,
       AddItemsToEvent,
+      Stepper
   },
   data() {
       return {
@@ -28,6 +31,36 @@ export default {
             'AddItemsToEvent',
             'AddItemsToEvent',
         ],
+        steps: [
+            {
+                icon: 'information',
+                name: 'infos',
+                title: 'Informations',
+                component: 'AddInfos',
+                completed: false,
+            },
+            {
+                icon: 'school',
+                name: 'students',
+                title: 'Étudiants',
+                component: 'AddItemsToEvent',
+                completed: false,
+            },
+            {
+                icon: 'account',
+                name: 'users',
+                title: 'Jurys',
+                component: 'AddItemsToEvent',
+                completed: false,
+            },
+            {
+                icon: 'application',
+                name: 'projects',
+                title: 'Projets',
+                component: 'AddItemsToEvent',
+                completed: false,
+            },
+        ],
         currentStep: 0,
       }
   },
@@ -35,9 +68,11 @@ export default {
       handleStep(action) {
           switch (action) {
               case 'nextStep':
+                this.steps[this.currentStep].completed = true;
                 this.currentStep++
                 break;
             case 'previousStep':
+                this.steps[this.currentStep - 1].completed = false;
                 this.currentStep--
                 break;
             case 'complete':
@@ -53,6 +88,14 @@ export default {
         ]),
         currentView() {
             return this.views[this.currentStep];
+        },
+        currentStepToSend() {
+            let step = 
+                {
+                    name: this.steps[this.currentStep].name,
+                    index: this.currentStep,
+                };
+            return step;
         },
         viewCount() {
             return this.views.length;
