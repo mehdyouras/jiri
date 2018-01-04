@@ -3,6 +3,7 @@
   <template v-if="isAppLoaded">
     <Bar v-if="route !== 'login'"></Bar>
     <router-view class="container"></router-view>
+    <app-footer></app-footer>
   </template>
   <Spinner v-if="!isAppLoaded"></Spinner>
 </div>
@@ -12,12 +13,14 @@
 import Bar from './components/navbar/Bar'
 import {mapGetters} from 'vuex'
 import Spinner from './components/common/Spinner'
+import AppFooter from './components/footer/AppFooter'
 
 export default {
   name: 'app',
   components: {
     Bar,
-    Spinner
+    Spinner,
+    AppFooter
   },
   computed: {
     ...mapGetters([
@@ -29,3 +32,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  #app {
+    min-height: 100vh;
+    padding-bottom: 10rem;
+    position: relative;
+  }
+</style>
