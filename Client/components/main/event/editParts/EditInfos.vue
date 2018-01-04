@@ -1,22 +1,34 @@
 <template>
-  <div>
-      <label for="course">Nom du cours</label>
-      <input v-validate="'required'" v-model='course' type="text" id="course" name="course">
-      <span v-show="this.errors.has('course')">{{this.errors.first('course')}}</span>
+  <b-form>
+    <b-form-group
+      label="Nom du cours"
+      label-for="course"
+      :invalid-feedback="this.errors.first('course')"
+      :state="!this.errors.has('course')"
+    >
+      <b-form-input id="course" name="course" type="text" v-validate="'required'" v-model.trim="course" :state="!this.errors.has('course')"></b-form-input>
+    </b-form-group>
 
-      <label for="year">Année académique</label>
-      <select v-model='year' name="year" id="year">
+      <b-form-group label="Année académique"
+                    label-for="year">
+        <b-form-select label="Année académique" v-model='year' name="year" id="year">
+          <option value="" disabled>Choisissez</option>
           <option value="2018-2019">2018-2019</option>
           <option value="2017-2018">2017-2018</option>
-      </select>
-      <label for="session">Session d'examen</label>
-      <select v-model='session' name="session" id="session">
-          <option value="janvier">Janvier</option>
-          <option value="juin">Juin</option>
-          <option value="septembre">Septembre</option>
-      </select>
+        </b-form-select>
+      </b-form-group>
+      
+      <b-form-group label="Session d'examen"
+                    label-for="session">
+        <b-form-select v-model='session' name="session" id="session">
+            <option value="" disabled>Choisissez</option>
+            <option value="Janvier">Janvier</option>
+            <option value="Juin">Juin</option>
+            <option value="Septembre">Septembre</option>
+        </b-form-select>
+      </b-form-group>
       <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
-  </div>
+  </b-form>
 </template>
 
 <script>
@@ -32,8 +44,8 @@ export default {
     return {
         event: {},
         course: '',
-        year: '2017-2018',
-        session: 'janvier',
+        year: '',
+        session: '',
     }
   },
   props: [
