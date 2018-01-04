@@ -1,10 +1,16 @@
 <template>
-  <b-card>
+  <b-card class="text-truncate">
     <stepper class="mb-5" :currentStep="currentStepToSend" :steps="steps"></stepper>
     <h2 class="mb-3">Ajouter un événement</h2>
-    <keep-alive>
-        <component @handleStep="handleStep" :is="currentView" :currentStep="currentStep" :viewCount="viewCount"></component>
-    </keep-alive>
+    <transition
+        :duration="{ enter: 500, leave: 800 }"
+        :enter-active-class="enterAnimation"
+        :leave-active-class="leaveAnimation"
+        mode="out-in">
+        <keep-alive>
+            <component :enterAnimation="enterAnimation" :leaveAnimation="leaveAnimation" @handleStep="handleStep" :is="currentView" :currentStep="currentStep" :viewCount="viewCount"></component>
+        </keep-alive>
+    </transition>
   </b-card>
 </template>
 
@@ -62,6 +68,7 @@ export default {
             },
         ],
         currentStep: 0,
+        previousStep: 0,
       }
   },
   methods: {
@@ -69,10 +76,12 @@ export default {
           switch (action) {
               case 'nextStep':
                 this.steps[this.currentStep].completed = true;
+                this.previousStep = this.currentStep;
                 this.currentStep++
                 break;
             case 'previousStep':
                 this.steps[this.currentStep - 1].completed = false;
+                this.previousStep = this.currentStep;
                 this.currentStep--
                 break;
             case 'complete':
@@ -100,6 +109,20 @@ export default {
         viewCount() {
             return this.views.length;
         },
+        enterAnimation() {
+            if (this.currentStep < this.previousStep) {
+                return 'fadeInLeft'
+            } else {
+                return 'fadeInRight'
+            }
+        },
+        leaveAnimation() {
+            if (this.currentStep > this.previousStep) {
+                return 'fadeOutLeft'
+            } else {
+                return 'fadeOutRight'
+            }
+        }
   }
 }
 </script>
