@@ -1,9 +1,13 @@
 <template>
-  <div>
-      <h3>{{event.courseName}} {{event.academicYear}} - {{examSession}}</h3>
-      <a href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</a>
-      <a href="#" @click.prevent="goToEditEvent">Modifier l'événement</a>
-      <a href="#" @click.prevent="removeEvent">Supprimer l'événement</a>
+  <b-card>
+      <div class="d-flex mb-3">
+        <b-dropdown variant="secondary">
+            <b-dropdown-item @click="goToEditEvent">Modifier</b-dropdown-item>
+            <b-dropdown-item class="text-danger" @click="removeEvent">Supprimer</b-dropdown-item>
+        </b-dropdown>
+        <h3 class="col">{{event.courseName}} {{event.academicYear}} - {{examSession}}</h3>
+      </div>
+      <b-button class="mb-3" variant="primary" href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
       <div>
           <h4>Jurys</h4>
           <ol>
@@ -27,7 +31,7 @@
               </li>
           </ol>
       </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
