@@ -1,28 +1,52 @@
 <template>
   <div>
-    <input v-validate="'required'" v-model="isAdmin" type="checkbox" id="user-isAdmin" name="user-isAdmin">
-    <label for="user-isAdmin">Administrateur</label>
-    <span v-show="this.errors.has('user-isAdmin')">{{this.errors.first('user-isAdmin')}}</span>
+    <b-form-checkbox v-model="isAdmin">
+        Administrateur
+    </b-form-checkbox>
     
-    <label for="user-name">Nom</label>
-    <input v-validate="'required|alpha_spaces'" v-model="name" type="text" id="user-name" name="user-name">
-    <span v-show="this.errors.has('user-name')">{{this.errors.first('user-name')}}</span>
-    
-    <label for="user-company">Organisation</label>
-    <input v-validate="'required'" v-model="company" type="text" id="user-company" name="user-company">
-    <span v-show="this.errors.has('user-company')">{{this.errors.first('user-company')}}</span>
+    <b-form-group
+              label="Nom"
+              label-for="user-name"
+              :invalid-feedback="this.errors.first('user-name')"
+              :state="!this.errors.has('user-name')"
+            >
+              <b-form-input id="user-name" name="user-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :state="!this.errors.has('user-name')"></b-form-input>
+    </b-form-group>
 
-    <label for="user-email">Email</label>
-    <input v-validate="'required|email'" v-model="email" type="email" id="user-email" name="user-email">
-    <span v-show="this.errors.has('user-email')">{{this.errors.first('user-email')}}</span>
+    <b-form-group
+              label="Organisation"
+              label-for="user-company"
+              :invalid-feedback="this.errors.first('user-company')"
+              :state="!this.errors.has('user-company')"
+            >
+              <b-form-input id="user-company" name="user-company" type="text" v-validate="'required'" v-model.trim="company" :state="!this.errors.has('user-company')"></b-form-input>
+    </b-form-group>
 
-    <label for="user-password">Mot de passe</label>
-    <input v-validate="'required'" v-model="password" type="password" id="user-password" name="user-password">
-    <span v-show="this.errors.has('user-password')">{{this.errors.first('user-password')}}</span>
+    <b-form-group
+              label="Adresse email"
+              label-for="user-email"
+              :invalid-feedback="this.errors.first('user-email')"
+              :state="!this.errors.has('user-email')"
+            >
+              <b-form-input id="user-email" name="user-email" type="text" v-validate="'required'" v-model.trim="email" :state="!this.errors.has('user-email')"></b-form-input>
+    </b-form-group>
 
-    <a href="#" @click.prevent="randomizePassword" >Générer un mot de passe</a>
 
-    <button @click.prevent="createUser" >Ajouter</button>
+    <b-form-group class=""
+            label="Mot de passe"
+            label-for="user-password"
+            :invalid-feedback="this.errors.first('user-password')"
+            :state="!this.errors.has('user-password')"
+            >
+            <div class="d-flex">
+                <b-form-input class="mr-3" id="user-password" name="user-password" type="password" v-validate="'required'" v-model.trim="password" :state="!this.errors.has('user-password')"></b-form-input>
+                <b-btn variant='secondary' @click="randomizePassword" >Aléatoire</b-btn>
+            </div>
+    </b-form-group>
+
+
+
+    <b-btn variant="primary" @click.prevent="createUser" >Ajouter</b-btn>
   </div>
 </template>
 
@@ -59,6 +83,7 @@ export default {
             });
         },
         randomizePassword() {
+            console.log('test')
             let password = nanoid();
             this.password = password.slice(14);
         },
