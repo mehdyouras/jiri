@@ -1,7 +1,7 @@
 <template>
   <div>
       <b-button v-b-toggle.addForm variant="primary" class="mb-3" @click="addType">Ajouter un {{type}}</b-button>
-      <b-collapse id="addForm" class="mb-3">
+      <b-collapse id="addForm" class="">
           <b-card class="col-md-5">
             <student-form @formHasChanged="closeForm" v-if="currentStep === 1"></student-form>
             <user-form @formHasChanged="closeForm" v-if="currentStep === 2"></user-form>
