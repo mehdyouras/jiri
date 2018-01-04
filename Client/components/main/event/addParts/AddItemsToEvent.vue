@@ -3,7 +3,7 @@
       <Spinner v-if="isLoading"></Spinner>
       <template v-if="!isLoading">
         <AddItem :currentStep="currentStep"></AddItem>
-        <transition :duration="{ enter: 500, leave: 800 }"
+        <transition 
             :enter-active-class="enterAnimation"
             :leave-active-class="leaveAnimation"
             mode="out-in">

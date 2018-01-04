@@ -3,7 +3,6 @@
     <stepper class="mb-5" :currentStep="currentStepToSend" :steps="steps"></stepper>
     <h2 class="mb-3">Ajouter un événement</h2>
     <transition
-        :duration="{ enter: 500, leave: 800 }"
         :enter-active-class="enterAnimation"
         :leave-active-class="leaveAnimation"
         mode="out-in">
