@@ -4,12 +4,13 @@
       <Spinner v-if="isLoading"></Spinner>
       <template  v-else>
         <label for="event">Modifier son événement</label>
-        <select v-model="eventId" name="event" id="event">
+        <select @change="switchEvent" v-model="eventId" name="event" id="event">
             <option value="" disabled>Choisissez</option>
             <option v-for="event in events" :key="event.id" :value="event.id">{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</option>
         </select>
-        <div v-for="project in projects" :key="project.id">
-            <SingleProjectForm :project="project" :student="student"></SingleProjectForm>
+        <b-alert show variant="danger" v-if="!projects[0]">Cet événement n'a aucun projet.</b-alert>
+        <div v-else v-for="project in projects" :key="project.project.id">
+            <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
         </div>
       </template>
       <button @click="saveEdit">Envoyer</button>
@@ -54,18 +55,13 @@ export default {
                     Bus.$emit('createImplementation', implementation)
                 }
             });
-            Bus.$emit('addStudentToEvent', {eventId: this.eventId, studentId: this.$route.params.studentId})
             this.$router.push({name: 'indexStudents'})
-        }
+        },
+        switchEvent() {
+            Bus.$emit('addStudentToEvent', {eventId: this.eventId, studentId: this.$route.params.studentId})
+        },
     },
     apollo: {
-        projects: {
-            query: ALL_PROJECTS,
-            update(data){
-                return data.allProjects
-            },
-            loadingKey: 'isLoading'
-        },
         student: {
             query: STUDENT,
             variables() {
@@ -77,6 +73,7 @@ export default {
                 if(data.Student.event !== null) {
                     this.eventId = data.Student.event.id
                 }
+                this.projects = data.Student.event.weights;
                 return data.Student
             },
             loadingKey: 'isLoading'
