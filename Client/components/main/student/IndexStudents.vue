@@ -36,7 +36,7 @@ export default {
             this.$refs.delete.show()
         },
         deleteItem() {
-            Bus.$emit('deleteItem', this.modal);
+            Bus.$emit('removeItem', this.modal);
             this.modal.id = "";
             this.modal.name = "";
             this.modal.type = "";
