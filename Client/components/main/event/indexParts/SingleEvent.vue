@@ -9,7 +9,7 @@
       </div>
       <b-button class="mb-3" variant="primary" href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
       <div>
-          <h4>Jurys</h4>
+          <h4 class="mb-3">Jurys</h4>
           <ol class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="jury in event.jurys" :key="jury.id">
                   <b-card class="text-center" no-body show>
@@ -21,7 +21,7 @@
                   </b-card>
               </li>
           </ol>
-          <h4>Projets</h4>
+          <h4 class="mb-3">Projets</h4>
           <ol class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="project in event.weights" :key="project.id">
                   <b-card class="text-center" no-body show>
@@ -31,7 +31,7 @@
                   </b-card>
               </li>
           </ol>
-          <h4>Etudiants</h4>
+          <h4 class="mb-3">Etudiants</h4>
           <ol class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="student in event.students" :key="student.id">
                   <b-card class="text-center" no-body show>
