@@ -2,7 +2,7 @@
   <div>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
-        <b-button v-b-toggle.addForm variant="primary" class="mb-3" @click="addType">Ajouter un étudiant</b-button>
+        <b-button v-b-toggle.addForm variant="primary" class="mb-3">Ajouter un étudiant</b-button>
         <b-collapse id="addForm" class="">
             <b-card class="col-md-5">
                 <student-form></student-form>
