@@ -2,7 +2,7 @@
   <b-card>
       <h2>Vue d'ensemble des implémentations</h2>
       <p>Séléctionner un étudiant pour afficher<template v-if="isAdmin">/ajouter</template> ses implémentations</p>
-      <Students :editable="true" @studentClicked="goToAddImplementations" ></Students>
+      <Students :editable="true" @studentClicked="goToEditStudent"></Students>
   </b-card>
 </template>
 
@@ -21,8 +21,8 @@ export default {
         ])
     },
     methods: {
-        goToAddImplementations(id) {
-            this.$router.push({name: 'addImplementationToStudent', params: {studentId: id}})
+        goToEditStudent(id) {
+            this.$router.push({name: 'editStudent', params: {studentId: id}})
         }
     }
 }
