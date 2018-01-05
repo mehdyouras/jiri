@@ -19,7 +19,7 @@
                             <span class="d-block">
                                 {{student.name}}
                             </span>
-                            <span>
+                            <span class="small">
                                 {{student.email}}
                             </span>
                         </div>
