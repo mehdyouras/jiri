@@ -2,7 +2,7 @@
   <b-card>
       <h2 class="mb-3">Vue d'ensemble des étudiants</h2>
       <Students @deleteModal="openModal" :editable="true" @studentClicked="goToAddMeeting"></Students>
-      <b-modal @ok="removeEvent(modal.id)" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
+      <b-modal @ok="deleteItem()" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'événement <strong>{{modal.name}}</strong> ?
       </b-modal>
   </b-card>
@@ -11,6 +11,7 @@
 <script>
 import {ALL_STUDENTS} from '../../../constants'
 import Students from '../../common/indexes/Students'
+import {Bus} from '../../../Bus'
 
 export default {
     name: 'IndexStudents',
