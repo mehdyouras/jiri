@@ -83,7 +83,6 @@ export default {
             });
         },
         randomizePassword() {
-            console.log('test')
             let password = nanoid();
             this.password = password.slice(14);
         },
