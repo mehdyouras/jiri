@@ -14,7 +14,7 @@
         </template>
         <ol class="list-unstyled row mt-3">
             <li class="col-md-4 col-lg-3" v-for="project in projects" :key="project.id">
-                <b-card no-body class="mb-3">
+                <b-card :id="project.id" no-body class="mb-3">
                     <b-card-body class="card-text d-flex justify-content-between align-items-center">
                         <div>
                             <span class="d-block">
@@ -26,6 +26,7 @@
                             <b-dropdown-item @click="openModal({id:project.id, name: project.name, type: 'project'})" class="text-danger">Supprimer</b-dropdown-item>
                         </b-dropdown>
                     </b-card-body>
+                    <b-tooltip :target="project.id" :title="project.description"></b-tooltip>
                 </b-card>
             </li>
         </ol>
