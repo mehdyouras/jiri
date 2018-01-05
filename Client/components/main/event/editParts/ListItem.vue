@@ -9,7 +9,7 @@
             </div>
             <b-dropdown variant="light">
                 <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
-                <b-dropdown-item @click="deleteItem">Supprimer</b-dropdown-item>
+                <b-dropdown-item @click="deleteItem({id:item.id, name: item.name})" class="text-danger">Supprimer</b-dropdown-item>
             </b-dropdown>
           </b-card-body>
       </b-card>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import {Bus} from '../../../../Bus'
 import {mapGetters} from 'vuex'
 import _ from 'lodash'
 
@@ -38,9 +37,12 @@ export default {
         'currentStep'
     ],
     methods: {
-        deleteItem() {
-            let type = ['student', 'user', 'project']
-            Bus.$emit('removeItem', {id: this.item.id, type: type[this.currentStep - 1]})
+        deleteItem(payload) {
+            this.$emit('deleteModal', payload)
+        },
+        editItem() {
+            let type = ['students', 'users', 'projects']
+            this.$router.push(`/${type[this.currentStep - 1]}/${this.item.id}`)
         },
         addItemToEvent() {
             let idToUse = this.currentStep === 3 ? this.item.weight.id : this.item.id;
@@ -59,8 +61,6 @@ export default {
         }
     },
     created() {
-
-
         let idToCheck = this.currentStep === 3 ? this.item.weight.id : this.item.id;
         let isActive = _.find(this.getItemsAddedToEvent[this.currentStep - 1], (id) => id === idToCheck);
         this.isActive = !!isActive;

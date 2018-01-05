@@ -9,7 +9,7 @@
             </div>
             <b-dropdown variant="light">
                 <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
-                <b-dropdown-item @click="deleteItem">Supprimer</b-dropdown-item>
+                <b-dropdown-item @click="deleteItem({id:item.id, name: item.name})" class="text-danger">Supprimer</b-dropdown-item>
             </b-dropdown>
           </b-card-body>
       </b-card>
@@ -38,9 +38,8 @@ export default {
         'currentStep'
     ],
     methods: {
-        deleteItem() {
-            let type = ['student', 'user', 'project']
-            Bus.$emit('removeItem', {id: this.item.id, type: type[this.currentStep - 1]})
+        deleteItem(payload) {
+            this.$emit('deleteModal', payload)
         },
         editItem() {
             let type = ['students', 'users', 'projects']

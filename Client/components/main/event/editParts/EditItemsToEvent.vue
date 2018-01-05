@@ -8,17 +8,20 @@
         :leave-active-class="leaveAnimation"
         mode="out-in">
         <ol class="list-unstyled row mt-3" v-if="currentStep === 1" key="students">
-            <ListItem v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
+            <ListItem @deleteModal="openModal" v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
         </ol>
         <ol class="list-unstyled row mt-3" v-if="currentStep === 2" key="users">
-            <ListItem v-for="item in allDetails.allUsers" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
+            <ListItem @deleteModal="openModal" v-for="item in allDetails.allUsers" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
         </ol>
         <ol class="list-unstyled row mt-3" v-if="currentStep === 3" key="projects">
-            <ListItem v-for="item in allDetails.allProjects" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
+            <ListItem @deleteModal="openModal" v-for="item in allDetails.allProjects" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
         </ol>
       </transition>
       <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
     </template>
+    <b-modal @ok="deleteItem(modal.id)" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
+        Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> <strong>{{modal.name}}</strong> ?
+    </b-modal>
   </div>
 </template>
 
@@ -30,12 +33,17 @@ import ListItem from './ListItem'
 import Spinner from '../../../common/Spinner'
 import AddItem from '../addParts/AddItem'
 import _ from 'lodash'
+import {Bus} from '../../../../Bus'
 
 export default {
   name: 'AddItemsToEvent',
   data() {
     return {
       isLoading: 0,
+      modal: {
+        id: "",
+        name: "",
+      },
     }
   },
   components: {
@@ -105,6 +113,16 @@ export default {
     handleStep(action) {
       this.$emit('handleStep', action)
     },
+    openModal(payload) {
+      this.modal = payload;
+      this.$refs.delete.show()
+    },
+    deleteItem(id) {
+      let type = ['student', 'user', 'project']
+      Bus.$emit('removeItem', {id, type: type[this.currentStep - 1]})
+      this.modal.id = "";
+      this.modal.name = "";
+    }
   },
 }
 </script>
