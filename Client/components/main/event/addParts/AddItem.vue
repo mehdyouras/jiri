@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-button v-b-toggle.addForm variant="primary" class="mb-3" @click="addType">Ajouter un {{type}}</b-button>
+      <b-button v-b-toggle.addForm variant="primary" class="mb-3">Ajouter un {{type}}</b-button>
       <b-collapse id="addForm" class="">
           <b-card class="col-md-5">
             <student-form @formHasChanged="closeForm" v-if="currentStep === 1"></student-form>
@@ -28,7 +28,6 @@ export default {
     data() {
         return {
             types: ['étudiant', 'utilisateur', 'projet'],
-            isAdding: false,
         }
     },
     props: [
@@ -38,14 +37,6 @@ export default {
         type() {
             return this.types[this.currentStep - 1];
         }
-    },
-    methods: {
-        addType() {
-            this.isAdding = true;
-        },
-        closeForm() {
-            this.isAdding = false;
-        },
     },
 }
 </script>
