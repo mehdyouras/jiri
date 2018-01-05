@@ -7,10 +7,10 @@
                     {{item.name}}
                 </span>
             </div>
-            <b-dropdown right variant="light">
-                <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
-                <b-dropdown-item @click="deleteItem({id:item.id, name: item.name})" class="text-danger">Supprimer</b-dropdown-item>
-            </b-dropdown>
+                <b-dropdown right variant="light">
+                    <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
+                    <b-dropdown-item @click="deleteItem({id:item.id, name: item.name})" class="text-danger">Supprimer</b-dropdown-item>
+                </b-dropdown>
           </div>
       </b-card>
   </li>
