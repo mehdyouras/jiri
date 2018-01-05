@@ -5,18 +5,23 @@
         <b-form-input class="col-2 large mb-3" size="lg" id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :state="!this.errors.has('name')"></b-form-input>
       </b-row>
       <Spinner v-if="isLoading"></Spinner>
-      <template  v-else>
-        <label for="event">Modifier son événement</label>
-        <select @change="switchEvent" v-model="eventId" name="event" id="event">
-            <option value="" disabled>Choisissez</option>
-            <option v-for="event in events" :key="event.id" :value="event.id">{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</option>
-        </select>
-        <b-alert show variant="danger" v-if="!projects[0]">Cet événement n'a aucun projet.</b-alert>
-        <div v-else v-for="project in projects" :key="project.project.id">
-            <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
-        </div>
+      <template v-else>
+          <div class="">
+            <b-form-group class="col-6 pl-0" label="Modifier son événement"
+                        label-for="event">
+                <b-form-select label="Modifier son événement" v-model='eventId' name="event" id="event">
+                    <option value="" disabled>Choisissez</option>
+                    <option v-for="event in events" :key="event.id" :value="event.id">{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</option>
+                </b-form-select>
+            </b-form-group>
+          </div>
+            
+            <b-alert show variant="danger" v-if="!projects[0]">Cet événement n'a aucun projet.</b-alert>
+            <div v-else v-for="project in projects" :key="project.project.id">
+                <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
+            </div>
       </template>
-      <button @click="saveEdit">Envoyer</button>
+      <b-button variant="primary" @click="saveEdit">Sauvegarder</b-button>
   </b-card>
 </template>
 

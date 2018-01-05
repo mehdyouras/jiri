@@ -1,17 +1,30 @@
 <template>
   <div>
-    <label :for="project.id">{{project.name}}</label>
-    <input v-model="isChecked" type="checkbox" :name="project.id" :id="project.id">
+    <b-form-checkbox v-model="isChecked">
+        {{project.name}}
+    </b-form-checkbox>
     
-    <div v-show="isChecked">
-      <label :for="project.id + 'a'">URL repo Github</label>
-      <input v-validate="'url'" @input="save" v-model="urlRepo" type="text" :name="project.id + 'a'" :id="project.id + 'a'">
-      <span v-show="this.errors.has('urlRepo')">{{this.errors.first('urlRepo')}}</span>
-
-      <label :for="project.id + 'b'">URL du site</label>
-      <input v-validate="'url'" @input="save" v-model="urlProject" type="text" :name="project.id + 'b'" :id="project.id + 'b'">
-      <span v-show="this.errors.has('urlProject')">{{this.errors.first('urlProject')}}</span>
-    </div>
+    <b-collapse :id="project.id" v-model="isChecked">
+      <b-row>
+        <b-form-group class="col-3"
+                label="URL repo Github"
+                label-for="urlRepo"
+                :invalid-feedback="this.errors.first('urlRepo')"
+                :state="!this.errors.has('urlRepo')"
+              >
+                <b-form-input :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlRepo" :state="!this.errors.has('urlRepo')"></b-form-input>
+        </b-form-group>
+      
+        <b-form-group class="col-3"
+                  label="URL du projet"
+                  label-for="urlProject"
+                  :invalid-feedback="this.errors.first('urlProject')"
+                  :state="!this.errors.has('urlProject')"
+                >
+                  <b-form-input :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlProject" :state="!this.errors.has('urlProject')"></b-form-input>
+        </b-form-group>
+      </b-row>
+    </b-collapse>
 
   </div>
 </template>
