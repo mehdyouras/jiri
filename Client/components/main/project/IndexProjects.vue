@@ -1,6 +1,7 @@
 <template>
   <b-card>
       <h2 class="mb-3">Vue d'ensemble des projets</h2>
+      <p>Séléctionner un projet pour le modifier.</p>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
         <b-button v-b-toggle.addForm variant="primary" class="mb-3">Ajouter un projet</b-button>

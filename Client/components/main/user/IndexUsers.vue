@@ -1,6 +1,7 @@
 <template>
   <b-card>
       <h2 class="mb-3">Vue d'ensemble des utilisateurs</h2>
+      <p>Séléctionez un utilisateur pour le modifier.</p>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
         <b-button v-b-toggle.addForm variant="primary" class="mb-3">Ajouter un étudiant</b-button>
