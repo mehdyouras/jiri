@@ -14,20 +14,20 @@
         </template>
         <ol class="list-unstyled row mt-3">
             <li class="col-md-4 col-lg-3" v-for="project in projects" :key="project.id">
-                <b-card :id="project.id" no-body class="mb-3">
-                    <b-card-body class="card-text d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="d-block">
+                <b-card :id="project.id" no-body show variant="secondary" class="mb-3">
+                    <div class="card-text d-flex align-items-stretch justify-content-between">
+                        <div class="p-3 d-flex align-items-center">
+                            <span class="">
                                 {{project.name}}
                             </span>
                         </div>
-                        <b-dropdown right v-if="isAdmin" variant="light">
-                            <b-dropdown-item @click="editProject">Modifier</b-dropdown-item>
+                        <b-dropdown class="p-3" right v-if="isAdmin" variant="light">
+                            <b-dropdown-item @click="editProject(student.id)">Modifier</b-dropdown-item>
                             <b-dropdown-item @click="openModal({id:project.id, name: project.name, type: 'project'})" class="text-danger">Supprimer</b-dropdown-item>
                         </b-dropdown>
-                    </b-card-body>
-                    <b-tooltip :target="project.id" :title="project.description"></b-tooltip>
+                    </div>
                 </b-card>
+                <b-tooltip :target="project.id" :title="project.description"></b-tooltip>
             </li>
         </ol>
       </template>
@@ -45,7 +45,7 @@ import {mapGetters} from 'vuex'
 import {Bus} from '../../../Bus'
 
 export default {
-    name: 'IndexUsers',
+    name: 'IndexProjects',
     components: {
         Spinner,
         ProjectForm

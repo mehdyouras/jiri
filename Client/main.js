@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'mdi/css/materialdesignicons.min.css'
 import './assets/css/vue2-animate.min.css'
+import './assets/css/main.css'
 
 Vue.use(BootstrapVue);
 

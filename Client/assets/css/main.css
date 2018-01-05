@@ -1,0 +1,8 @@
+.card-clickable {
+    flex-basis: 100%;
+    cursor: pointer;
+}
+.card-clickable:hover {
+    background-color: #e2e6ea;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

@@ -1,17 +1,17 @@
 <template>
   <li class="col-md-4 col-lg-3">
       <b-card @click="addItemToEvent" no-body show variant="secondary" :class="{'bg-primary': isActive, 'mb-3': true}">
-          <b-card-body class="card-text d-flex justify-content-between align-items-center">
-            <div>
+          <div class="card-text d-flex justify-content-between align-items-center">
+            <div class="p-3 card-clickable">
                 <span :class="{'text-white': isActive}">
                     {{item.name}}
                 </span>
             </div>
-            <b-dropdown right variant="light">
+            <b-dropdown class="p3" right variant="light">
                 <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
                 <b-dropdown-item @click="deleteItem({id:item.id, name: item.name})" class="text-danger">Supprimer</b-dropdown-item>
             </b-dropdown>
-          </b-card-body>
+          </div>
       </b-card>
   </li>
 </template>

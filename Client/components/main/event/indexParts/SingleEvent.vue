@@ -14,10 +14,10 @@
               <li class="col-md-4 col-lg-3 mb-3" v-for="jury in event.jurys" :key="jury.id">
                   <b-card class="text-center" no-body show>
                     <strong slot="header" class="d-block">{{jury.name}}</strong>
-                    <b-card-body>
+                    <div class="p-3">
                         <span class="d-block">{{jury.company}}</span>
                         <span class="d-block">{{jury.email}}</span>
-                    </b-card-body>
+                    </div>
                   </b-card>
               </li>
           </ol>
@@ -25,9 +25,9 @@
           <ol class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="project in event.weights" :key="project.id">
                   <b-card class="text-center" no-body show>
-                    <b-card-body>
+                    <div class="p-3">
                         <span>{{project.project.name}}</span>
-                    </b-card-body>
+                    </div>
                   </b-card>
               </li>
           </ol>
@@ -36,9 +36,9 @@
               <li class="col-md-4 col-lg-3 mb-3" v-for="student in event.students" :key="student.id">
                   <b-card class="text-center" no-body show>
                     <strong slot="header" class="d-block">{{student.name}}</strong>
-                    <b-card-body>
+                    <div class="p-3">
                         <span>{{student.email}}</span>
-                    </b-card-body>
+                    </div>
                   </b-card>
               </li>
           </ol>

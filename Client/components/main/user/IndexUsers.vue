@@ -15,8 +15,8 @@
         <ol class="list-unstyled row mt-3" v-else>
             <li class="col-md-4 col-lg-3" v-for="user in users" :key="user.id">
                 <b-card no-body show variant="secondary" class="mb-3">
-                    <b-card-body class="card-text d-flex justify-content-between align-items-center">
-                        <div>
+                    <div class="card-text d-flex justify-content-between align-items-center">
+                        <div class="p-3 card-clickable">
                             <span class="d-block">
                                 {{user.name}}
                             </span>
@@ -24,11 +24,11 @@
                                 {{user.email}}
                             </span>
                         </div>
-                        <b-dropdown right v-if="isAdmin" variant="light">
+                        <b-dropdown class="p-3" right v-if="isAdmin" variant="light">
                             <b-dropdown-item @click="editUser(user.id)">Modifier</b-dropdown-item>
                             <b-dropdown-item @click="openModal({id:user.id, name: user.name, type: 'user'})" class="text-danger">Supprimer</b-dropdown-item>
                         </b-dropdown>
-                    </b-card-body>
+                    </div>
                 </b-card>
             </li>
         </ol>
