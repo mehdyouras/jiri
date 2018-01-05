@@ -1,6 +1,9 @@
 <template>
-  <div>
-      <h2>{{student.name}}</h2>
+  <b-card>
+      <h2 class="mb-3" v-if="!isEditingName" @dblclick="editName">{{student.name}}</h2>
+      <b-row v-else @keyup.enter="saveName">
+        <b-form-input class="col-2 large mb-3" size="lg" id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :state="!this.errors.has('name')"></b-form-input>
+      </b-row>
       <Spinner v-if="isLoading"></Spinner>
       <template  v-else>
         <label for="event">Modifier son événement</label>
@@ -14,7 +17,7 @@
         </div>
       </template>
       <button @click="saveEdit">Envoyer</button>
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -37,6 +40,8 @@ export default {
             events: {},
             isLoading: 0,
             eventId: '',
+            isEditingName: false,
+            name: "",
         }
     },
     computed: {
@@ -60,6 +65,13 @@ export default {
         switchEvent() {
             Bus.$emit('addStudentToEvent', {eventId: this.eventId, studentId: this.$route.params.studentId})
         },
+        editName() {
+            this.isEditingName = true;
+        },
+        saveName() {
+            Bus.$emit('updateStudentName', {studentId: this.$route.params.studentId, name: this.name})
+            this.isEditingName = false;
+        }
     },
     apollo: {
         student: {
@@ -73,6 +85,7 @@ export default {
                 if(data.Student.event !== null) {
                     this.eventId = data.Student.event.id
                 }
+                this.name = data.Student.name
                 this.projects = data.Student.event.weights;
                 return data.Student
             },
