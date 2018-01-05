@@ -1,11 +1,11 @@
 <template>
-  <div>
-      <h2>Vue d'ensemble des étudiants</h2>
+  <b-card>
+      <h2 class="mb-3">Vue d'ensemble des étudiants</h2>
       <Students @deleteModal="openModal" :editable="true" @studentClicked="goToAddMeeting"></Students>
       <b-modal @ok="removeEvent(modal.id)" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'événement <strong>{{modal.name}}</strong> ?
       </b-modal>
-  </div>
+  </b-card>
 </template>
 
 <script>
