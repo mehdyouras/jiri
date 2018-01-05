@@ -13,11 +13,14 @@
         </template>
         <ol class="list-unstyled row mt-3" v-else>
             <li class="col-md-4 col-lg-3" v-for="student in students" :key="student.id">
-                <b-card @click="studentClicked(student.id)" no-body show variant="secondary" class="mb-3">
+                <b-card no-body show variant="secondary" class="mb-3">
                     <b-card-body class="card-text d-flex justify-content-between align-items-center">
-                        <div>
-                            <span>
+                        <div @click.stop="studentClicked(student.id)">
+                            <span class="d-block">
                                 {{student.name}}
+                            </span>
+                            <span>
+                                {{student.email}}
                             </span>
                         </div>
                         <b-dropdown right v-if="editable && isAdmin" variant="light">
