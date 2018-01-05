@@ -3,7 +3,7 @@
       <b-nav-item :to="{ name: 'dashboard'}">Tableau de bord</b-nav-item>
       <b-nav-item-dropdown text="Vue d'ensemble">
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexEvents'}">Événements</b-dropdown-item>
-        <b-dropdown-item :to="{ name: 'indexStudents'}">étudiants</b-dropdown-item>
+        <b-dropdown-item :to="{ name: 'indexStudents'}">Étudiants</b-dropdown-item>
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexProjects'}">Projets</b-dropdown-item>
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexUsers'}">Utilisateurs</b-dropdown-item>
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'indexImplementations'}">Implémentations</b-dropdown-item>
