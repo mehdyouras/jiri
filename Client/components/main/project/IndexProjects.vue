@@ -3,7 +3,12 @@
       <h2>Vue d'ensemble des projets</h2>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
-        <ProjectForm></ProjectForm>
+        <b-button v-b-toggle.addForm variant="primary" class="mb-3" @click="addType">Ajouter un projet</b-button>
+        <b-collapse id="addForm" class="">
+            <b-card class="col-md-5">
+                <ProjectForm></ProjectForm>
+            </b-card>
+        </b-collapse>
         <template v-if="!projects[0]">
             <p>Il n'y a pas de projet.</p>
         </template>
