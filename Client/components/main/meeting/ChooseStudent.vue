@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <b-card>
       <h2>Organiser une rencontre avec un étudiant</h2>
       <p>Choisissez un étudiant</p>
       <Students @studentClicked="goToAddMeeting"></Students>
-  </div>
+  </b-card>
 </template>
 
 <script>
