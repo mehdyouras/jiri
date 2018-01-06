@@ -95,7 +95,6 @@ export default {
         editStudent(id) {
             this.studentIdToEdit = id;
             this.editModal.show = true;
-            // this.$router.push({name: 'editStudent', params: {studentId: id}})
         },
         openModal(payload) {
             this.modal = payload;

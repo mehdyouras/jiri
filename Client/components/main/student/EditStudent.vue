@@ -75,7 +75,6 @@ export default {
                     Bus.$emit('createImplementation', implementation)
                 }
             });
-            this.$router.push({name: 'indexStudents'})
         },
         switchEvent() {
             Bus.$emit('addStudentToEvent', {eventId: this.eventId, studentId: this.studentId})

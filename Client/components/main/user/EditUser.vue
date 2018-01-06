@@ -93,7 +93,6 @@ export default {
             }
 
             Bus.$emit('updateUser', payload);
-            this.$router.push({name: 'indexUsers'})
         },
         randomizePassword() {
             let password = nanoid();
