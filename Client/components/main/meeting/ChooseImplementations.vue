@@ -1,6 +1,7 @@
 <template>
   <b-card>
       <h2 class="mb-3">Organiser une rencontre avec {{student.name}}</h2>
+      <b-btn :to="{name: 'addMeeting'}" variant="primary mb-3">Séléctionner un autre étudiant</b-btn>
       <p>Séléctionnez un projet pour le commenter et le noter.</p>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
@@ -70,15 +71,27 @@
                             <p class="display-4"><span class="badge badge-light">{{implementation.score.score}}/20</span></p>
                         </template>
                         <template v-else>
-                            <label for="comment">Commentaire</label>
-                            <textarea v-validate="'required'" v-model="comment" name="edit-comment" id="edit-comment" cols="30" rows="10"></textarea>
-                            <span v-show="errors.has('edit-comment')">{{errors.first('edit-comment')}}</span>
+                            <b-form-group
+                                label="Commentaire"
+                                label-for="comment"
+                                :invalid-feedback="errors.first('edit-comment')"
+                                :state="!errors.has('edit-comment')"
+                                >
+                                <b-form-textarea :rows="5" :max-rows="6" id="edit-comment" name="edit-comment" v-validate="'required'" v-model="edit.comment" :class="{'is-invalid': errors.has('edit-comment')}"></b-form-textarea>
+                        </b-form-group>
 
-                            <label for="score">Note</label>
-                            <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="edit-score" id="edit-score">
-                            <span v-show="errors.has('edit-score')">{{errors.first('edit-score')}}</span>
+                        <b-form-group
+                                label="Note"
+                                label-for="edit-score"
+                                :invalid-feedback="errors.first('edit-score')"
+                                :state="!errors.has('edit-score')"
+                                >
+                                <b-input-group right="/20">
+                                    <b-form-input :rows="5" :max-rows="6" type="number" id="edit-score" name="edit-score" v-validate="'required|decimal:2'" v-model.number="edit.score" :class="{'is-invalid': errors.has('edit-score')}"></b-form-input>
+                                </b-input-group>
+                        </b-form-group>
 
-                            <button @click="editScore(implementation.score.id)">Noter</button>
+                        <b-btn variant="primary" @click="editScore(implementation.score.id)">Noter</b-btn>
                         </template>
                     </b-card>
                 </li>
@@ -109,6 +122,10 @@ export default {
             score: '',
             editModal: {
                 show: false,
+            },
+            edit: {
+                comment: "",
+                score: "",
             },
             studentIdToEdit: "",
         }
@@ -161,11 +178,11 @@ export default {
         },
         showEdit(id, comment, score) {
             this.editing = id;
-            this.comment = comment;
-            this.score = score;
+            this.edit.comment = comment;
+            this.edit.score = score;
         },
         editScore(id) {
-            let {comment, score} = this;
+            let {comment, score} = this.edit;
             let payload = {
                 id,
                 comment,
@@ -174,8 +191,8 @@ export default {
             }
             Bus.$emit('updateScore', payload);
             this.editing= '';
-            this.score = '';
-            this.comment = '';
+            this.edit.score = '';
+            this.edit.comment = '';
         }
     },
     apollo: {
