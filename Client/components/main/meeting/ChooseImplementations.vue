@@ -20,10 +20,10 @@
                         </div>
                         <div class="d-flex">
                             <b-btn :href="implementation.urlRepo" variant="light" class="mdi mdi-github-circle mdi-24px col"><span class="sr-only">Lien vers le repo Github</span></b-btn>
-                            <b-btn :href="implementation.urlProject" variant="light" class="mdi mdi-link mdi-24px col"></b-btn>
+                            <b-btn :href="implementation.urlProject" variant="light" class="mdi mdi-link mdi-24px col"><span class="sr-only">Lien vers le projet</span></b-btn>
                         </div>
                     </b-card>
-                    <b-tooltip :target="implementation.project.id" :title="implementation.project.description"><span class="sr-only">Lien vers le projet</span></b-tooltip>
+                    <b-tooltip :target="implementation.project.id" :title="implementation.project.description"></b-tooltip>
                 </li>
             </ol>   
             <ol class="list-unstyled row mt-3">
