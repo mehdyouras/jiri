@@ -2,7 +2,7 @@
 <div id="app">
   <template v-if="isAppLoaded">
     <Bar v-if="route !== 'login'"></Bar>
-    <div class="container text-truncate">
+    <div class="container">
       <transition 
           enter-active-class="fadeInRight"
           >
