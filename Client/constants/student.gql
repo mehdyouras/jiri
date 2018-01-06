@@ -20,6 +20,7 @@ export const STUDENT = gql`query Student($id: ID!) {
             project {
                 id
                 name
+                description
             }
             score {
                 id

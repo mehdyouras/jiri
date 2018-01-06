@@ -1,18 +1,18 @@
 <template>
-  <div>
-        <h2>Les étudiants que vous avez déjà rencontré</h2>
+  <b-card>
+        <h2 class="mb-3">Les étudiants que vous avez déjà rencontré</h2>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
-            <router-link :to="{name: 'addMeeting'}">Organiser une rencontre</router-link>
+            <b-btn variant="primary" :to="{name: 'addMeeting'}">Organiser une rencontre</b-btn>
             <template v-if="!students[0]">
-                <p>Vous n'avez pas encore rencontré d'étudiant.</p>
+                <b-alert class="mt-3" show variant="warning">Vous n'avez pas encore rencontré d'étudiant.</b-alert>
             </template>
             <template v-else>            
                 <p>Choisissez un étudiant</p>
                 <Students @studentClicked="goToAddMeeting"></Students>
             </template>
         </template>
-  </div>
+  </b-card>
 </template>
 
 <script>

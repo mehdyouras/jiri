@@ -1,55 +1,88 @@
 <template>
-  <div>
-      <h2>Organiser une rencontre avec un étudiant</h2>
-      <h3>{{student.name}}</h3>
+  <b-card>
+      <h2 class="mb-3">Organiser une rencontre avec {{student.name}}</h2>
+      <p>Séléctionnez un projet pour le commenter et le noter.</p>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
             <template v-if="!student.implementations[0]">
                 <p>Cet étudiant ne possède aucune implémentation.</p>
                 <router-link v-if="isAdmin" :to="{name: 'addImplementationToStudent', params: {studentId: student.id}}">Lui ajouter des implémentations</router-link>
-            </template>   
-            <ol>
-                <li @click="showScoreForm(implementation)" v-for="implementation in implementationNotAdded" :key="implementation.id">
-                    {{implementation.project.name}}
+            </template>
+            <ol class="list-unstyled row mt-3">
+                <li class="col-md-4 col-lg-3" v-for="implementation in implementationNotAdded" :key="implementation.id">
+                    <b-card :id="implementation.project.id" no-body show variant="secondary" class="mb-3">
+                        <div class="card-text d-flex align-items-stretch justify-content-between">
+                            <div @click="showScoreForm(implementation)" class="p-3 d-flex align-items-center card-clickable">
+                                <strong class="">
+                                    {{implementation.project.name}}
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <b-btn :href="implementation.urlRepo" variant="light" class="mdi mdi-github-circle mdi-24px col"><span class="sr-only">Lien vers le repo Github</span></b-btn>
+                            <b-btn :href="implementation.urlProject" variant="light" class="mdi mdi-link mdi-24px col"></b-btn>
+                        </div>
+                    </b-card>
+                    <b-tooltip :target="implementation.project.id" :title="implementation.project.description"><span class="sr-only">Lien vers le projet</span></b-tooltip>
                 </li>
-            </ol>
-            <ol>
-                <li v-if="isAdding">
-                    <h4>{{implementationAdding.project.name}}</h4>
-                    <label for="comment">Commentaire</label>
-                    <textarea v-validate="'required'" v-model="comment" name="comment" id="comment" cols="30" rows="10"></textarea>
-                    <span v-show="this.errors.has('comment')">{{this.errors.first('comment')}}</span>
+            </ol>   
+            <ol class="list-unstyled row mt-3">
+                <li class="col-md-4 col-lg-6 mb-3" v-if="isAdding">
+                    <b-card>
+                        <h4 class="mb-3">{{implementationAdding.project.name}}</h4>
+                         <b-form-group
+                                label="Commentaire"
+                                label-for="comment"
+                                :invalid-feedback="this.errors.first('comment')"
+                                :state="!this.errors.has('comment')"
+                                >
+                                <b-form-textarea :rows="5" :max-rows="6" id="comment" name="comment" v-validate="'required'" v-model="comment" :state="!this.errors.has('comment')"></b-form-textarea>
+                        </b-form-group>
 
-                    <label for="score">Note</label>
-                    <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="score" id="score">
-                    <span v-show="this.errors.has('score')">{{this.errors.first('score')}}</span>
+                        <b-form-group
+                                label="Note"
+                                label-for="score"
+                                :invalid-feedback="this.errors.first('score')"
+                                :state="!this.errors.has('score')"
+                                >
+                                <b-input-group right="/20">
+                                    <b-form-input :rows="5" :max-rows="6" type="number" id="score" name="score" v-validate="'required|decimal:2'" v-model.number="score" :state="!this.errors.has('score')"></b-form-input>
+                                </b-input-group>
+                        </b-form-group>
 
-                    <button @click="addScore">Noter</button>
+                        <b-btn variant="primary" @click="addScore">Noter</b-btn>
+                    </b-card>
                 </li>
-                <li v-for="implementation in implementationAdded" :key="implementation.id">
-                    <h4>{{implementation.project.name}}</h4>
+                <li class="col-md-4 col-lg-6 mb-3" v-for="implementation in implementationAdded" :key="implementation.id">
+                    <b-card>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4>{{implementation.project.name}}</h4>
+                            <b-dropdown right variant="light">
+                                <b-dropdown-item @click="showEdit(implementation.score.id, implementation.score.comment, implementation.score.score)">Modifier</b-dropdown-item>
+                                <!-- <b-dropdown-item @click="openModal({id:student.id, name: student.name, type: 'student'})" class="text-danger">Supprimer</b-dropdown-item> -->
+                            </b-dropdown>
+                        </div>
 
-                    <button @click="showEdit(implementation.score.id, implementation.score.comment, implementation.score.score)">Modifier</button>
+                        <template v-if="editing !== implementation.score.id">
+                            <p>{{implementation.score.comment}}</p>
+                            <p class="display-4"><span class="badge badge-light">{{implementation.score.score}}/20</span></p>
+                        </template>
+                        <template v-else>
+                            <label for="comment">Commentaire</label>
+                            <textarea v-validate="'required'" v-model="comment" name="edit-comment" id="edit-comment" cols="30" rows="10"></textarea>
+                            <span v-show="this.errors.has('edit-comment')">{{this.errors.first('edit-comment')}}</span>
 
-                    <template v-if="editing !== implementation.score.id">
-                        <p>{{implementation.score.comment}}</p>
-                        <p>Note : {{implementation.score.score}}</p>
-                    </template>
-                    <template v-else>
-                        <label for="comment">Commentaire</label>
-                        <textarea v-validate="'required'" v-model="comment" name="edit-comment" id="edit-comment" cols="30" rows="10"></textarea>
-                        <span v-show="this.errors.has('edit-comment')">{{this.errors.first('edit-comment')}}</span>
+                            <label for="score">Note</label>
+                            <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="edit-score" id="edit-score">
+                            <span v-show="this.errors.has('edit-score')">{{this.errors.first('edit-score')}}</span>
 
-                        <label for="score">Note</label>
-                        <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="edit-score" id="edit-score">
-                        <span v-show="this.errors.has('edit-score')">{{this.errors.first('edit-score')}}</span>
-
-                        <button @click="editScore(implementation.score.id)">Noter</button>
-                    </template>
+                            <button @click="editScore(implementation.score.id)">Noter</button>
+                        </template>
+                    </b-card>
                 </li>
             </ol>
         </template>
-  </div>
+  </b-card>
 </template>
 
 <script>
