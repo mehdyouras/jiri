@@ -70,6 +70,10 @@ Bus.$on('removeItem', payload => {
                 refetchQueries: [
                     {
                         query: query.ALL_STUDENTS,
+                    },
+                    {
+                        query: query.STUDENTS_MET,
+                        variables: store.state.currentUserId,
                     }
                 ]
             });
