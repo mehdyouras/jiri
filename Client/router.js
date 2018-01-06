@@ -38,11 +38,9 @@ const routes = [
 
     {name: "indexStudents", path: "/students", component: IndexStudents, meta: {adminRoute: false}},
       {name: "addStudent", path: "/students/new", component: AddStudent, meta: {adminRoute: true}},
-      {name: "editStudent", path: "/students/:studentId", component: EditStudent, meta: {adminRoute: true}},
 
     {name: "indexUsers", path: "/users", component: IndexUsers, meta: {adminRoute: true}},
       {name: "addUser", path: "/users/new", component: AddUser, meta: {adminRoute: true}},
-      {name: "editUser", path: "/users/:userId", component: EditUser, meta: {adminRoute: true}},
 
     {name: "indexProjects", path: "/projects", component: IndexProjects, meta: {adminRoute: true}},
       {name: "addProject", path: "/projects/new", component: AddProject, meta: {adminRoute: true}},
