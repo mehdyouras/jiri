@@ -6,7 +6,7 @@
           <span class="sr-only">Github</span>
         </a>
         <span>
-          © <a href="http://mehdy.ouras.be">Mehdy Ouras</a> 2017
+          © <a href="http://mehdy.ouras.be">Mehdy Ouras</a> 2018
         </span>
       </p>
     </div>
