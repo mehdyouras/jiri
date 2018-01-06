@@ -23,8 +23,8 @@
                             </span>
                         </div>
                         <b-dropdown class="p-3" right v-if="isAdmin" variant="light">
-                            <b-dropdown-item @click="editProject(student.id)">Modifier</b-dropdown-item>
-                            <b-dropdown-item @click="openModal({id:project.id, name: project.name, type: 'project'})" class="text-danger">Supprimer</b-dropdown-item>
+                            <b-dropdown-item @click="openEditModal({id: project.id, name: project.name, description: project.description, weightId: project.weight.id, weight: project.weight.weight})">Modifier</b-dropdown-item>
+                            <b-dropdown-item @click="openDeleteModal({id:project.id, name: project.name, type: 'project'})" class="text-danger">Supprimer</b-dropdown-item>
                         </b-dropdown>
                     </div>
                 </b-card>
@@ -33,7 +33,35 @@
         </ol>
       </template>
       <b-modal @ok="deleteProject" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
-          Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> le projet <strong>{{modal.name}}</strong> ?
+          Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> le projet <strong>{{deleteModal.name}}</strong> ?
+      </b-modal>
+      <b-modal @ok="editProject" ref="edit" title="Modifier" ok-title="Sauvegarder" ok-variant="primary" cancel-title="Annuler">
+          <b-form-group
+              label="Nom du projet"
+              label-for="project-name"
+              :invalid-feedback="this.errors.first('project-name')"
+              :state="!this.errors.has('project-name')"
+            >
+              <b-form-input id="project-name" name="project-name" type="text" v-validate="'required'" v-model.trim="editModal.name" :state="!this.errors.has('project-name')"></b-form-input>
+            </b-form-group>
+            
+            <b-form-group
+                    label="Description"
+                    label-for="description"
+                    :invalid-feedback="this.errors.first('description')"
+                    :state="!this.errors.has('description')"
+                    >
+                    <b-form-input id="description" name="description" type="text" v-validate="'required'" v-model.trim="editModal.description" :state="!this.errors.has('description')"></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+                    label="Pondération"
+                    label-for="project-weight"
+                    :invalid-feedback="this.errors.first('project-weight')"
+                    :state="!this.errors.has('project-weight')"
+                    >
+                    <b-form-input id="project-weight" name="project-weight" type="number" v-validate="'required|decimal:2'" v-model.number="editModal.weight" :state="!this.errors.has('project-weight')"></b-form-input>
+            </b-form-group>
       </b-modal>
   </b-card>
 </template>
@@ -55,10 +83,17 @@ export default {
         return {
             projects: {},
             isLoading: 0,
-            modal: {
+            deleteModal: {
                 id: "",
                 name: "",
                 type: "project",
+            },
+            editModal: {
+                id: "",
+                weightId: "",
+                weight: "",
+                name: "",
+                description: "",
             }
         }
     },
@@ -77,11 +112,22 @@ export default {
         }
     },
     methods: {
-        editProject() {
-            
+        openEditModal(payload) {
+            this.editModal = payload;
+            this.$refs.edit.show();
         },
-        openModal(payload) {
-            this.modal = payload;
+        editProject() {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    let {id, name, description, weightId, weight} = this.editModal;
+                    
+                    Bus.$emit('updateProject', {id, name, description, weight, weightId});
+                    return;
+                }
+            });
+        },
+        openDeleteModal(payload) {
+            this.deleteModal = payload;
             this.$refs.delete.show()
         },
         deleteProject() {
