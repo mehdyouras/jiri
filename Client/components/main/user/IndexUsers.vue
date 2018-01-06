@@ -26,7 +26,7 @@
                             </span>
                         </div>
                         <b-dropdown class="p-3" right v-if="isAdmin" variant="light">
-                            <b-dropdown-item @click="editUser(user.id)">Modifier</b-dropdown-item>
+                            <b-dropdown-item @click="editUser(user)">Modifier</b-dropdown-item>
                             <b-dropdown-item @click="openModal({id:user.id, name: user.name, type: 'user'})" class="text-danger">Supprimer</b-dropdown-item>
                         </b-dropdown>
                     </div>
@@ -37,6 +37,7 @@
       <b-modal @ok="deleteItem()" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'utilisateur <strong>{{modal.name}}</strong> ?
       </b-modal>
+      <edit-user v-if="editModal.show" @hidden="editModal.show = false" :visible="editModal.show" :user="userToEdit"></edit-user>
   </b-card>
 </template>
 
@@ -46,12 +47,14 @@ import {mapGetters} from 'vuex'
 import Spinner from '../../common/Spinner'
 import UserForm from '../../common/forms/UserForm'
 import {Bus} from '../../../Bus'
+import EditUser from './EditUser'
 
 export default {
     name: 'IndexUsers',
     components: {
         Spinner,
-        UserForm
+        UserForm,
+        EditUser
     },
     data() {
         return {
@@ -61,6 +64,10 @@ export default {
                 name: "",
                 type: "",
             },
+            editModal: {
+                show: false,
+            },
+            userToEdit: {},
             isLoading: 0,   
         }
     },
@@ -70,8 +77,9 @@ export default {
         ])
     },
     methods: {
-        editUser(id) {
-            this.$router.push({name: 'editUser', params: {userId: id}})
+        editUser(user) {
+            this.userToEdit = user;
+            this.editModal.show = true;
         },
         openModal(payload) {
             this.modal = payload;

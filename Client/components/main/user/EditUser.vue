@@ -1,28 +1,52 @@
 <template>
-  <div>
-      <h2>Modifier {{user.name}}</h2>
+  <b-modal @hidden="hidden" :visible="visible" @ok="editUser()" ref="edit" :title="'Modifier ' + edit.name" ok-title="Sauvegarder" ok-variant="primary" cancel-title="Annuler">
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
-        <input v-model="isAdmin" type="checkbox" id="user-isAdmin">
-        <label for="user-isAdmin">Administrateur</label>
+        <b-form-checkbox v-model="edit.isAdmin">
+            Administrateur
+        </b-form-checkbox>
         
-        <label for="user-name">Nom</label>
-        <input v-model="name" type="text" id="user-name">
-        
-        <label for="user-company">Organisation</label>
-        <input v-model="company" type="text" id="user-company">
+        <b-form-group
+                label="Nom"
+                label-for="edit-user-name"
+                :invalid-feedback="this.errors.first('edit-user-name')"
+                :state="!this.errors.has('edit-user-name')"
+                >
+                <b-form-input id="edit-user-name" name="edit-user-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="edit.name" :state="!this.errors.has('edit-user-name')"></b-form-input>
+        </b-form-group>
 
-        <label for="user-email">Email</label>
-        <input v-model="email" type="email" id="user-email">
+        <b-form-group
+                label="Organisation"
+                label-for="edit-user-company"
+                :invalid-feedback="this.errors.first('edit-user-company')"
+                :state="!this.errors.has('edit-user-company')"
+                >
+                <b-form-input id="edit-user-company" name="edit-user-company" type="text" v-validate="'required'" v-model.trim="edit.company" :state="!this.errors.has('edit-user-company')"></b-form-input>
+        </b-form-group>
 
-        <label for="user-password">Mot de passe</label>
-        <input v-model="password" type="password" id="user-password">
+        <b-form-group
+                label="Adresse email"
+                label-for="edit-user-email"
+                :invalid-feedback="this.errors.first('edit-user-email')"
+                :state="!this.errors.has('edit-user-email')"
+                >
+                <b-form-input id="edit-user-email" name="edit-user-email" type="text" v-validate="'required'" v-model.trim="edit.email" :state="!this.errors.has('edit-user-email')"></b-form-input>
+        </b-form-group>
 
-        <a href="#" @click.prevent="randomizePassword" >Générer un mot de passe</a>
 
-        <button @click.prevent="updateUser" >Modifier</button>
+        <b-form-group class=""
+                label="Mot de passe"
+                label-for="edit-user-password"
+                :invalid-feedback="this.errors.first('edit-user-password')"
+                :state="!this.errors.has('edit-user-password')"
+                >
+                <div class="d-flex">
+                    <b-form-input class="mr-3" id="edit-user-password" name="edit-user-password" type="password" v-validate="'required'" v-model.trim="edit.password" :state="!this.errors.has('edit-user-password')"></b-form-input>
+                    <b-btn variant='secondary' @click="randomizePassword" >Aléatoire</b-btn>
+                </div>
+        </b-form-group>
       </template>
-  </div>
+  </b-modal>
 </template>
 
 <script>
@@ -35,21 +59,30 @@ export default {
     components: {
         Spinner
     },
+    props: [
+        'user',
+        'visible'
+    ],
     data() {
         return {
             isLoading: 0,
-            user: {},
-            id: this.$route.params.userId,
-            email: "",
-            password: "",
-            name: "",
-            company: "",
-            isAdmin: false,
+            edit: {
+                id: "",
+                email: "",
+                password: "",
+                name: "",
+                company: "",
+                isAdmin: false,
+            }
         }
     },
     methods: {
-        updateUser() {
-            let {id, email, password, company, isAdmin} = this;
+        hidden() {
+            this.$emit('hidden')
+            this.edit = {};
+        },
+        editUser() {
+            let {id, email, password, company, isAdmin} = this.edit;
 
             let payload = {
                 id,
@@ -64,26 +97,11 @@ export default {
         },
         randomizePassword() {
             let password = nanoid();
-            this.password = password.slice(14);
+            this.edit.password = password.slice(14);
         },
     },
-    apollo: {
-        user: {
-            query: USER,
-            variables() {
-                return {
-                    id: this.id,
-                }
-            },
-            update(data) {
-                this.email = data.User.email;
-                this.name = data.User.name;
-                this.company = data.User.company;
-                this.isAdmin = data.User.isAdmin;
-                return data.User
-            },
-            loadingKey: 'isLoading'
-        }
+    created() {
+        this.edit = this.user;
     },
 }
 </script>
