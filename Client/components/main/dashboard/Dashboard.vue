@@ -16,7 +16,7 @@
         <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</b-list-group-item>
         <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Ajouter un membre du jury</b-list-group-item>
         <b-list-group-item :to="{ name: 'addMeeting'}">Organiser une rencontre avec un étudiant</b-list-group-item>
-        <b-list-group-item :to="{ name: 'indexMeetings'}">Afficher mes rencontres déjà réalisées</b-list-group-item>
+        <b-list-group-item :to="{ name: 'indexMeetings'}">Les étudiants que j'ai déjà rencontré</b-list-group-item>
       </b-list-group>
     </b-row>
   </b-card>
