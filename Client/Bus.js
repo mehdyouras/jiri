@@ -216,7 +216,13 @@ Bus.$on('createScore', payload => {
                 variables: {
                     id: studentId,
                 },
-            }
+            },
+            {
+                query: query.STUDENTS_MET,
+                variables: {
+                    id: userId,
+                },
+            },
         ]
     });
 })
@@ -236,7 +242,13 @@ Bus.$on('updateScore', payload => {
                 variables: {
                     id: studentId,
                 },
-            }
+            },
+            {
+                query: query.STUDENTS_MET,
+                variables: {
+                    id: store.getters.currentUserId,
+                },
+            },
         ]
     });
 })

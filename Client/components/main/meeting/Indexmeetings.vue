@@ -3,13 +3,32 @@
         <h2 class="mb-3">Les étudiants que vous avez déjà rencontré</h2>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
-            <b-btn variant="primary" :to="{name: 'addMeeting'}">Organiser une rencontre</b-btn>
+            
             <template v-if="!students[0]">
-                <b-alert class="mt-3" show variant="warning">Vous n'avez pas encore rencontré d'étudiant.</b-alert>
+                <b-alert class="mt-3" show variant="warning">
+                    <p>Vous n'avez pas encore rencontré d'étudiant.</p>
+                    <b-btn variant="primary" :to="{name: 'addMeeting'}">Organiser une rencontre</b-btn>
+                </b-alert>
             </template>
-            <template v-else>            
+            <template v-else>   
+                <b-btn class="mb-3" variant="primary" :to="{name: 'addMeeting'}">Organiser une rencontre</b-btn>         
                 <p>Choisissez un étudiant</p>
-                <Students @studentClicked="goToAddMeeting"></Students>
+                <ol class="list-unstyled row mt-3">
+                    <li class="col-md-4 col-lg-3" v-for="student in students" :key="student.id">
+                        <b-card no-body show variant="secondary" class="mb-3">
+                            <div class="card-text d-flex justify-content-between align-items-center">
+                                <div @click.stop="goToAddMeeting(student.id)" class="p-3 card-clickable">
+                                    <span class="d-block">
+                                        {{student.name}}
+                                    </span>
+                                    <span class="small">
+                                        {{student.email}}
+                                    </span>
+                                </div>
+                            </div>
+                        </b-card>
+                    </li>
+                </ol>
             </template>
         </template>
   </b-card>
