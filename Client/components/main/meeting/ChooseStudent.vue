@@ -2,7 +2,7 @@
   <b-card>
       <h2>Organiser une rencontre avec un étudiant</h2>
       <p>Choisissez un étudiant</p>
-      <Students @studentClicked="goToAddMeeting"></Students>
+      <Students :editable="true" @studentClicked="goToAddMeeting"></Students>
   </b-card>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <b-card>
       <h2>Ajouter un étudiant</h2>
       <p>Informations sur l'étudiant</p>
       <div class="row">
         <StudentForm class="col-6" :nextStep="true" @studentCreated="nextStep"></StudentForm>
       </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
