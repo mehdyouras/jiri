@@ -17,8 +17,8 @@
             <li class="col-md-4 col-lg-3" v-for="project in projects" :key="project.id">
                 <b-card :id="project.id" no-body show variant="secondary" class="mb-3">
                     <div class="card-text d-flex align-items-stretch justify-content-between">
-                        <div class="p-3 d-flex align-items-center">
-                            <span class="">
+                        <div @click="openEditModal({id: project.id, name: project.name, description: project.description, weightId: project.weight.id, weight: project.weight.weight})" class="p-3 d-flex align-items-center card-clickable">
+                            <span>
                                 {{project.name}}
                             </span>
                         </div>
