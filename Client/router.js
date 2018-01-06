@@ -8,16 +8,13 @@ import IndexEvents from './components/main/event/IndexEvents.vue'
 import EditEvent from './components/main/event/EditEvent.vue'
 import IndexStudents from './components/main/student/IndexStudents.vue'
 import AddStudent from './components/main/student/AddStudent.vue'
-import EditStudent from './components/main/student/EditStudent.vue'
 import IndexUsers from './components/main/user/IndexUsers.vue'
 import AddUser from './components/main/user/AddUser.vue'
-import EditUser from './components/main/user/EditUser.vue'
 import IndexProjects from './components/main/project/IndexProjects.vue'
 import AddProject from './components/main/project/AddProject.vue'
 import ChooseStudentForMeeting from './components/main/meeting/ChooseStudent.vue'
 import IndexMeetings from './components/main/meeting/IndexMeetings.vue'
 import ChooseImplementationsForMeeting from './components/main/meeting/ChooseImplementations.vue'
-import AddImplementation from './components/main/implementation/AddImplementation.vue'
 import ChooseStudentForImplementation from './components/main/implementation/ChooseStudent.vue'
 
 import {store} from './store'
@@ -48,9 +45,6 @@ const routes = [
     {name: "indexMeetings", path: "/meetings", component: IndexMeetings, meta: {adminRoute: false}},
       {name: "addMeeting", path: "/meetings/new", component: ChooseStudentForMeeting, meta: {adminRoute: false}},
       {name: "addImplementationsToMeeting", path: "/meetings/:studentId", component: ChooseImplementationsForMeeting, meta: {adminRoute: false}},
-
-    {name: "addImplementation", path: "/implementations/", component: ChooseStudentForImplementation, meta: {adminRoute: true}},
-      {name: "addImplementationToStudent", path: "/implementations/:studentId", component: AddImplementation, meta: {adminRoute: true}},
 
     {name: "indexImplementations", path: "/implementations/", component: ChooseStudentForImplementation, meta: {adminRoute: true}},
 
