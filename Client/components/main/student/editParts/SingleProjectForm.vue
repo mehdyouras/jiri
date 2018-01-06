@@ -55,7 +55,6 @@ export default {
           this.implementationId = false;
         }
         this.$validator.validateAll('urlRepo', 'urlProject').then((result) => {
-          console.log(result)
           if (result) {
             let payload = {
               id: this.implementationId,

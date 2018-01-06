@@ -254,7 +254,7 @@ Bus.$on('updateScore', payload => {
 })
 
 Bus.$on('updateImplementation', payload => {
-    let {urlRepo, urlProject, id} = payload;
+    let {urlRepo, urlProject, studentId, id} = payload;
     apolloClient.mutate({
         mutation: query.UPDATE_IMPLEMENTATION,
             variables: {

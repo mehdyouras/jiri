@@ -23,7 +23,6 @@
                 <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
             </div>
       </template>
-      <!-- <b-button variant="primary" @click="saveEdit">Sauvegarder</b-button> -->
   </b-modal>
 </template>
 
