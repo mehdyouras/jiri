@@ -21,9 +21,12 @@
                                     <span class="d-block">
                                         {{student.name}}
                                     </span>
-                                    <span class="small">
+                                    <span class="small d-block">
                                         {{student.email}}
                                     </span>
+                                    <b-badge v-if="student.implementations.length - projectMarked(student.implementations) !== 0"  variant="success">{{projectMarked(student.implementations)}} cotés</b-badge>
+                                    <b-badge v-else variant="success">Tous cotés</b-badge>
+                                    <b-badge v-if="projectNotMarked(student.implementations)" variant="warning">{{projectNotMarked(student.implementations)}} non cotés</b-badge>
                                 </div>
                             </div>
                         </b-card>
@@ -75,6 +78,20 @@ export default {
     methods: {
         goToAddMeeting(id) {
             this.$router.push({name: 'addImplementationsToMeeting', params: {studentId: id}})
+        },
+        projectMarked(implementations) {
+            let projectMarked = _.filter(implementations, implementation => {
+                return implementation.score !== null;
+            })
+
+            return projectMarked.length
+        },
+        projectNotMarked(implementations) {
+            let projectNotMarked = _.filter(implementations, implementation => {
+                return implementation.score === null;
+            })
+
+            return projectNotMarked.length
         }
     }
 }
