@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <b-card>
       <h2>Ajouter un projet</h2>
-      <ProjectForm @projectCreated="finish"></ProjectForm>
-  </div>
+      <div class="row">
+        <ProjectForm class="col-lg-6" @projectCreated="finish"></ProjectForm>
+      </div>
+  </b-card>
 </template>
 
 <script>

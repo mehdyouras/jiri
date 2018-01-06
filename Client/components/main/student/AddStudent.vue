@@ -2,7 +2,9 @@
   <div>
       <h2>Ajouter un étudiant</h2>
       <p>Informations sur l'étudiant</p>
-      <StudentForm :nextStep="true" @studentCreated="nextStep"></StudentForm>
+      <div class="row">
+        <StudentForm class="col-6" :nextStep="true" @studentCreated="nextStep"></StudentForm>
+      </div>
   </div>
 </template>
 
