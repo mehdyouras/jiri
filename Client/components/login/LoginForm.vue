@@ -24,7 +24,7 @@
             >
               <b-form-input id="password" type="password" name="password" v-validate="'required'" v-model.trim="password" :class="{'is-invalid': this.errors.has('')}"></b-form-input>
             </b-form-group>
-            <b-button type="submit" variant="primary" @click.prevent="checkLogin">
+            <b-button class="col-12" type="submit" variant="primary" @click.prevent="checkLogin">
               <template v-if="!isLoggingIn">
                 Se connecter
               </template>
