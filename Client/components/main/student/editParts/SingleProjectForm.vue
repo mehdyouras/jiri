@@ -12,7 +12,7 @@
                 :invalid-feedback="this.errors.first('urlRepo')"
                 :state="!this.errors.has('urlRepo')"
               >
-                <b-form-input @input="save" :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlRepo" :state="!this.errors.has('urlRepo')"></b-form-input>
+                <b-form-input @input="save" :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlRepo" :class="{'is-invalid': this.errors.has('urlRepo')}"></b-form-input>
         </b-form-group>
       
         <b-form-group class="col-6"
@@ -21,7 +21,7 @@
                   :invalid-feedback="this.errors.first('urlProject')"
                   :state="!this.errors.has('urlProject')"
                 >
-                  <b-form-input @input="save" :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlProject" :state="!this.errors.has('urlProject')"></b-form-input>
+                  <b-form-input @input="save" :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlProject" :class="{'is-invalid': this.errors.has('urlProject')}"></b-form-input>
         </b-form-group>
       </div>
     </b-collapse>

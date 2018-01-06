@@ -14,7 +14,7 @@
               :invalid-feedback="this.errors.first('email')"
               :state="!this.errors.has('email')"
             >
-              <b-form-input id="email" name="email" type="email" v-validate="'required|email'" v-model.trim="email" :state="!this.errors.has('email')"></b-form-input>
+              <b-form-input id="email" name="email" type="email" v-validate="'required|email'" v-model.trim="email" :class="{'is-invalid': this.errors.has('')}"></b-form-input>
             </b-form-group>
             <b-form-group
               label="Mot de passe"
@@ -22,7 +22,7 @@
               :invalid-feedback="this.errors.first('password')"
               :state="!this.errors.has('password')"
             >
-              <b-form-input id="password" type="password" name="password" v-validate="'required'" v-model.trim="password" :state="!this.errors.has('password')"></b-form-input>
+              <b-form-input id="password" type="password" name="password" v-validate="'required'" v-model.trim="password" :class="{'is-invalid': this.errors.has('')}"></b-form-input>
             </b-form-group>
             <b-button type="submit" variant="primary" @click.prevent="checkLogin">
               <template v-if="!isLoggingIn">

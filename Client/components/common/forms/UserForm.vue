@@ -10,7 +10,7 @@
               :invalid-feedback="this.errors.first('user-name')"
               :state="!this.errors.has('user-name')"
             >
-              <b-form-input id="user-name" name="user-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :state="!this.errors.has('user-name')"></b-form-input>
+              <b-form-input id="user-name" name="user-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :class="{'is-invalid': this.errors.has('user-name')}"></b-form-input>
     </b-form-group>
 
     <b-form-group
@@ -19,7 +19,7 @@
               :invalid-feedback="this.errors.first('user-company')"
               :state="!this.errors.has('user-company')"
             >
-              <b-form-input id="user-company" name="user-company" type="text" v-validate="'required'" v-model.trim="company" :state="!this.errors.has('user-company')"></b-form-input>
+              <b-form-input id="user-company" name="user-company" type="text" v-validate="'required'" v-model.trim="company" :class="{'is-invalid': this.errors.has('user-company')}"></b-form-input>
     </b-form-group>
 
     <b-form-group
@@ -28,7 +28,7 @@
               :invalid-feedback="this.errors.first('user-email')"
               :state="!this.errors.has('user-email')"
             >
-              <b-form-input id="user-email" name="user-email" type="text" v-validate="'required'" v-model.trim="email" :state="!this.errors.has('user-email')"></b-form-input>
+              <b-form-input id="user-email" name="user-email" type="text" v-validate="'required'" v-model.trim="email" :class="{'is-invalid': this.errors.has('user-email')}"></b-form-input>
     </b-form-group>
 
 
@@ -39,7 +39,7 @@
             :state="!this.errors.has('user-password')"
             >
             <div class="d-flex">
-                <b-form-input class="mr-3" id="user-password" name="user-password" type="password" v-validate="'required'" v-model.trim="password" :state="!this.errors.has('user-password')"></b-form-input>
+                <b-form-input class="mr-3" id="user-password" name="user-password" type="password" v-validate="'required'" v-model.trim="password" :class="{'is-invalid': this.errors.has('user-password')}"></b-form-input>
                 <b-btn variant='secondary' @click="randomizePassword" >Aléatoire</b-btn>
             </div>
     </b-form-group>

@@ -7,7 +7,7 @@
               :invalid-feedback="this.errors.first('project-name')"
               :state="!this.errors.has('project-name')"
             >
-              <b-form-input id="project-name" name="project-name" type="text" v-validate="'required'" v-model.trim="name" :state="!this.errors.has('project-name')"></b-form-input>
+              <b-form-input id="project-name" name="project-name" type="text" v-validate="'required'" v-model.trim="name" :class="{'is-invalid': this.errors.has('project-name')}"></b-form-input>
     </b-form-group>
     
     <b-form-group
@@ -16,7 +16,7 @@
               :invalid-feedback="this.errors.first('description')"
               :state="!this.errors.has('description')"
             >
-              <b-form-input id="description" name="description" type="text" v-validate="'required'" v-model.trim="description" :state="!this.errors.has('description')"></b-form-input>
+              <b-form-input id="description" name="description" type="text" v-validate="'required'" v-model.trim="description" :class="{'is-invalid': this.errors.has('description')}"></b-form-input>
     </b-form-group>
 
     <b-form-group
@@ -25,7 +25,7 @@
               :invalid-feedback="this.errors.first('project-weight')"
               :state="!this.errors.has('project-weight')"
             >
-              <b-form-input id="project-weight" name="project-weight" type="number" v-validate="'required|decimal:2'" v-model.trim="weight" :state="!this.errors.has('project-weight')"></b-form-input>
+              <b-form-input id="project-weight" name="project-weight" type="number" v-validate="'required|decimal:2'" v-model.trim="weight" :class="{'is-invalid': this.errors.has('project-weight')}"></b-form-input>
     </b-form-group>
 
     <b-button variant="primary" @click.prevent="createProject">Ajouter</b-button>

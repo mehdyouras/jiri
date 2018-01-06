@@ -3,7 +3,7 @@
       <div slot="modal-header">
         <h2 v-if="!isEditingName" @dblclick="editName">{{student.name}}</h2>
         <div class="d-flex" v-else @keyup.enter="saveName">
-            <b-form-input class="col mr-3"  id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :state="!this.errors.has('name')"></b-form-input>
+            <b-form-input class="col mr-3"  id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :class="{'is-invalid': this.errors.has('name')}"></b-form-input>
             <b-btn class="" @click="saveName" variant="primary">Sauvegarder</b-btn>
         </div>
       </div>

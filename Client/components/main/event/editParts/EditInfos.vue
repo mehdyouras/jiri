@@ -6,7 +6,7 @@
       :invalid-feedback="this.errors.first('course')"
       :state="!this.errors.has('course')"
     >
-      <b-form-input id="course" name="course" type="text" v-validate="'required'" v-model.trim="course" :state="!this.errors.has('course')"></b-form-input>
+      <b-form-input id="course" name="course" type="text" v-validate="'required'" v-model.trim="course" :class="{'is-invalid': this.errors.has('course')}"></b-form-input>
     </b-form-group>
 
       <b-form-group label="Année académique"

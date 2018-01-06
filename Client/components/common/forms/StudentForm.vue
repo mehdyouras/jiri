@@ -6,7 +6,7 @@
               :invalid-feedback="this.errors.first('student-email')"
               :state="!this.errors.has('student-email')"
             >
-              <b-form-input id="student-email" name="student-email" type="email" v-validate="'required|email'" v-model.trim="email" :state="!this.errors.has('student-email')"></b-form-input>
+              <b-form-input id="student-email" name="student-email" type="email" v-validate="'required|email'" v-model.trim="email" :class="{'is-invalid': this.errors.has('student-email')}"></b-form-input>
     </b-form-group>
     <b-form-group
               label="Nom"
@@ -14,7 +14,7 @@
               :invalid-feedback="this.errors.first('student-name')"
               :state="!this.errors.has('student-name')"
             >
-              <b-form-input id="student-name" name="student-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :state="!this.errors.has('student-name')"></b-form-input>
+              <b-form-input id="student-name" name="student-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :class="{'is-invalid': this.errors.has('student-name')}"></b-form-input>
     </b-form-group>
     <b-button variant="primary" @click.prevent="createStudent">Ajouter</b-button>
   </div>

@@ -36,7 +36,7 @@
                                 :invalid-feedback="this.errors.first('comment')"
                                 :state="!this.errors.has('comment')"
                                 >
-                                <b-form-textarea :rows="5" :max-rows="6" id="comment" name="comment" v-validate="'required'" v-model="comment" :state="!this.errors.has('comment')"></b-form-textarea>
+                                <b-form-textarea :rows="5" :max-rows="6" id="comment" name="comment" v-validate="'required'" v-model="comment" :class="{'is-invalid': this.errors.has('comment')}"></b-form-textarea>
                         </b-form-group>
 
                         <b-form-group
@@ -46,7 +46,7 @@
                                 :state="!this.errors.has('score')"
                                 >
                                 <b-input-group right="/20">
-                                    <b-form-input :rows="5" :max-rows="6" type="number" id="score" name="score" v-validate="'required|decimal:2'" v-model.number="score" :state="!this.errors.has('score')"></b-form-input>
+                                    <b-form-input :rows="5" :max-rows="6" type="number" id="score" name="score" v-validate="'required|decimal:2'" v-model.number="score" :class="{'is-invalid': this.errors.has('score')}"></b-form-input>
                                 </b-input-group>
                         </b-form-group>
 
