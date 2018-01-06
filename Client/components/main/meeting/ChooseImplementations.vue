@@ -35,20 +35,20 @@
                          <b-form-group
                                 label="Commentaire"
                                 label-for="comment"
-                                :invalid-feedback="this.errors.first('comment')"
-                                :state="!this.errors.has('comment')"
+                                :invalid-feedback="errors.first('comment')"
+                                :state="!errors.has('comment')"
                                 >
-                                <b-form-textarea :rows="5" :max-rows="6" id="comment" name="comment" v-validate="'required'" v-model="comment" :class="{'is-invalid': this.errors.has('comment')}"></b-form-textarea>
+                                <b-form-textarea :rows="5" :max-rows="6" id="comment" name="comment" v-validate="'required'" v-model="comment" :class="{'is-invalid': errors.has('comment')}"></b-form-textarea>
                         </b-form-group>
 
                         <b-form-group
                                 label="Note"
                                 label-for="score"
-                                :invalid-feedback="this.errors.first('score')"
-                                :state="!this.errors.has('score')"
+                                :invalid-feedback="errors.first('score')"
+                                :state="!errors.has('score')"
                                 >
                                 <b-input-group right="/20">
-                                    <b-form-input :rows="5" :max-rows="6" type="number" id="score" name="score" v-validate="'required|decimal:2'" v-model.number="score" :class="{'is-invalid': this.errors.has('score')}"></b-form-input>
+                                    <b-form-input :rows="5" :max-rows="6" type="number" id="score" name="score" v-validate="'required|decimal:2'" v-model.number="score" :class="{'is-invalid': errors.has('score')}"></b-form-input>
                                 </b-input-group>
                         </b-form-group>
 
@@ -72,11 +72,11 @@
                         <template v-else>
                             <label for="comment">Commentaire</label>
                             <textarea v-validate="'required'" v-model="comment" name="edit-comment" id="edit-comment" cols="30" rows="10"></textarea>
-                            <span v-show="this.errors.has('edit-comment')">{{this.errors.first('edit-comment')}}</span>
+                            <span v-show="errors.has('edit-comment')">{{errors.first('edit-comment')}}</span>
 
                             <label for="score">Note</label>
                             <input v-validate="'required|decimal:2'" v-model.number="score" type="number" name="edit-score" id="edit-score">
-                            <span v-show="this.errors.has('edit-score')">{{this.errors.first('edit-score')}}</span>
+                            <span v-show="errors.has('edit-score')">{{errors.first('edit-score')}}</span>
 
                             <button @click="editScore(implementation.score.id)">Noter</button>
                         </template>
