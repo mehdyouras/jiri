@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         goToEditStudent(id) {
-            this.$router.push({name: 'editStudent', params: {studentId: id}})
+            this.$children[0].editStudent(id)
         }
     }
 }
