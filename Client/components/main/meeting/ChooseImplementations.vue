@@ -5,8 +5,10 @@
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
             <template v-if="!student.implementations[0]">
-                <p>Cet étudiant ne possède aucune implémentation.</p>
-                <router-link v-if="isAdmin" :to="{name: 'addImplementationToStudent', params: {studentId: student.id}}">Lui ajouter des implémentations</router-link>
+                <b-alert show variant="warning">
+                    <p>Cet étudiant ne possède aucune implémentation.</p>
+                    <b-btn variant="primary" v-if="isAdmin" @click="editStudent(student.id)">Lui ajouter des implémentations</b-btn>
+                </b-alert>
             </template>
             <ol class="list-unstyled row mt-3">
                 <li class="col-md-4 col-lg-3" v-for="implementation in implementationNotAdded" :key="implementation.id">
@@ -82,6 +84,7 @@
                 </li>
             </ol>
         </template>
+        <edit-student v-if="editModal.show" @hidden="editModal.show = false" :visible="editModal.show" :studentId="student.id"></edit-student>
   </b-card>
 </template>
 
@@ -91,6 +94,7 @@ import {Bus} from '../../../Bus'
 import Spinner from '../../common/Spinner'
 import _ from 'lodash'
 import {mapGetters} from 'vuex'
+import EditStudent from '../student/EditStudent'
 
 export default {
     name: 'ChooseImplementationsForMeeting',
@@ -103,10 +107,15 @@ export default {
             implementationAdding: {},
             comment: '',
             score: '',
+            editModal: {
+                show: false,
+            },
+            studentIdToEdit: "",
         }
     },
     components: {
-        Spinner
+        Spinner,
+        EditStudent
     },
     computed: {
         ...mapGetters([
@@ -131,6 +140,10 @@ export default {
         }
     },
     methods: {
+        editStudent(id) {
+            this.studentIdToEdit = id;
+            this.editModal.show = true;
+        },
         showScoreForm(implementation) {
             this.isAdding = true;
             this.implementationAdding = implementation;
