@@ -9,13 +9,12 @@
           <div class="">
             <b-form-group class="col-6 pl-0" label="Modifier son événement"
                         label-for="event">
-                <b-form-select label="Modifier son événement" v-model='eventId' name="event" id="event">
+                <b-form-select @input="switchEvent" label="Modifier son événement" v-model='eventId' name="event" id="event">
                     <option value="" disabled>Choisissez</option>
                     <option v-for="event in events" :key="event.id" :value="event.id">{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</option>
                 </b-form-select>
             </b-form-group>
           </div>
-            
             <b-alert show variant="danger" v-if="!projects[0]">Cet événement n'a aucun projet.</b-alert>
             <div v-else v-for="project in projects" :key="project.project.id">
                 <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
@@ -91,7 +90,9 @@ export default {
                     this.eventId = data.Student.event.id
                 }
                 this.name = data.Student.name
-                this.projects = data.Student.event.weights;
+                if(data.Student.event) {
+                    this.projects = data.Student.event.weights;
+                }
                 return data.Student
             },
             loadingKey: 'isLoading'
