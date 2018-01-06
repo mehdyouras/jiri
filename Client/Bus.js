@@ -379,3 +379,22 @@ Bus.$on('updateStudentName', payload => {
         ]
     });
 })
+
+Bus.$on('updateProject', payload => {
+    let {id, weightId, weight, name, description} = payload;
+    apolloClient.mutate({
+        mutation: query.UPDATE_PROJECT,
+            variables: {
+                id,
+                weightId,
+                weight,
+                name,
+                description
+        },
+        refetchQueries: [
+            {
+                query: query.ALL_PROJECTS,
+            }
+        ]
+    });
+})

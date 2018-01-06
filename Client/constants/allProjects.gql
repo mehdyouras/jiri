@@ -5,6 +5,10 @@ export const ALL_PROJECTS = gql`query allProjects{
         id,
         name,
         description,
+        weight {
+            id
+            weight
+        }
         implementations {
             id
             urlRepo
