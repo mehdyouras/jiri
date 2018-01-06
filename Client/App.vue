@@ -2,7 +2,13 @@
 <div id="app">
   <template v-if="isAppLoaded">
     <Bar v-if="route !== 'login'"></Bar>
-    <router-view class="container"></router-view>
+    <div class="container text-truncate">
+      <transition 
+          enter-active-class="fadeInRight"
+          >
+        <router-view></router-view>
+      </transition>
+    </div>
     <app-footer></app-footer>
   </template>
   <Spinner v-if="!isAppLoaded"></Spinner>
