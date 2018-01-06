@@ -5,8 +5,8 @@
     </b-form-checkbox>
     
     <b-collapse :id="project.id" v-model="isChecked">
-      <b-row>
-        <b-form-group class="col-3"
+      <div class="d-flex">
+        <b-form-group class="col-6"
                 label="URL repo Github"
                 label-for="urlRepo"
                 :invalid-feedback="this.errors.first('urlRepo')"
@@ -15,7 +15,7 @@
                 <b-form-input @input="save" :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlRepo" :state="!this.errors.has('urlRepo')"></b-form-input>
         </b-form-group>
       
-        <b-form-group class="col-3"
+        <b-form-group class="col-6"
                   label="URL du projet"
                   label-for="urlProject"
                   :invalid-feedback="this.errors.first('urlProject')"
@@ -23,7 +23,7 @@
                 >
                   <b-form-input @input="save" :name="project.id + 'a'" :id="project.id + 'a'" type="text" v-validate="'url'" v-model.trim="urlProject" :state="!this.errors.has('urlProject')"></b-form-input>
         </b-form-group>
-      </b-row>
+      </div>
     </b-collapse>
 
   </div>
@@ -54,11 +54,12 @@ export default {
         } else {
           this.implementationId = false;
         }
-        this.$validator.validateAll().then((result) => {
+        this.$validator.validateAll('urlRepo', 'urlProject').then((result) => {
+          console.log(result)
           if (result) {
             let payload = {
               id: this.implementationId,
-              studentId: this.$route.params.studentId,
+              studentId: this.student.id,
               projectId: this.project.id,
               urlRepo: this.urlRepo,
               urlProject: this.urlProject,

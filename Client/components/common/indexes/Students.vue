@@ -37,6 +37,7 @@
       <b-modal @ok="deleteItem()" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'étudiant <strong>{{modal.name}}</strong> ?
       </b-modal>
+      <edit-student v-if="editModal.show" @hidden="editModal.show = false" :visible="editModal.show" :studentId="studentIdToEdit"></edit-student>
   </div>
 </template>
 
@@ -46,12 +47,14 @@ import Spinner from '../../common/Spinner'
 import {mapGetters} from 'vuex'
 import StudentForm from '../../common/forms/StudentForm'
 import {Bus} from '../../../Bus'
+import EditStudent from '../../main/student/EditStudent'
 
 export default {
     name: 'IndexStudents',
     components: {
         Spinner,
-        StudentForm
+        StudentForm,
+        EditStudent
     },
     data() {
         return {
@@ -61,7 +64,11 @@ export default {
                 id: "",
                 name: "",
                 type: "",
-            }
+            },
+            editModal: {
+                show: false,
+            },
+            studentIdToEdit: "",
         }
     },
     props: [
@@ -86,7 +93,9 @@ export default {
             this.$emit('studentClicked', id)
         },
         editStudent(id) {
-            this.$router.push({name: 'editStudent', params: {studentId: id}})
+            this.studentIdToEdit = id;
+            this.editModal.show = true;
+            // this.$router.push({name: 'editStudent', params: {studentId: id}})
         },
         openModal(payload) {
             this.modal = payload;

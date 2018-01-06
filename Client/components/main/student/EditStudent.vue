@@ -1,13 +1,16 @@
 <template>
-  <b-card>
-      <h2 class="mb-3" v-if="!isEditingName" @dblclick="editName">{{student.name}}</h2>
-      <b-row v-else @keyup.enter="saveName">
-        <b-form-input class="col-2 large mb-3" size="lg" id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :state="!this.errors.has('name')"></b-form-input>
-      </b-row>
+  <b-modal @hidden="hidden" :visible="visible" @ok="editStudent()" ref="edit" ok-title="Sauvegarder" ok-variant="primary" cancel-title="Annuler">
+      <div slot="modal-header">
+        <h2 v-if="!isEditingName" @dblclick="editName">{{student.name}}</h2>
+        <div class="d-flex" v-else @keyup.enter="saveName">
+            <b-form-input class="col mr-3"  id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :state="!this.errors.has('name')"></b-form-input>
+            <b-btn class="" @click="saveName" variant="primary">Sauvegarder</b-btn>
+        </div>
+      </div>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
           <div class="">
-            <b-form-group class="col-6 pl-0" label="Modifier son événement"
+            <b-form-group class="pl-0" label="Modifier son événement"
                         label-for="event">
                 <b-form-select @input="switchEvent" label="Modifier son événement" v-model='eventId' name="event" id="event">
                     <option value="" disabled>Choisissez</option>
@@ -20,8 +23,8 @@
                 <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
             </div>
       </template>
-      <b-button variant="primary" @click="saveEdit">Sauvegarder</b-button>
-  </b-card>
+      <!-- <b-button variant="primary" @click="saveEdit">Sauvegarder</b-button> -->
+  </b-modal>
 </template>
 
 <script>
@@ -37,6 +40,10 @@ export default {
         SingleProjectForm,
         Spinner
     },
+    props: [
+        'studentId',
+        'visible'
+    ],
     data() {
         return {
             projects: {},
@@ -55,7 +62,11 @@ export default {
         ])
     },
     methods: {
-        saveEdit() {
+        hidden() {
+            this.$emit('hidden')
+            this.edit = {};
+        },
+        editStudent() {
             // Determines if implementation need update or create
             this.currentAddedImplementations.forEach(implementation => {
                 if(implementation.id) {
@@ -67,22 +78,25 @@ export default {
             this.$router.push({name: 'indexStudents'})
         },
         switchEvent() {
-            Bus.$emit('addStudentToEvent', {eventId: this.eventId, studentId: this.$route.params.studentId})
+            Bus.$emit('addStudentToEvent', {eventId: this.eventId, studentId: this.studentId})
         },
         editName() {
             this.isEditingName = true;
         },
         saveName() {
-            Bus.$emit('updateStudentName', {studentId: this.$route.params.studentId, name: this.name})
+            Bus.$emit('updateStudentName', {studentId: this.studentId, name: this.name})
             this.isEditingName = false;
         }
+    },
+    created() {
+        this.edit = this.student;
     },
     apollo: {
         student: {
             query: STUDENT,
             variables() {
                 return {
-                    id: this.$route.params.studentId
+                    id: this.studentId
                 }
             },
             update(data) {
