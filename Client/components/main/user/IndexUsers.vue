@@ -4,7 +4,7 @@
       <p>Séléctionez un utilisateur pour le modifier.</p>
       <Spinner v-if="isLoading"></Spinner>
       <template v-else>
-        <b-button v-b-toggle.addForm variant="primary" class="mb-3">Ajouter un étudiant</b-button>
+        <b-button v-b-toggle.addForm variant="primary" class="mb-3">Ajouter un utilisateur</b-button>
         <b-collapse id="addForm" class="">
             <b-card class="col-md-5">
                 <user-form></user-form>
@@ -17,7 +17,7 @@
             <li class="col-md-4 col-lg-3" v-for="user in users" :key="user.id">
                 <b-card no-body show variant="secondary" class="mb-3">
                     <div class="card-text d-flex justify-content-between align-items-center">
-                        <div @click="editUser(user.id)" class="p-3 card-clickable">
+                        <div @click="editUser(user)" class="p-3 card-clickable">
                             <span class="d-block">
                                 {{user.name}}
                             </span>
