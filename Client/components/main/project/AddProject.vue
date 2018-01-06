@@ -1,6 +1,6 @@
 <template>
   <b-card>
-      <h2>Ajouter un projet</h2>
+      <h2 class="mb-3">Ajouter un projet</h2>
       <div class="row">
         <ProjectForm class="col-lg-6" @projectCreated="finish"></ProjectForm>
       </div>
