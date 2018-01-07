@@ -16,20 +16,36 @@
             >
               <b-form-input id="student-name" name="student-name" type="text" v-validate="'required|alpha_spaces'" v-model.trim="name" :class="{'is-invalid': this.errors.has('student-name')}"></b-form-input>
     </b-form-group>
-    <b-button variant="primary" @click.prevent="createStudent">Ajouter</b-button>
+
+    <b-btn variant="primary" @click.prevent="createStudent">
+        <template v-if="!isMutationLoading">
+            Ajouter
+        </template>
+        <spinner v-else></spinner>
+    </b-btn>
   </div>
 </template>
 
 <script>
 import {Bus} from '../../../Bus'
+import Spinner from '../../common/Spinner'
+import {mapGetters} from 'vuex'
 
 export default {
     name:'StudentForm',
+    components: {
+        Spinner
+  },
     data() {
       return {
         email: '',
         name: '',
       }
+    },
+    computed: {
+    ...mapGetters([
+          'isMutationLoading'
+      ])
     },
     props: [
       'nextStep'

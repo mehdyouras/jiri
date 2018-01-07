@@ -28,21 +28,36 @@
               <b-form-input id="project-weight" name="project-weight" type="number" v-validate="'required|decimal:2'" v-model.trim="weight" :class="{'is-invalid': this.errors.has('project-weight')}"></b-form-input>
     </b-form-group>
 
-    <b-button variant="primary" @click.prevent="createProject">Ajouter</b-button>
+    <b-btn variant="primary" @click.prevent="createProject">
+        <template v-if="!isMutationLoading">
+            Ajouter
+        </template>
+        <spinner v-else></spinner>
+    </b-btn>
   </div>
 </template>
 
 <script>
 import {Bus} from '../../../Bus'
+import Spinner from '../../common/Spinner'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'ProjectForm',
+  components: {
+        Spinner
+  },
   data() {
     return {
       name: "",
       description: "",
       weight: "",
     }
+  },
+  computed: {
+    ...mapGetters([
+        'isMutationLoading'
+    ])
   },
   methods: {
     createProject() {

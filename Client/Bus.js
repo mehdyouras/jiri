@@ -99,7 +99,7 @@ Bus.$on('removeItem', payload => {
 
 Bus.$on('createProject', payload => {
     let {name, description, weight} = payload;
-
+    store.commit('isLoading')
     apolloClient.mutate({
         mutation: query.CREATE_PROJECT,
             variables: {
@@ -107,17 +107,22 @@ Bus.$on('createProject', payload => {
             description,
             weight
         },
+        update() {
+            store.commit('isNotLoading')
+        },
         refetchQueries: [
             {
                 query: query.ALL_PROJECTS,
             }
         ]
+    }).catch(error => {
+        store.commit('isNotLoading')
     });
 })
 
 Bus.$on('createStudent', payload => {
     let {email, name, nextStep} = payload;
-
+    store.commit('isLoading')
     apolloClient.mutate({
         mutation: query.CREATE_STUDENT,
             variables: {
@@ -129,12 +134,15 @@ Bus.$on('createStudent', payload => {
             if(nextStep) {
                 router.push({name: 'editStudent', params: {studentId: createStudent.id}})
             }
+            store.commit('isNotLoading')
         },
         refetchQueries: [
             {
                 query: query.ALL_STUDENTS,
             }
         ]
+    }).catch(error => {
+        store.commit('isNotLoading')
     });
 })
 
