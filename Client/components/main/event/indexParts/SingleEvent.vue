@@ -1,5 +1,5 @@
 <template>
-  <b-card>
+  <b-card class="mb-3">
       <div class="d-flex mb-3">
         <b-dropdown variant="secondary">
             <b-dropdown-item @click="goToEditEvent">Modifier</b-dropdown-item>

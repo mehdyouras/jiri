@@ -7,8 +7,8 @@
         <template v-else>
             <template v-if="!student.implementations[0]">
                 <b-alert show variant="warning">
-                    <p>Cet étudiant ne possède aucune implémentation.</p>
-                    <b-btn variant="primary" v-if="isAdmin" @click="editStudent(student.id)">Lui ajouter des implémentations</b-btn>
+                    <p class="mb-0">Cet étudiant ne possède aucune implémentation.</p>
+                    <b-btn class="mt-3" variant="primary" v-if="isAdmin" @click="editStudent(student.id)">Lui ajouter des implémentations</b-btn>
                 </b-alert>
             </template>
             <ol class="list-unstyled row mt-3">
