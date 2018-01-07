@@ -10,7 +10,7 @@ export const ALL_STUDENTS = gql`query allStudents{
         },
         implementations {
             id
-            score {
+            scores {
                 id
                 user {
                     id

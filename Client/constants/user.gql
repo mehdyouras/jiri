@@ -15,12 +15,14 @@ export const USER = gql`query User($id: ID!) {
                 id
                 name
                 email
+                softDelete
             },
             jurys{
                 id
                 name
                 email
                 company
+                softDelete
             },
             examSession,
             weights {
@@ -30,6 +32,7 @@ export const USER = gql`query User($id: ID!) {
                     id
                     name
                 }
+                softDelete
             }
             softDelete
         }
@@ -39,6 +42,7 @@ export const USER = gql`query User($id: ID!) {
             comment
             student {
                 id
+                softDelete
             }
             implementation {
                 id 
@@ -47,6 +51,7 @@ export const USER = gql`query User($id: ID!) {
                     name
                 }
             }
+            softDelete
         }
     }
 }

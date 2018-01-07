@@ -18,7 +18,7 @@ type Implementation @model {
   student: Student! @relation(name: "StudentOnImplementation")
   urlProject: String
   urlRepo: String
-  score: Score @relation(name: "ImplementationOnScore")
+  scores: [Score!]! @relation(name: "ImplementationOnScore")
   softDelete: Boolean @defaultValue(value:  false)
 }
 

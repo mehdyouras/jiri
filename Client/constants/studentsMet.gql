@@ -7,7 +7,7 @@ export const STUDENTS_MET = gql`query StudentsMet($id: ID!) {
         name,
         implementations {
             id
-            score {
+            scores {
                 id
                 score
                 comment

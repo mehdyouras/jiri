@@ -1,12 +1,10 @@
 import gql from 'graphql-tag'
 
 export const CREATE_SCORE = gql`mutation createScore($implementationId: ID!, $studentId: ID!, $userId: ID!, $comment: String!, $score: Float!) {
-                        updateImplementation(id: $implementationId, score: {userId: $userId, studentId: $studentId, comment: $comment, score: $score}) {
-                            score {
-                                id
-                                score
-                                comment
-                            }
+                        createScore(userId: $userId, studentId: $studentId, implementationId: $implementationId, comment: $comment, score: $score) {
+                            id
+                            score
+                            comment
                         }
                     }
                   `;
