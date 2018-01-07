@@ -12,11 +12,18 @@
                 <tbody>
                     <tr v-for="user in users" :key="user.id">
                         <th scope="row">{{user.name}}</th>
-                        <td class="text-center" v-for="score in userScores(user.id, user.name)" :key="score.id">{{score.score}}</td>
+                        <td class="text-center" v-for="score in userScores(user.id)" :key="score.id">{{score.score}}</td>
+                    </tr>
+                    <tr class="table-info">
+                        <th scope="row">évaluations gloables</th>
+                        <td class="text-center" v-for="implementation in student.implementations" :key="implementation.id" scope="row">
+                            <strong>{{implementationGlobalScore(implementation)}}</strong>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <b-badge></b-badge>
+            <b-badge>Moyenne calculée : {{studentGlobalScore()}}</b-badge>
+            <!-- <b-badge>Moyenne finale : {{studentFinalScore}}</b-badge> -->
         </b-card>
     </div>
 </template>
@@ -41,10 +48,13 @@ export default {
                 })
             });
             return _.unionBy(users, user => user.id)
-        }
+        },
+        calculatedScore() {
+
+        },
     },
     methods: {
-        userScores(userId, name) {
+        userScores(userId) {
             let userScores = [];
             this.student.implementations.forEach(implementation => {
                 userScores.push(_.filter(implementation.scores, score => {
@@ -60,6 +70,33 @@ export default {
                 }
             })
             return _.flatten(userScores);
+        },
+        implementationGlobalScore(implementation) {
+            if(implementation.scores[0]) {
+                let globalScore = implementation.scores[0].score;
+                let denominator = 1;
+                for (let index = 1; index < implementation.scores.length; index++) {
+                    if(implementation.scores[index].score) {
+                        globalScore = globalScore+implementation.scores[index].score;
+                        denominator++
+                    }
+                }
+                return globalScore/denominator
+            }
+        },
+        studentGlobalScore() {
+            let allGlobalScores = [];
+            this.student.implementations.forEach(implementation => {
+                allGlobalScores.push(this.implementationGlobalScore(implementation)*implementation.project.weight.weight)
+            })
+            
+            allGlobalScores = _.compact(allGlobalScores)
+
+            if(!allGlobalScores[0]) {
+                return "Aucun résultat"
+            }
+
+            return allGlobalScores.reduce(function(a,b){return a+b;});
         }
     },
 }
