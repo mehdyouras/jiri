@@ -1,6 +1,6 @@
 <template>
   <b-card>
-        <h2 class="mb-3">Les étudiants que vous avez déjà rencontré</h2>
+        <h2 class="mb-3">Les étudiants que vous avez déjà rencontrés</h2>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
             
