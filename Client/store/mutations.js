@@ -64,12 +64,12 @@ export const mutations = {
 
     ///////////
 
-    isLoggingIn(state) {
-        state.isLoggingIn = true;
+    isLoading(state) {
+        state.isMutationLoading = true;
     },
 
-    isNotLoggingIn(state) {
-        state.isLoggingIn = false;
+    isNotLoading(state) {
+        state.isMutationLoading = false;
     },
 
     appIsLoaded(state) {

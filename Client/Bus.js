@@ -12,7 +12,7 @@ import {encrypt} from './crypto'
 export const Bus = new Vue();
 
 Bus.$on('authenticateUser', payload => {
-    store.commit('isLoggingIn')
+    store.commit('isLoading')
     let {email, password} = payload;
     apolloClient.mutate({
         mutation: query.AUTHENTICATE_USER,
@@ -23,11 +23,11 @@ Bus.$on('authenticateUser', payload => {
         update: (cache, {data: {authenticateUser}}) => {
             localStorage.setItem('userToken', authenticateUser.token);
             router.push({name:'dashboard'});
-            store.commit('isNotLoggingIn')
+            store.commit('isNotLoading')
         },
     }).catch(e => {
         Bus.$emit('authenticateUserError', "L'adresse email ou le mot de passe est incorrect.")
-        store.commit('isNotLoggingIn')
+        store.commit('isNotLoading')
     });
 })
 

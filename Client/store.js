@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
             students: [],
         },
         currentAddedImplementations: [],
-        isLoggingIn: false,
+        isMutationLoading: false,
     },
     getters,
     mutations,
