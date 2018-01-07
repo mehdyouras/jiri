@@ -9,7 +9,7 @@
         <b-button class="mb-3" variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
         <single-event @deleteModal="openModal" v-for="event in events" :key="event.id" :event="event"></single-event>
       </template>
-      <b-modal @ok="removeEvent(modal.id)" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
+      <b-modal @ok="deleteItem" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'événement <strong>{{modal.name}}</strong> ?
       </b-modal>
   </b-card>
@@ -67,7 +67,7 @@ export default {
       this.$refs.delete.show()
     },
     deleteItem() {
-      Bus.$emit('deleteItem', this.modal);
+      Bus.$emit('removeItem', this.modal);
       this.modal.id = "";
       this.modal.name = "";
       this.modal.type = "";
