@@ -35,7 +35,7 @@ export default {
     name:'StudentForm',
     components: {
         Spinner
-  },
+    },
     data() {
       return {
         email: '',

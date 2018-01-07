@@ -176,7 +176,7 @@ Bus.$on('createUser', payload => {
 Bus.$on('createEvent', payload => {
     let {year, course, session, students, weights, users} = payload,
         currentUserId = store.getters.currentUserId;
-
+    store.commit('isLoading')
     apolloClient.mutate({
         mutation: query.CREATE_EVENT,
             variables: {
@@ -192,7 +192,10 @@ Bus.$on('createEvent', payload => {
             const data = cache.readQuery({ query: query.USER, variables: {id: currentUserId} })
             data.User.events.push(createEvent)
             cache.writeQuery({ query: query.USER, data })
+            store.commit('isNotLoading')
         },
+    }).catch(error => {
+        store.commit('isNotLoading')
     });
 })
 
