@@ -344,7 +344,7 @@ Bus.$on('updateUser', payload => {
 Bus.$on('updateEvent', payload => {
     let {year, course, session, students, weights, users, eventId} = payload,
         currentUserId = store.getters.currentUserId;
-
+        store.commit('isLoading')
     apolloClient.mutate({
         mutation: query.UPDATE_EVENT,
             variables: {
@@ -357,6 +357,9 @@ Bus.$on('updateEvent', payload => {
                 students,
                 weights,
         },
+        update() {
+            store.commit('isNotLoading')
+        },
         refetchQueries: [
             {
                 query: query.EVENT,
@@ -365,6 +368,8 @@ Bus.$on('updateEvent', payload => {
                 },
             }
         ]
+    }).catch(error => {
+        store.commit('isNotLoading')
     });
 })
 
