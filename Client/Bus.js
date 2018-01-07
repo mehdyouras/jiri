@@ -150,12 +150,17 @@ Bus.$on('createUser', payload => {
                 company,
                 isAdmin
         },
+        update() {
+            Bus.$emit('userCreated')
+        },
         refetchQueries: [
             {
                 query: query.ALL_USERS,
             }
         ]
-    });
+    }).catch(e => {
+        Bus.$emit('createUserError', "L'adresse email est déjà utilisée.")
+    });;
 })
 
 Bus.$on('createEvent', payload => {

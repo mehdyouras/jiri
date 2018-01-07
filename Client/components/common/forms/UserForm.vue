@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-alert :show="mutationError !== ''" variant="danger">
+        {{mutationError}}
+    </b-alert>
     <b-form-checkbox v-model="isAdmin">
         Administrateur
     </b-form-checkbox>
@@ -63,6 +66,7 @@ export default {
             name: "",
             company: "",
             isAdmin: false,
+            mutationError: "",
         }
     },
     methods: {
@@ -72,12 +76,11 @@ export default {
                     let {email, password, name, company, isAdmin} = this;
         
                     Bus.$emit('createUser', {email, password, name, company, isAdmin});
-                    this.$emit('userCreated');
-                    this.email = "";
-                    this.password = "";
-                    this.name = "";
-                    this.company = "";
-                    this.isAdmin = false;
+                    // this.email = "";
+                    // this.password = "";
+                    // this.name = "";
+                    // this.company = "";
+                    // this.isAdmin = false;
                     return;
                 }
             });
@@ -89,6 +92,9 @@ export default {
     },
     created() {
         this.$emit('formHasChanged')
+        Bus.$on('createUserError', payload => {
+            this.mutationError = payload;
+        })
     }
 }
 </script>
