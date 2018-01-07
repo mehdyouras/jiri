@@ -140,7 +140,7 @@ Bus.$on('createStudent', payload => {
 
 Bus.$on('createUser', payload => {
     let {email, password, name, company, isAdmin} = payload;
-
+    store.commit('isLoading')
     apolloClient.mutate({
         mutation: query.SIGNUP_USER,
             variables: {
@@ -151,6 +151,7 @@ Bus.$on('createUser', payload => {
                 isAdmin
         },
         update() {
+            store.commit('isNotLoading')
             Bus.$emit('userCreated')
         },
         refetchQueries: [
@@ -159,6 +160,7 @@ Bus.$on('createUser', payload => {
             }
         ]
     }).catch(e => {
+        store.commit('isNotLoading')
         Bus.$emit('createUserError', "L'adresse email est déjà utilisée.")
     });;
 })

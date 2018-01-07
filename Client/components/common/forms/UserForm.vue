@@ -49,16 +49,26 @@
 
 
 
-    <b-btn variant="primary" @click.prevent="createUser" >Ajouter</b-btn>
+    <b-btn variant="primary" @click.prevent="createUser">
+        <template v-if="!isMutationLoading">
+            Ajouter
+        </template>
+        <spinner v-else></spinner>
+    </b-btn>
   </div>
 </template>
 
 <script>
 import {Bus} from '../../../Bus'
 import nanoid from 'nanoid'
+import Spinner from '../../common/Spinner'
+import {mapGetters} from 'vuex'
 
 export default {
     name: 'UserForm',
+    components: {
+        Spinner
+    },
     data() {
         return {
             email: "",
@@ -68,6 +78,11 @@ export default {
             isAdmin: false,
             mutationError: "",
         }
+    },
+    computed: {
+        ...mapGetters([
+            'isMutationLoading'
+        ])
     },
     methods: {
         createUser() {
