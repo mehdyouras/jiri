@@ -141,8 +141,8 @@ export default {
         ]),
         implementationNotAdded() {
             return _.filter(this.student.implementations, (implementation) => {
-                if(implementation.score) {
-                    return implementation.score.user.id !== this.currentUserId;
+                if(implementation.scores[0]) {
+                    return _.findIndex(implementation.scores, score => score.user.id === this.currentUserId)
                 } else {
                     return implementation;
                 }
@@ -150,8 +150,8 @@ export default {
         },
         implementationAdded() {
             return _.filter(this.student.implementations, (implementation) => {
-                if(implementation.score) {
-                    return implementation.score.user.id === this.currentUserId;
+                if(implementation.scores[0]) {
+                    return _.findIndex(implementation.scores, score => score.user.id !== this.currentUserId)
                 }
             })
         }
