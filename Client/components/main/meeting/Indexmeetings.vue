@@ -24,9 +24,9 @@
                                     <span class="small d-block">
                                         {{student.email}}
                                     </span>
-                                    <b-badge v-if="student.implementations.length - projectMarked(student.implementations) !== 0"  variant="success">{{projectMarked(student.implementations)}} cotés</b-badge>
+                                    <b-badge v-if="student.implementations.length - userMarks(student.id) !== 0"  variant="success">{{userMarks(student.id)}} cotés</b-badge>
                                     <b-badge v-else variant="success">Tous cotés</b-badge>
-                                    <b-badge v-if="projectNotMarked(student.implementations)" variant="warning">{{projectNotMarked(student.implementations)}} non cotés</b-badge>
+                                    <b-badge v-if="student.implementations.length - userMarks(student.id)" variant="warning">{{student.implementations.length - userMarks(student.id)}} non cotés</b-badge>
                                 </div>
                             </div>
                         </b-card>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {STUDENTS_MET} from '../../../constants'
+import {STUDENTS_MET, USER} from '../../../constants'
 import _ from 'lodash'
 import {mapGetters} from 'vuex'
 import Spinner from '../../common/Spinner'
@@ -73,11 +73,28 @@ export default {
                 return data.allStudents
             },
             loadingKey: 'isLoading'
-        }
+        },
+        user: {
+            query: USER,
+            variables() {
+                return {
+                    id: this.currentUserId
+                }
+            },
+            update(data) {
+                return data.User
+            },
+            loadingKey: 'loadingKey',
+        },
     },
     methods: {
         goToAddMeeting(id) {
             this.$router.push({name: 'addImplementationsToMeeting', params: {studentId: id}})
+        },
+        userMarks(studentId) {
+            return _.filter(this.user.scores, score => {
+                return score.student.id === studentId
+            }).length
         },
         projectMarked(implementations) {
             let projectMarked = _.filter(implementations, implementation => {
