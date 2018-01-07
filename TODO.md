@@ -20,5 +20,15 @@
 
 ## 01/01
 
-- [ ] Résultats des étudiants
-- [ ] Gestion des suppressions de tous les items possibles
+- [x] Résultats des étudiants
+- [x] Gestion des suppressions de tous les items possibles
+
+## 08/01
+
+- [ ] FinalScore dans les résultats (input)
+- [ ] Limiter le score à 20
+- [ ] Limiter pondération à 1
+- [ ] Bug du float dans les résultats
+- [ ] Ajouter des alerts à gauche à droite
+- [ ] Feedbacks positifs lors des actions
+- [ ] Animation des listes
