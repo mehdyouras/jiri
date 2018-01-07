@@ -253,6 +253,12 @@ Bus.$on('createScore', payload => {
                     id: userId,
                 },
             },
+            {
+                query: query.USER,
+                variables: {
+                    id: store.state.currentUserId,
+                },
+            },
         ]
     });
 })

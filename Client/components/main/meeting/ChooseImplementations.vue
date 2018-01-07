@@ -56,19 +56,18 @@
                         <b-btn variant="primary" @click="addScore">Noter</b-btn>
                     </b-card>
                 </li>
-                <li class="col-md-4 col-lg-6 mb-3" v-for="implementation in implementationAdded" :key="implementation.id">
+                <li class="col-md-4 col-lg-6 mb-3" v-for="score in scoreAdded" :key="score.id">
                     <b-card>
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>{{implementation.project.name}}</h4>
+                            <h4>{{score.implementation.project.name}}</h4>
                             <b-dropdown right variant="light">
-                                <b-dropdown-item @click="showEdit(implementation.score.id, implementation.score.comment, implementation.score.score)">Modifier</b-dropdown-item>
-                                <!-- <b-dropdown-item @click="openModal({id:student.id, name: student.name, type: 'student'})" class="text-danger">Supprimer</b-dropdown-item> -->
+                                <b-dropdown-item @click="showEdit(score.id, score.comment, score.score)">Modifier</b-dropdown-item>
                             </b-dropdown>
                         </div>
 
-                        <template v-if="editing !== implementation.score.id">
-                            <p>{{implementation.score.comment}}</p>
-                            <p class="display-4"><span class="badge badge-light">{{implementation.score.score}}/20</span></p>
+                        <template v-if="editing !== score.id">
+                            <p>{{score.comment}}</p>
+                            <p class="display-4"><span class="badge badge-light">{{score.score}}/20</span></p>
                         </template>
                         <template v-else>
                             <b-form-group
@@ -91,7 +90,7 @@
                                 </b-input-group>
                         </b-form-group>
 
-                        <b-btn variant="primary" @click="editScore(implementation.score.id)">Noter</b-btn>
+                        <b-btn variant="primary" @click="editScore(score.id)">Noter</b-btn>
                         </template>
                     </b-card>
                 </li>
@@ -102,7 +101,7 @@
 </template>
 
 <script>
-import {STUDENT} from '../../../constants'
+import {STUDENT, USER} from '../../../constants'
 import {Bus} from '../../../Bus'
 import Spinner from '../../common/Spinner'
 import _ from 'lodash'
@@ -115,6 +114,7 @@ export default {
         return {
             isLoading: 0,
             student: {},
+            user: {},
             isAdding: false,
             editing: '',
             implementationAdding: {},
@@ -148,11 +148,9 @@ export default {
                 }
             })
         },
-        implementationAdded() {
-            return _.filter(this.student.implementations, (implementation) => {
-                if(implementation.scores[0]) {
-                    return _.findIndex(implementation.scores, score => score.user.id !== this.currentUserId)
-                }
+        scoreAdded() {
+            return _.filter(this.user.scores, (score) => {
+                return score.student.id === this.$route.params.studentId;
             })
         }
     },
@@ -196,6 +194,18 @@ export default {
         }
     },
     apollo: {
+        user: {
+            query: USER,
+            variables() {
+                return {
+                    id: this.currentUserId,
+                }
+            },
+            loadingKey: 'isLoading',
+            update(data) {
+                return data.User
+            },
+        },
         student: {
             query: STUDENT,
             variables() {
@@ -208,7 +218,7 @@ export default {
                 this.$router.push({name: 'addMeeting'})
             },
             update(data) {
-                if(!data.Student || data.Student.softDelte) {
+                if(!data.Student || data.Student.softDelete) {
                     this.$router.push({name: 'addMeeting'})
                 } else {
                     return data.Student
