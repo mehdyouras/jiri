@@ -11,10 +11,10 @@
         </div>
       </div>
       <b-list-group class="col">
-        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addEvent'}">Organiser un événement</b-list-group-item>
-        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Ajouter un étudiant</b-list-group-item>
-        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</b-list-group-item>
-        <b-list-group-item :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Ajouter un membre du jury</b-list-group-item>
+        <b-list-group-item v-if="isAdmin" :to="{ name: 'addEvent'}">Organiser un événement</b-list-group-item>
+        <b-list-group-item v-if="isAdmin" :to="{ name: 'addStudent'}">Ajouter un étudiant</b-list-group-item>
+        <b-list-group-item v-if="isAdmin" :to="{ name: 'addProject'}">Ajouter un projet</b-list-group-item>
+        <b-list-group-item v-if="isAdmin" :to="{ name: 'addUser'}">Ajouter un membre du jury</b-list-group-item>
         <b-list-group-item :to="{ name: 'addMeeting'}">Organiser une rencontre avec un étudiant</b-list-group-item>
         <b-list-group-item :to="{ name: 'indexMeetings'}">Les étudiants que j'ai déjà rencontré</b-list-group-item>
       </b-list-group>
@@ -34,10 +34,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUserId'
+      'currentUserId',
+      'isAdmin'
     ]),
     userType() {
-      if(this.currentUser.isAdmin) {
+      if(this.isAdmin) {
         return 'qu\'administrateur'
       } else {
         return 'que ' + this.currentUser.name
