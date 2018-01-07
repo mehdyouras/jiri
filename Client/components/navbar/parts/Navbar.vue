@@ -7,7 +7,7 @@
         <b-dropdown-item v-if="isAdmin" :to="{ name: 'indexProjects'}">Projets</b-dropdown-item>
         <b-dropdown-item v-if="isAdmin" :to="{ name: 'indexUsers'}">Utilisateurs</b-dropdown-item>
         <b-dropdown-item v-if="isAdmin" :to="{ name: 'indexImplementations'}">Implémentations</b-dropdown-item>
-        <b-dropdown-item v-if="isAdmin" :to="{ name: 'indexResults'}">Résultats</b-dropdown-item>
+        <!-- <b-dropdown-item v-if="isAdmin" :to="{ name: 'indexResults'}">Résultats</b-dropdown-item> -->
         <b-dropdown-item :to="{ name: 'indexMeetings'}">Rencontres</b-dropdown-item>
       </b-nav-item-dropdown>
 

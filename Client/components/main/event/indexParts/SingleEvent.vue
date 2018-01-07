@@ -7,7 +7,7 @@
         </b-dropdown>
         <h3 class="col">{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h3>
       </div>
-      <b-button class="mb-3" variant="primary" href="#" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
+      <b-button class="mb-3" variant="primary" :to="{name: 'eventResults', params: {eventId: event.id}}" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
       <div>
           <h4 class="mb-3">Jurys</h4>
           <ol class="list-unstyled row">
