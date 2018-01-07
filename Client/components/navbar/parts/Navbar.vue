@@ -16,7 +16,6 @@
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addStudent'}">Étudiant</b-dropdown-item>
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addProject'}">Projet</b-dropdown-item>
         <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addUser'}">Utilisateur</b-dropdown-item>
-        <b-dropdown-item :v-if="currentUser.isAdmin" :to="{ name: 'addImplementation'}">Implémentation</b-dropdown-item>
         <b-dropdown-item :to="{ name: 'addMeeting'}">Rencontre</b-dropdown-item>
       </b-nav-item-dropdown>
 
