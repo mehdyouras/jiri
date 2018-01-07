@@ -72,8 +72,16 @@ Bus.$on('removeItem', payload => {
                         query: query.ALL_STUDENTS,
                     },
                     {
+                        query: query.USER,
+                        variables: {
+                            id: store.state.currentUserId
+                        },
+                    },
+                    {
                         query: query.STUDENTS_MET,
-                        variables: store.state.currentUserId,
+                        variables: {
+                            id: store.state.currentUserId
+                        },
                     }
                 ]
             });
