@@ -4,7 +4,9 @@ import { HttpLink, InMemoryCache, ApolloLink } from 'apollo-client-preset'
 import VueApollo from 'vue-apollo'
 import fetch from 'node-fetch';
 import gql from 'graphql-tag'
-
+import { split } from 'apollo-link'
+import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from 'apollo-utilities'
 
 const authLink = new ApolloLink((operation, forward) => {
 
@@ -20,11 +22,30 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const httpLink = new HttpLink({ uri: 'http://localhost:60000/simple/v1/cjb22nzhw00080121htk6d2wt' })
 
-
+// Create the subscription websocket link
+const wsLink = new WebSocketLink({
+    uri: 'ws://localhost:3000/subscriptions',
+    options: {
+        reconnect: true,
+    },
+})
+  
+// using the ability to split links, you can send data to each link
+// depending on what kind of operation is being sent
+const link = split(
+// split based on operation type
+({ query }) => {
+    const { kind, operation } = getMainDefinition(query)
+    return kind === 'OperationDefinition' &&
+    operation === 'subscription'
+},
+wsLink,
+authLink.concat(httpLink)
+)
 
 // Create the apollo client
 export const apolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link,
     cache: new InMemoryCache(),
     connectToDevTools: true,
 });  
