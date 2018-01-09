@@ -11,8 +11,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="user in users" :key="user.id">
-                        <th scope="row">{{user.name}}</th>
-                        <td class="text-center" v-for="score in userScores(user.id)" :key="score.id">{{score.score}}</td>
+                        <th v-b-tooltip.hover title="yo" scope="row">{{user.name}}</th>
+                        <td v-b-tooltip.hover :title="score.comment" class="text-center" v-for="score in userScores(user.id)" :key="score.id">{{score.score}}</td>
                     </tr>
                     <tr class="table-info">
                         <th scope="row">Évaluations globales</th>
