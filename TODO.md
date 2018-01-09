@@ -25,7 +25,7 @@
 
 ## 08/01
 
-- [ ] Commentaire global
+- [x] Commentaire global
 - [x] FinalScore dans les résultats (input)
 - [x] Limiter le score à 20
 - [x] Limiter pondération à 1

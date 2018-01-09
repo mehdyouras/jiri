@@ -1,7 +1,8 @@
 <template>
   <b-card>
       <h2 class="mb-3">Organiser une rencontre avec {{student.name}}</h2>
-      <b-btn :to="{name: 'addMeeting'}" variant="primary mb-3">Séléctionner un autre étudiant</b-btn>
+      <b-btn v-b-modal.addGlobalComment variant="primary mb-3"><template v-if="globalComment === ''">Emettre un</template><template v-else>Modifier le</template>  commentaire global</b-btn>
+      <b-btn :to="{name: 'addMeeting'}" variant="secondary mb-3">Séléctionner un autre étudiant</b-btn>
       <p>Séléctionnez un projet pour le commenter et le noter.</p>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
@@ -72,31 +73,41 @@
                         <template v-else>
                             <b-form-group
                                 label="Commentaire"
-                                label-for="comment"
+                                label-for="edit-comment"
                                 :invalid-feedback="errors.first('edit-comment')"
                                 :state="!errors.has('edit-comment')"
                                 >
                                 <b-form-textarea :rows="5" :max-rows="6" id="edit-comment" name="edit-comment" v-validate="'required'" v-model="edit.comment" :class="{'is-invalid': errors.has('edit-comment')}"></b-form-textarea>
-                        </b-form-group>
+                            </b-form-group>
 
-                        <b-form-group
-                                label="Note"
-                                label-for="edit-score"
-                                :invalid-feedback="errors.first('edit-score')"
-                                :state="!errors.has('edit-score')"
-                                >
-                                <b-input-group right="/20">
-                                    <b-form-input :rows="5" :max-rows="6" type="number" min="0" max="20" id="edit-score" name="edit-score" v-validate="'required|decimal:2|min_value:0|max_value:20'" v-model.number="edit.score" :class="{'is-invalid': errors.has('edit-score')}"></b-form-input>
-                                </b-input-group>
-                        </b-form-group>
+                            <b-form-group
+                                    label="Note"
+                                    label-for="edit-score"
+                                    :invalid-feedback="errors.first('edit-score')"
+                                    :state="!errors.has('edit-score')"
+                                    >
+                                    <b-input-group right="/20">
+                                        <b-form-input :rows="5" :max-rows="6" type="number" min="0" max="20" id="edit-score" name="edit-score" v-validate="'required|decimal:2|min_value:0|max_value:20'" v-model.number="edit.score" :class="{'is-invalid': errors.has('edit-score')}"></b-form-input>
+                                    </b-input-group>
+                            </b-form-group>
 
-                        <b-btn variant="primary" @click="editScore(score.id)">Noter</b-btn>
+                            <b-btn variant="primary" @click="editScore(score.id)">Noter</b-btn>
                         </template>
                     </b-card>
                 </li>
             </ol>
         </template>
         <edit-student v-if="editModal.show" @hidden="editModal.show = false" :visible="editModal.show" :studentId="student.id"></edit-student>
+        <b-modal @ok="addGlobalComment" id="addGlobalComment" ref="addGlobalComment" title="Commentaire global" ok-title="Sauvegarder" ok-variant="primary" cancel-title="Annuler">
+            <b-form-group
+                label="Commentaire"
+                label-for="global-comment"
+                :invalid-feedback="errors.first('global-comment')"
+                :state="!errors.has('global-comment')"
+                >
+                <b-form-textarea :rows="5" :max-rows="6" id="global-comment" name="global-comment" v-validate="'required'" v-model="globalComment" :class="{'is-invalid': errors.has('global-comment')}"></b-form-textarea>
+            </b-form-group>
+        </b-modal>
   </b-card>
 </template>
 
@@ -128,6 +139,7 @@ export default {
                 score: "",
             },
             studentIdToEdit: "",
+            globalComment: "",
         }
     },
     components: {
@@ -191,6 +203,13 @@ export default {
             this.editing= '';
             this.edit.score = '';
             this.edit.comment = '';
+        },
+        addGlobalComment() {
+            let payload = {
+                id: this.student.id,
+                globalComment: this.globalComment,
+            }
+            Bus.$emit('addGlobalComment', payload)
         }
     },
     apollo: {
@@ -221,6 +240,9 @@ export default {
                 if(!data.Student || data.Student.softDelete) {
                     this.$router.push({name: 'addMeeting'})
                 } else {
+                    if(data.Student.performance) {
+                        this.globalComment = data.Student.performance.globalComment;
+                    }
                     return data.Student
                 }
             }
