@@ -89,8 +89,12 @@ export default {
         },
         studentGlobalScore() {
             let allGlobalScores = [];
+            let allWeights = [];
             this.student.implementations.forEach(implementation => {
                 allGlobalScores.push(this.implementationGlobalScore(implementation)*implementation.project.weight.weight)
+                if(this.implementationGlobalScore(implementation) !== undefined) {
+                    allWeights.push(implementation.project.weight.weight)
+                }
             })
             
             allGlobalScores = _.compact(allGlobalScores)
@@ -100,6 +104,10 @@ export default {
             }
 
             return allGlobalScores.reduce(function(a,b){return a+b;}).toFixed(2);
+            // Permet d'avoir les résultats sur 20 malgré que tous les projets ne soit pas cotés
+            allWeights = allWeights.reduce(function(a, b){return a+b});
+
+            return (allGlobalScores.reduce(function(a,b){return a+b;})/allWeights).toFixed(2);
         }
     },
     methods: {
