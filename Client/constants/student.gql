@@ -35,6 +35,7 @@ export const STUDENT = gql`query Student($id: ID!) {
         }
         performance {
             id
+            globalComment
         }
         softDelete
     }

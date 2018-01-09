@@ -473,3 +473,27 @@ Bus.$on('addManualScore', payload => {
         ]
     });
 })
+
+Bus.$on('addGlobalComment', payload => {
+    let {id, globalComment} = payload;
+    store.commit('isLoading')
+
+    apolloClient.mutate({
+        mutation: query.ADD_GLOBAL_COMMENT,
+            variables: {
+                id,
+                globalComment
+        },
+        update() {
+            store.commit('isNotLoading')
+        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id,
+                },
+            }
+        ]
+    });
+})

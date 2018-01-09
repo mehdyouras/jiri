@@ -1,0 +1,8 @@
+import gql from 'graphql-tag'
+
+export const ADD_GLOBAL_COMMENT = gql`mutation updateStudent($id: ID!, $globalComment: String!) {
+                        updateStudent(id: $id, performance: {globalComment: $globalComment}) {
+                            id
+                        }
+                    }
+                  `;
