@@ -6,17 +6,17 @@
                 <thead>
                     <tr class="text-center">
                         <th scope="col">&nbsp;</th>
-                        <th v-for="implementation in student.implementations" :key="implementation.id" scope="col">{{implementation.project.name}}</th>
+                        <th v-for="implementation in studentImplementations" :key="implementation.id" scope="col">{{implementation.project.name}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="user in users" :key="user.id">
-                        <th v-b-tooltip.hover title="yo" scope="row">{{user.name}}</th>
+                        <th v-b-tooltip.hover :title="globalComment(user.id)" scope="row">{{user.name}}</th>
                         <td v-b-tooltip.hover :title="score.comment" class="text-center" v-for="score in userScores(user.id)" :key="score.id">{{score.score}}</td>
                     </tr>
                     <tr class="table-info">
                         <th scope="row">Évaluations globales</th>
-                        <td class="text-center" v-for="implementation in student.implementations" :key="implementation.id" scope="row">
+                        <td class="text-center" v-for="implementation in studentImplementations" :key="implementation.id" scope="row">
                             <strong>{{implementationGlobalScore(implementation)}}</strong>
                         </td>
                     </tr>
@@ -72,7 +72,10 @@ export default {
     props: {
         'student': {
             default: [],
-        }
+        },
+        'globalComments': {
+            default: [],
+        },
     },
     computed: {
         ...mapGetters([
@@ -103,19 +106,31 @@ export default {
                 return "Aucun résultat"
             }
 
-            return allGlobalScores.reduce(function(a,b){return a+b;}).toFixed(2);
             // Permet d'avoir les résultats sur 20 malgré que tous les projets ne soit pas cotés
             allWeights = allWeights.reduce(function(a, b){return a+b});
-
             return (allGlobalScores.reduce(function(a,b){return a+b;})/allWeights).toFixed(2);
+        },
+        studentImplementations() {
+            return _.filter(this.student.implementations, implementation => {
+                return implementation.project.weight.event.id === this.$route.params.eventId;
+            })
         }
     },
     methods: {
+        globalComment(userId) {
+            let globalComment = _.filter(this.globalComments, globalComment => {
+                return globalComment.user.id === userId && globalComment.student.id === this.student.id
+            })
+            if(globalComment[0]) {
+                globalComment = globalComment[0].globalComment
+                return globalComment.globalComment
+            }
+        },
         userScores(userId) {
             let userScores = [];
             this.student.implementations.forEach(implementation => {
                 userScores.push(_.filter(implementation.scores, score => {
-                    return score.user.id === userId;
+                    return score.user.id === userId && score.event.id === this.$route.params.eventId;
                 }))
             })
             userScores.forEach(score => {

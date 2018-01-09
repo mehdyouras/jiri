@@ -6,13 +6,13 @@
       <p>Séléctionnez un projet pour le commenter et le noter.</p>
         <Spinner v-if="isLoading"></Spinner>
         <template v-else>
-            <template v-if="!student.implementations[0]">
+            <template v-if="!implementationsToShow[0]">
                 <b-alert show variant="warning">
                     <p class="mb-0">Cet étudiant ne possède aucune implémentation.</p>
                     <b-btn class="mt-3" variant="primary" v-if="isAdmin" @click="editStudent(student.id)">Lui ajouter des implémentations</b-btn>
                 </b-alert>
             </template>
-            <ol class="list-unstyled row mt-3">
+            <ol v-if="implementationNotAdded[0]" class="list-unstyled row mt-3">
                 <li class="col-md-4 col-lg-3" v-for="implementation in implementationNotAdded" :key="implementation.id">
                     <b-card :id="implementation.project.id" no-body show variant="secondary" class="mb-3">
                         <div class="card-text d-flex align-items-stretch justify-content-between">
@@ -30,7 +30,7 @@
                     <b-tooltip :target="implementation.project.id" :title="implementation.project.description"></b-tooltip>
                 </li>
             </ol>   
-            <ol class="list-unstyled row mt-3">
+            <ol v-if="isAdding || scoreAdded[0]" class="list-unstyled row mt-3">
                 <li class="col-md-4 col-lg-6 mb-3" v-if="isAdding">
                     <b-card>
                         <h4 class="mb-3">{{implementationAdding.project.name}}</h4>
@@ -152,8 +152,13 @@ export default {
             'currentUserId',
             'isAdmin'
         ]),
+        implementationsToShow() {
+            return _.filter(this.student.implementations, implementation => {
+                return  implementation.project.weight.event.id === this.student.event.id
+            })
+        },
         implementationNotAdded() {
-            return _.filter(this.student.implementations, (implementation) => {
+            return _.filter(this.implementationsToShow, (implementation) => {
                 if(implementation.scores[0]) {
                     return _.findIndex(implementation.scores, score => score.user.id === this.currentUserId)
                 } else {
@@ -163,7 +168,7 @@ export default {
         },
         scoreAdded() {
             return _.filter(this.user.scores, (score) => {
-                return score.student.id === this.$route.params.studentId;
+                return score.student.id === this.$route.params.studentId && score.event.id === this.student.event.id;
             })
         }
     },
@@ -178,6 +183,7 @@ export default {
         },
         addScore() {
             let payload = {
+                eventId: this.student.event.id,
                 studentId: this.student.id,
                 implementationId: this.implementationAdding.id,
                 comment: this.comment,

@@ -1,25 +1,29 @@
 <template>
   <b-card>
     <h2 class="mb-3">Résultats - {{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h2>
-    <div class="row">
-      <single-result-table v-for="student in event.students" :key="student.id" :student="student"></single-result-table>
+    <Spinner v-if="isLoading"></Spinner>
+    <div v-else class="row">
+      <single-result-table v-for="student in event.students" :key="student.id" :student="student" :globalComments="globalComments"></single-result-table>
     </div>
   </b-card>
 </template>
 
 <script>
-import {EVENT} from '../../../constants'
 import {EVENT, ALL_GLOBAL_COMMENTS} from '../../../constants'
 import SingleResultTable from './resultsPart/SingleResultTable'
+import Spinner from '../../common/Spinner'
 
 export default {
     name: 'EventResults',
     components: {
-      SingleResultTable
+      SingleResultTable,
+      Spinner
     },
     data() {
       return {
         event: {},
+        globalComments: {},
+        isLoading: 0,
       }
     },
     apollo: {
@@ -32,7 +36,9 @@ export default {
         },
         update(data) {
           return data.Event
-        }
+        },
+        loadingKey: 'isLoading'
+      },
       globalComments: {
         query: ALL_GLOBAL_COMMENTS,
         update(data) {

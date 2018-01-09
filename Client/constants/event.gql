@@ -27,6 +27,9 @@ export const EVENT = gql`query Event($id: ID!) {
                         id
                         name
                     }
+                    event {
+                        id
+                    }
                 }
                 project {
                     id
@@ -34,6 +37,9 @@ export const EVENT = gql`query Event($id: ID!) {
                     weight {
                         id
                         weight
+                        event {
+                            id
+                        }
                     }
                 }
             }
