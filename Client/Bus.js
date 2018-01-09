@@ -475,13 +475,15 @@ Bus.$on('addManualScore', payload => {
 })
 
 Bus.$on('addGlobalComment', payload => {
-    let {id, globalComment} = payload;
+    let {id, studentId, userId, globalComment} = payload;
     store.commit('isLoading')
 
     apolloClient.mutate({
         mutation: query.ADD_GLOBAL_COMMENT,
             variables: {
                 id,
+                userId,
+                studentId,
                 globalComment
         },
         update() {
@@ -489,9 +491,10 @@ Bus.$on('addGlobalComment', payload => {
         },
         refetchQueries: [
             {
-                query: query.STUDENT,
+                query: query.GLOBAL_COMMENT,
                 variables: {
-                    id,
+                    studentId,
+                    userId,
                 },
             }
         ]

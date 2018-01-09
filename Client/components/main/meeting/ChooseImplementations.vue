@@ -1,7 +1,7 @@
 <template>
   <b-card>
       <h2 class="mb-3">Organiser une rencontre avec {{student.name}}</h2>
-      <b-btn v-b-modal.addGlobalComment variant="primary mb-3"><template v-if="globalComment === ''">Emettre un</template><template v-else>Modifier le</template>  commentaire global</b-btn>
+      <b-btn v-b-modal.addGlobalComment variant="primary mb-3"><template v-if="edit.globalComment === ''">Emettre un</template><template v-else>Modifier le</template>  commentaire global</b-btn>
       <b-btn :to="{name: 'addMeeting'}" variant="secondary mb-3">Séléctionner un autre étudiant</b-btn>
       <p>Séléctionnez un projet pour le commenter et le noter.</p>
         <Spinner v-if="isLoading"></Spinner>
@@ -105,14 +105,14 @@
                 :invalid-feedback="errors.first('global-comment')"
                 :state="!errors.has('global-comment')"
                 >
-                <b-form-textarea :rows="5" :max-rows="6" id="global-comment" name="global-comment" v-validate="'required'" v-model="globalComment" :class="{'is-invalid': errors.has('global-comment')}"></b-form-textarea>
+                <b-form-textarea :rows="5" :max-rows="6" id="global-comment" name="global-comment" v-validate="'required'" v-model="edit.globalComment" :class="{'is-invalid': errors.has('global-comment')}"></b-form-textarea>
             </b-form-group>
         </b-modal>
   </b-card>
 </template>
 
 <script>
-import {STUDENT, USER} from '../../../constants'
+import {STUDENT, USER, GLOBAL_COMMENT} from '../../../constants'
 import {Bus} from '../../../Bus'
 import Spinner from '../../common/Spinner'
 import _ from 'lodash'
@@ -137,9 +137,10 @@ export default {
             edit: {
                 comment: "",
                 score: "",
+                globalComment: "",
             },
             studentIdToEdit: "",
-            globalComment: "",
+            globalComment: {},
         }
     },
     components: {
@@ -205,9 +206,15 @@ export default {
             this.edit.comment = '';
         },
         addGlobalComment() {
+            let id = '';
+            if(this.globalComment) {
+                id = this.globalComment.id
+            }
             let payload = {
-                id: this.student.id,
-                globalComment: this.globalComment,
+                id,
+                studentId: this.$route.params.studentId,
+                userId: this.currentUserId,
+                globalComment: this.edit.globalComment,
             }
             Bus.$emit('addGlobalComment', payload)
         }
@@ -240,11 +247,23 @@ export default {
                 if(!data.Student || data.Student.softDelete) {
                     this.$router.push({name: 'addMeeting'})
                 } else {
-                    if(data.Student.performance) {
-                        this.globalComment = data.Student.performance.globalComment;
-                    }
                     return data.Student
                 }
+            }
+        },
+        globalComment: {
+            query: GLOBAL_COMMENT,
+            variables() {
+                return {
+                    studentId: this.$route.params.studentId,
+                    userId: this.currentUserId,
+                }
+            },
+            update(data) {
+                if(data.allGlobalComments[0]) {
+                    this.edit.globalComment = data.allGlobalComments[0].globalComment;
+                }
+                return data.allGlobalComments[0]
             }
         }
     },

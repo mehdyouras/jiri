@@ -11,15 +11,18 @@ export const EVENT = gql`query Event($id: ID!) {
             email
             performance {
                 id
-                globalComment
                 manualScore
                 calculatedScore
+            }
+            globalComments {
+                id
             }
             implementations {
                 id
                 scores {
                     id
                     score
+                    comment
                     user {
                         id
                         name

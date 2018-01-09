@@ -32,7 +32,7 @@ type User @model {
   scores: [Score!]! @relation(name: "UserOnScore")
   events: [Event!]! @relation(name: "UserOnEvent")
   juryTo: [Event!]! @relation(name: "JuryOnEvent")
-  # meetings: [Meeting!]! @relation(name: "UserOnMeeting")
+  globalComments: [GlobalComment!]! @relation(name: "UserOnGlobalComment")
   softDelete: Boolean @defaultValue(value:  false)
 }
 
@@ -42,9 +42,9 @@ type Student @model {
   email: String
   event: Event @relation(name: "StudentOnEvent")
   implementations: [Implementation!]! @relation(name: "StudentOnImplementation")
-  # meetings: [Meeting!]! @relation(name: "StudentOnMeeting")
   scores: [Score!]! @relation(name: "StudentOnScore")
   performance: Performance @relation(name: "StudentOnPerformance")
+  globalComments: [GlobalComment!]! @relation(name: "StudentOnGlobalComment")
   softDelete: Boolean @defaultValue(value:  false)
 }
 
@@ -98,9 +98,16 @@ type Performance @model {
   id: ID! @isUnique
   calculatedScore: Float
   manualScore: Float
-  globalComment: String
   event: Event @relation(name: "EventOnPerformance")
   student: Student @relation(name: "StudentOnPerformance")
+  softDelete: Boolean @defaultValue(value:  false)
+}
+
+type GlobalComment @model {
+  id: ID! @isUnique
+  user: User @relation(name: "UserOnGlobalComment")
+  student: Student @relation(name: "StudentOnGlobalComment")
+  globalComment: String
   softDelete: Boolean @defaultValue(value:  false)
 }
 
