@@ -21,6 +21,12 @@ export const STUDENT = gql`query Student($id: ID!) {
                 id
                 name
                 description
+                weight {
+                    id
+                    event {
+                        id
+                    }
+                }
             }
             scores {
                 id

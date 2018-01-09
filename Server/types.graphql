@@ -68,6 +68,7 @@ type Event @model {
   meetings: [Meeting!]! @relation(name: "EventOnMeeting")
   performances: [Performance!]! @relation(name: "EventOnPerformance")
   weights: [Weight!]! @relation(name: "EventOnWeight")
+  scores: [Score!]! @relation(name: "EventOnScore")
   softDelete: Boolean @defaultValue(value:  false)
 }
 
@@ -89,6 +90,7 @@ type Score @model {
   user: User @relation(name: "UserOnScore")
   student: Student @relation(name: "StudentOnScore")
   implementation: Implementation @relation(name: "ImplementationOnScore")
+  event: Event @relation(name: "EventOnScore")
   score: Float
   comment: String
   softDelete: Boolean @defaultValue(value:  false)

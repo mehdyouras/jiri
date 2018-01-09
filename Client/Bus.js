@@ -229,7 +229,7 @@ Bus.$on('createImplementation', payload => {
 })
 
 Bus.$on('createScore', payload => {
-    let {studentId, implementationId, comment, score} = payload,
+    let {studentId, implementationId, comment, score, eventId} = payload,
         userId = store.getters.currentUserId;
     apolloClient.mutate({
         mutation: query.CREATE_SCORE,
@@ -237,6 +237,7 @@ Bus.$on('createScore', payload => {
                 implementationId,
                 studentId,
                 userId,
+                eventId,
                 comment,
                 score,
         },

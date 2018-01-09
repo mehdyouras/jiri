@@ -40,6 +40,9 @@ export const USER = gql`query User($id: ID!) {
             id
             score
             comment
+            event {
+                id
+            }
             student {
                 id
                 softDelete
