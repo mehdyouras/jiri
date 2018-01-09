@@ -98,6 +98,7 @@ type Performance @model {
   id: ID! @isUnique
   calculatedScore: Float
   manualScore: Float
+  generalComment: String
   event: Event @relation(name: "EventOnPerformance")
   student: Student @relation(name: "StudentOnPerformance")
   softDelete: Boolean @defaultValue(value:  false)
