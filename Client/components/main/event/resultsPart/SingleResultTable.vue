@@ -123,7 +123,7 @@ export default {
             })
             if(globalComment[0]) {
                 globalComment = globalComment[0].globalComment
-                return globalComment.globalComment
+                return globalComment
             }
         },
         userScores(userId) {
