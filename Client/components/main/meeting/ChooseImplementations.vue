@@ -49,7 +49,7 @@
                                 :state="!errors.has('score')"
                                 >
                                 <b-input-group right="/20">
-                                    <b-form-input :rows="5" :max-rows="6" type="number" id="score" name="score" v-validate="'required|decimal:2'" v-model.number="score" :class="{'is-invalid': errors.has('score')}"></b-form-input>
+                                    <b-form-input :rows="5" :max-rows="6" type="number" min="0" max="20" id="score" name="score" v-validate="'required|decimal:2|min_value:0|max_value:20'" v-model.number="score" :class="{'is-invalid': errors.has('score')}"></b-form-input>
                                 </b-input-group>
                         </b-form-group>
 
@@ -86,7 +86,7 @@
                                 :state="!errors.has('edit-score')"
                                 >
                                 <b-input-group right="/20">
-                                    <b-form-input :rows="5" :max-rows="6" type="number" id="edit-score" name="edit-score" v-validate="'required|decimal:2'" v-model.number="edit.score" :class="{'is-invalid': errors.has('edit-score')}"></b-form-input>
+                                    <b-form-input :rows="5" :max-rows="6" type="number" min="0" max="20" id="edit-score" name="edit-score" v-validate="'required|decimal:2|min_value:0|max_value:20'" v-model.number="edit.score" :class="{'is-invalid': errors.has('edit-score')}"></b-form-input>
                                 </b-input-group>
                         </b-form-group>
 

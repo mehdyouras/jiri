@@ -60,7 +60,7 @@
                     :invalid-feedback="this.errors.first('project-weight')"
                     :state="!this.errors.has('project-weight')"
                     >
-                    <b-form-input id="project-weight" name="project-weight" type="number" v-validate="'required|decimal:2'" v-model.number="editModal.weight" :class="{'is-invalid': this.errors.has('project-weight')}"></b-form-input>
+                    <b-form-input id="project-weight" name="project-weight" type="number" min="0" max="1" placeholder="Entre 0 et 1" v-validate="'required|decimal:2|min_value:0|max_value:1'" v-model.number="editModal.weight" :class="{'is-invalid': this.errors.has('project-weight')}"></b-form-input>
             </b-form-group>
       </b-modal>
   </b-card>
