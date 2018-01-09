@@ -26,6 +26,7 @@ export { UPDATE_IMPLEMENTATION } from './updateImplementation.gql'
 export { ADD_STUDENT_TO_EVENT } from './addStudentToEvent.gql'
 export { UPDATE_STUDENT_NAME } from './updateStudentName.gql'
 export { UPDATE_PROJECT } from './updateProject.gql'
+export { ADD_MANUAL_SCORE } from './addManualScore.gql'
 
 export { DELETE_PROJECT } from './deleteProject.gql';
 export { DELETE_USER } from './deleteUser.gql';

@@ -26,10 +26,11 @@
 ## 08/01
 
 - [ ] Commentaire global
-- [ ] FinalScore dans les résultats (input)
+- [x] FinalScore dans les résultats (input)
 - [x] Limiter le score à 20
 - [x] Limiter pondération à 1
-- [ ] Bug du float dans les résultats
+- [x] Bug du float dans les résultats
 - [ ] Ajouter des alerts à gauche à droite
 - [ ] Feedbacks positifs lors des actions
 - [ ] Animation des listes
+- [ ] Results subscriptions

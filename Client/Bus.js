@@ -312,8 +312,6 @@ Bus.$on('updateImplementation', payload => {
 Bus.$on('updateUser', payload => {
     let {id, email, password, company, isAdmin} = payload;
 
-    console.log(password)
-
     apolloClient.mutate({
         mutation: query.UPDATE_USER,
             variables: {
@@ -447,6 +445,30 @@ Bus.$on('updateProject', payload => {
         refetchQueries: [
             {
                 query: query.ALL_PROJECTS,
+            }
+        ]
+    });
+})
+
+Bus.$on('addManualScore', payload => {
+    let {studentId, manualScore} = payload;
+    store.commit('isLoading')
+
+    apolloClient.mutate({
+        mutation: query.ADD_MANUAL_SCORE,
+            variables: {
+                id: studentId,
+                manualScore
+        },
+        update() {
+            store.commit('isNotLoading')
+        },
+        refetchQueries: [
+            {
+                query: query.STUDENT,
+                variables: {
+                    id: studentId,
+                },
             }
         ]
     });

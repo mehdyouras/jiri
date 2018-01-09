@@ -9,6 +9,12 @@ export const EVENT = gql`query Event($id: ID!) {
             id
             name
             email
+            performance {
+                id
+                generalComment
+                manualScore
+                calculatedScore
+            }
             implementations {
                 id
                 scores {

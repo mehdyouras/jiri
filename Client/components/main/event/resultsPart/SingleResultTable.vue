@@ -15,15 +15,38 @@
                         <td class="text-center" v-for="score in userScores(user.id)" :key="score.id">{{score.score}}</td>
                     </tr>
                     <tr class="table-info">
-                        <th scope="row">évaluations gloables</th>
+                        <th scope="row">Évaluations globales</th>
                         <td class="text-center" v-for="implementation in student.implementations" :key="implementation.id" scope="row">
                             <strong>{{implementationGlobalScore(implementation)}}</strong>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <b-badge>Moyenne calculée : {{studentGlobalScore()}}</b-badge>
-            <!-- <b-badge>Moyenne finale : {{studentFinalScore}}</b-badge> -->
+            <b-badge class="mb-3">Moyenne calculée : {{studentGlobalScore}}</b-badge>
+            <div v-if="manualScore === '' && !showForm" class="mt-3">
+                <b-btn @click="showScoreForm" variant="primary">Ajouter la note finale</b-btn>
+            </div>
+            <b-badge @dblclick="showScoreForm" v-else variant="primary">Moyenne finale : {{manualScore}}</b-badge>
+            <div v-if="showForm">
+                <b-form-group
+                    label="Note finale"
+                    label-for="manualScore"
+                    :invalid-feedback="this.errors.first('manualScore')"
+                    :state="!this.errors.has('manualScore')"
+                    >
+                    <div class="row">
+                        <b-input-group class="col-6" right="/20">
+                            <b-form-input type="number" min="0" max="20" id="manualScore" name="manualScore" v-validate="'required|decimal:2|min_value:0|max_value:20'" v-model.number="manualScore" :class="{'is-invalid': errors.has('manualScore')}"></b-form-input>
+                        </b-input-group>
+                        <b-btn variant="primary" @click="saveManualScore">
+                            <Spinner v-if="isMutationLoading"></Spinner>
+                            <template v-else>
+                                Sauvegarder
+                            </template>
+                        </b-btn>
+                    </div>
+                </b-form-group>
+            </div>
         </b-card>
     </div>
 </template>
@@ -31,15 +54,30 @@
 <script>
 import _ from 'lodash'
 import nanoid from 'nanoid'
+import {Bus} from '../../../../Bus'
+import {mapGetters} from 'vuex'
+import Spinner from '../../../common/Spinner'
 
 export default {
     name: 'SingleResultTable',
+    components: {
+        Spinner
+    },
+    data() {
+        return {
+            showForm: false,
+            manualScore: '',
+        }
+    },
     props: {
         'student': {
             default: [],
         }
     },
     computed: {
+        ...mapGetters([
+            'isMutationLoading'
+        ]),
         users() {
             let users = [];
             this.student.implementations.forEach(implementation => {
@@ -49,9 +87,20 @@ export default {
             });
             return _.unionBy(users, user => user.id)
         },
-        calculatedScore() {
+        studentGlobalScore() {
+            let allGlobalScores = [];
+            this.student.implementations.forEach(implementation => {
+                allGlobalScores.push(this.implementationGlobalScore(implementation)*implementation.project.weight.weight)
+            })
+            
+            allGlobalScores = _.compact(allGlobalScores)
 
-        },
+            if(!allGlobalScores[0]) {
+                return "Aucun résultat"
+            }
+
+            return allGlobalScores.reduce(function(a,b){return a+b;}).toFixed(2);
+        }
     },
     methods: {
         userScores(userId) {
@@ -84,21 +133,28 @@ export default {
                 return globalScore/denominator
             }
         },
-        studentGlobalScore() {
-            let allGlobalScores = [];
-            this.student.implementations.forEach(implementation => {
-                allGlobalScores.push(this.implementationGlobalScore(implementation)*implementation.project.weight.weight)
-            })
-            
-            allGlobalScores = _.compact(allGlobalScores)
-
-            if(!allGlobalScores[0]) {
-                return "Aucun résultat"
+        showScoreForm(action) {
+            this.showForm = true;
+        },
+        saveManualScore() {
+            let payload = {
+                studentId: this.student.id,
+                manualScore: this.manualScore,
             }
-
-            return allGlobalScores.reduce(function(a,b){return a+b;});
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    Bus.$emit('addManualScore', payload)
+                    this.showForm = false;
+                    return;
+                }
+            });
         }
     },
+    created() {
+        if(this.student.performance) {
+            this.manualScore = this.student.performance.manualScore;
+        }
+    }
 }
 </script>
 
