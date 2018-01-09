@@ -9,6 +9,7 @@
 
 <script>
 import {EVENT} from '../../../constants'
+import {EVENT, ALL_GLOBAL_COMMENTS} from '../../../constants'
 import SingleResultTable from './resultsPart/SingleResultTable'
 
 export default {
@@ -32,6 +33,12 @@ export default {
         update(data) {
           return data.Event
         }
+      globalComments: {
+        query: ALL_GLOBAL_COMMENTS,
+        update(data) {
+          return data.allGlobalComments
+        },
+        loadingKey: 'isLoading'
       }
     }
 }

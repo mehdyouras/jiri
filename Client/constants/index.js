@@ -9,6 +9,7 @@ export { ALL_STUDENTS } from './allStudents.gql';
 export { STUDENTS_MET } from './studentsMet.gql';
 export { ALL_STUDENTS_USERS_PROJECTS } from './allStudentsUsersProjects.gql';
 export { ALL_USERS} from './allUsers.gql';
+export { ALL_GLOBAL_COMMENTS} from './allGlobalComments.gql';
 
 export { CREATE_PROJECT } from './createProject.gql';
 export { CREATE_STUDENT } from './createStudent.gql';
