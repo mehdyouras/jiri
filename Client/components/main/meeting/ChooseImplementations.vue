@@ -31,7 +31,7 @@
                 </li>
             </transition-group>   
             <transition-group tag="ol" name="zoom" v-if="isAdding || scoreAdded[0]" class="list-unstyled row mt-3">
-                <li class="col-md-4 col-lg-6 mb-3" v-if="isAdding">
+                <li :key="implementationAdding.id" class="col-md-4 col-lg-6 mb-3" v-if="isAdding">
                     <b-card>
                         <h4 class="mb-3">{{implementationAdding.project.name}}</h4>
                          <b-form-group
@@ -168,7 +168,9 @@ export default {
         },
         scoreAdded() {
             return _.filter(this.user.scores, (score) => {
-                return score.student.id === this.$route.params.studentId && score.event.id === this.student.event.id;
+                if(score.student && score.event) {
+                    return score.student.id === this.$route.params.studentId && score.event.id === this.student.event.id;
+                }
             })
         }
     },

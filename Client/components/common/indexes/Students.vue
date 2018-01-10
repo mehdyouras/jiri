@@ -107,7 +107,6 @@ export default {
     },
     methods: {
         students(eventId) {
-            console.log(eventId)
             let index = _.findIndex(this.user.juryTo, event => {
                 return event.id === eventId
             })
