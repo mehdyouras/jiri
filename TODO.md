@@ -33,4 +33,4 @@
 - [ ] Ajouter des alerts à gauche à droite
 - [ ] Feedbacks positifs lors des actions
 - [ ] Animation des listes
-- [ ] Results subscriptions
+- [x] Results subscriptions

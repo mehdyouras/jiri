@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {EVENT, ALL_GLOBAL_COMMENTS} from '../../../constants'
+import {EVENT, ALL_GLOBAL_COMMENTS, SUB_SCORE_CREATED} from '../../../constants'
 import SingleResultTable from './resultsPart/SingleResultTable'
 import Spinner from '../../common/Spinner'
 
@@ -37,6 +37,7 @@ export default {
         update(data) {
           return data.Event
         },
+        pollInterval: 1500,
         loadingKey: 'isLoading'
       },
       globalComments: {
@@ -44,8 +45,9 @@ export default {
         update(data) {
           return data.allGlobalComments
         },
+        pollInterval: 1500,
         loadingKey: 'isLoading'
       }
-    }
+    },
 }
 </script>

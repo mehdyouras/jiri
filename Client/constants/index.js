@@ -36,5 +36,3 @@ export { DELETE_USER } from './deleteUser.gql';
 export { DELETE_STUDENT } from './deleteStudent.gql';
 export { DELETE_EVENT } from './deleteEvent.gql';
 
-export { SUB_SCORE_CREATED } from './subScoreCreated.gql';
-
