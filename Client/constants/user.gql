@@ -11,6 +11,14 @@ export const USER = gql`query User($id: ID!) {
             id
             courseName
             academicYear
+            examSession
+            students {
+                id
+                name
+                email
+                softDelete
+            },
+            softDelete
         }
         events {
             id,

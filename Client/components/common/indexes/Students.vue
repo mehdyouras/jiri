@@ -10,29 +10,35 @@
                 </b-card>
             </b-collapse>
           </template>
-        <template v-if="!students[0]">
-            <p>Il n'y a pas encore d'étudiant</p>
+        
+        <template>
+            <section v-if="students(event.id)" v-for="event in juryTo" :key="event.id">
+                <h3>{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h3>
+                <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3">
+                    <li class="col-md-4 col-lg-3" v-for="student in students(event.id)" :key="student.id">
+                        <b-card no-body show variant="secondary" class="mb-3">
+                            <div class="card-text d-flex justify-content-between align-items-center">
+                                <div @click.stop="studentClicked(student.id)" class="p-3 card-clickable">
+                                    <span class="d-block">
+                                        {{student.name}}
+                                    </span>
+                                    <span class="small">
+                                        {{student.email}}
+                                    </span>
+                                </div>
+                                <b-dropdown class="p-3" right v-if="editable && isAdmin" variant="light">
+                                    <b-dropdown-item @click="editStudent(student.id)">Modifier</b-dropdown-item>
+                                    <b-dropdown-item @click="openModal({id:student.id, name: student.name, type: 'student'})" class="text-danger">Supprimer</b-dropdown-item>
+                                </b-dropdown>
+                            </div>
+                        </b-card>
+                    </li>
+                </transition-group>
+            </section>
+            <template v-else>
+                <p>Il n'y a pas encore d'étudiant</p>
+            </template>
         </template>
-        <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-else>
-            <li class="col-md-4 col-lg-3" v-for="student in students" :key="student.id">
-                <b-card no-body show variant="secondary" class="mb-3">
-                    <div class="card-text d-flex justify-content-between align-items-center">
-                        <div @click.stop="studentClicked(student.id)" class="p-3 card-clickable">
-                            <span class="d-block">
-                                {{student.name}}
-                            </span>
-                            <span class="small">
-                                {{student.email}}
-                            </span>
-                        </div>
-                        <b-dropdown class="p-3" right v-if="editable && isAdmin" variant="light">
-                            <b-dropdown-item @click="editStudent(student.id)">Modifier</b-dropdown-item>
-                            <b-dropdown-item @click="openModal({id:student.id, name: student.name, type: 'student'})" class="text-danger">Supprimer</b-dropdown-item>
-                        </b-dropdown>
-                    </div>
-                </b-card>
-            </li>
-        </transition-group>
       </template>
       <b-modal @ok="deleteItem()" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'étudiant <strong>{{modal.name}}</strong> ?
@@ -42,7 +48,7 @@
 </template>
 
 <script>
-import {ALL_STUDENTS} from '../../../constants'
+import {ALL_STUDENTS, USER} from '../../../constants'
 import Spinner from '../../common/Spinner'
 import {mapGetters} from 'vuex'
 import StudentForm from '../../common/forms/StudentForm'
@@ -58,7 +64,7 @@ export default {
     },
     data() {
         return {
-            students: {},
+            user: {},
             isLoading: 0,
             modal: {
                 id: "",
@@ -76,19 +82,39 @@ export default {
     ],
     computed: {
         ...mapGetters([
-            'isAdmin'
-        ])
+            'isAdmin',
+            'currentUserId'
+        ]),
+        juryTo() {
+            return _.filter(this.user.juryTo, event => {
+                return event.softDelete === false;
+            })
+        },
     },
     apollo: {
-        students: {
-            query: ALL_STUDENTS,
+        user: {
+            query: USER,
+            variables() {
+                return {
+                    id: this.currentUserId,
+                }
+            },
             update(data) {
-                return data.allStudents
+                return data.User
             },
             loadingKey: 'isLoading',
         }
     },
     methods: {
+        students(eventId) {
+            console.log(eventId)
+            let index = _.findIndex(this.user.juryTo, event => {
+                return event.id === eventId
+            })
+            return _.filter(this.user.juryTo[index].students, student => {
+                return student.softDelete === false;
+            })
+        },
         studentClicked(id) {
             this.$emit('studentClicked', id)
         },
