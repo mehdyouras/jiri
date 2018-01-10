@@ -30,7 +30,13 @@
 - [x] Limiter le score à 20
 - [x] Limiter pondération à 1
 - [x] Bug du float dans les résultats
-- [ ] Ajouter des alerts à gauche à droite
-- [ ] Feedbacks positifs lors des actions
 - [x] Animation des listes
 - [x] Results subscriptions
+
+## 10/01 - Dernier jour !!
+
+- [ ] Ajouter des alerts à gauche à droite
+- [ ] Feedbacks positifs lors des actions
+- [ ] Trouver un maximum de bug
+- [ ] Wipe la DB et tester
+- [ ] Deployer sur le serveur
