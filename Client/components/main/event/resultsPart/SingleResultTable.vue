@@ -12,12 +12,20 @@
                 <tbody>
                     <tr v-for="user in users" :key="user.id">
                         <th v-b-tooltip.hover :title="globalComment(user.id)" scope="row">{{user.name}}</th>
-                        <td v-b-tooltip.hover :title="score.comment" class="text-center" v-for="score in userScores(user.id)" :key="score.id">{{score.score}}</td>
+                        <td v-b-tooltip.hover :title="score.comment" class="text-center" v-for="score in userScores(user.id)" :key="score.id">
+                            <transition enter-active-class="fadeIn">
+                                <span v-if="score.score">
+                                    {{score.score}}
+                                </span>
+                            </transition>
+                        </td>
                     </tr>
                     <tr class="table-info">
-                        <th scope="row">Évaluations globales</th>
+                        <th key="globalScore" scope="row">Évaluations globales</th>
                         <td class="text-center" v-for="implementation in studentImplementations" :key="implementation.id" scope="row">
-                            <strong>{{implementationGlobalScore(implementation)}}</strong>
+                            <transition enter-active-class="fadeIn">
+                                <strong v-if="implementationGlobalScore(implementation)">{{implementationGlobalScore(implementation)}}</strong>
+                            </transition>
                         </td>
                     </tr>
                 </tbody>
@@ -180,7 +188,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>
