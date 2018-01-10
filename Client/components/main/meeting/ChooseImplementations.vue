@@ -193,7 +193,8 @@ export default {
             }
             Bus.$emit('createScore', payload)
             this.isAdding = false;
-            this.comment, this.score = '';
+            this.comment = '';
+            this.score = '';
         },
         showEdit(id, comment, score) {
             this.editing = id;
