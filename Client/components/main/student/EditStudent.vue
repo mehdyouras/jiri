@@ -18,7 +18,7 @@
                 </b-form-select>
             </b-form-group>
           </div>
-            <b-alert show variant="danger" v-if="!projects[0]">Cet événement n'a aucun projet.</b-alert>
+            <b-alert show variant="warning" v-if="!projects[0]">Cet événement n'a aucun projet. Veuillez en séléctionner un autre ou <router-link :to="{name: 'editEvent', params : {eventId: student.event.id}}">ajouter des projets à cet événement</router-link>.</b-alert>
             <div v-else v-for="project in projects" :key="project.project.id">
                 <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
             </div>
