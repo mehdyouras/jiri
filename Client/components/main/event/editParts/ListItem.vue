@@ -2,7 +2,7 @@
   <li class="col-md-4 col-lg-3">
       <b-card @click="addItemToEvent" no-body show variant="secondary" :class="{'bg-primary': isActive, 'mb-3': true}">
           <div class="card-text d-flex justify-content-between align-items-center">
-            <div class="p-3 card-clickable">
+            <div class="p-3">
                 <span :class="{'text-white': isActive}">
                     {{item.name}}
                 </span>
