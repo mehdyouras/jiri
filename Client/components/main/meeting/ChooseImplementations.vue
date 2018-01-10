@@ -12,7 +12,7 @@
                     <b-btn class="mt-3" variant="primary" v-if="isAdmin" @click="editStudent(student.id)">Lui ajouter des implémentations</b-btn>
                 </b-alert>
             </template>
-            <ol v-if="implementationNotAdded[0]" class="list-unstyled row mt-3">
+            <transition-group tag="ol" name="zoom" v-if="implementationNotAdded[0]" class="list-unstyled row mt-3">
                 <li class="col-md-4 col-lg-3" v-for="implementation in implementationNotAdded" :key="implementation.id">
                     <b-card :id="implementation.project.id" no-body show variant="secondary" class="mb-3">
                         <div class="card-text d-flex align-items-stretch justify-content-between">
@@ -29,8 +29,8 @@
                     </b-card>
                     <b-tooltip :target="implementation.project.id" :title="implementation.project.description"></b-tooltip>
                 </li>
-            </ol>   
-            <ol v-if="isAdding || scoreAdded[0]" class="list-unstyled row mt-3">
+            </transition-group>   
+            <transition-group tag="ol" name="zoom" v-if="isAdding || scoreAdded[0]" class="list-unstyled row mt-3">
                 <li class="col-md-4 col-lg-6 mb-3" v-if="isAdding">
                     <b-card>
                         <h4 class="mb-3">{{implementationAdding.project.name}}</h4>
@@ -95,7 +95,7 @@
                         </template>
                     </b-card>
                 </li>
-            </ol>
+            </transition-group>
         </template>
         <edit-student v-if="editModal.show" @hidden="editModal.show = false" :visible="editModal.show" :studentId="student.id"></edit-student>
         <b-modal @ok="addGlobalComment" id="addGlobalComment" ref="addGlobalComment" title="Commentaire global" ok-title="Sauvegarder" ok-variant="primary" cancel-title="Annuler">

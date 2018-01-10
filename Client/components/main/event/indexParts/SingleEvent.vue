@@ -10,7 +10,7 @@
       <b-button class="mb-3" variant="primary" :to="{name: 'eventResults', params: {eventId: event.id}}" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
       <div>
           <h4 class="mb-3">Jurys</h4>
-          <ol class="list-unstyled row">
+          <transition-group tag="ol" name="zoom" class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="jury in itemsToShow.jurys" :key="jury.id">
                   <b-card class="text-center" no-body show>
                     <strong slot="header" class="d-block">{{jury.name}}</strong>
@@ -20,9 +20,9 @@
                     </div>
                   </b-card>
               </li>
-          </ol>
+          </transition-group>
           <h4 class="mb-3">Projets</h4>
-          <ol class="list-unstyled row">
+          <transition-group tag="ol" name="zoom" class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="project in itemsToShow.weights" :key="project.id">
                   <b-card class="text-center" no-body show>
                     <div class="p-3">
@@ -30,9 +30,9 @@
                     </div>
                   </b-card>
               </li>
-          </ol>
+          </transition-group>
           <h4 class="mb-3">Etudiants</h4>
-          <ol class="list-unstyled row">
+          <transition-group tag="ol" name="zoom" class="list-unstyled row">
               <li class="col-md-4 col-lg-3 mb-3" v-for="student in itemsToShow.students" :key="student.id">
                   <b-card class="text-center" no-body show>
                     <strong slot="header" class="d-block">{{student.name}}</strong>
@@ -41,7 +41,7 @@
                     </div>
                   </b-card>
               </li>
-          </ol>
+          </transition-group>
       </div>
   </b-card>
 </template>

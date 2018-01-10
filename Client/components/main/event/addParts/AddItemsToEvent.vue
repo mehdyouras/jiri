@@ -7,15 +7,15 @@
             :enter-active-class="enterAnimation"
             :leave-active-class="leaveAnimation"
             mode="out-in">
-          <ol class="list-unstyled row mt-3" v-if="currentStep === 1" key="students">
+          <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 1" key="students">
               <ListItem @deleteModal="openModal" v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
-          </ol>
-          <ol class="list-unstyled row mt-3" v-if="currentStep === 2" key="users">
+          </transition-group>
+          <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 2" key="users">
               <ListItem @deleteModal="openModal" v-for="item in allDetails.allUsers" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
-          </ol>
-          <ol class="list-unstyled row mt-3" v-if="currentStep === 3" key="projects">
+          </transition-group>
+          <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 3" key="projects">
               <ListItem @deleteModal="openModal" v-for="item in allDetails.allProjects" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
-          </ol>
+          </transition-group>
         </transition>
         <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
       </template>

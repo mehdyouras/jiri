@@ -13,7 +13,7 @@
             <template v-else>   
                 <b-btn class="mb-3" variant="primary" :to="{name: 'addMeeting'}">Organiser une rencontre</b-btn>         
                 <p>Choisissez un étudiant</p>
-                <ol class="list-unstyled row mt-3">
+                <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3">
                     <li class="col-md-4 col-lg-3" v-for="student in students" :key="student.id">
                         <b-card no-body show variant="secondary" class="mb-3">
                             <div class="card-text d-flex justify-content-between align-items-center">
@@ -31,7 +31,7 @@
                             </div>
                         </b-card>
                     </li>
-                </ol>
+                </transition-group>
             </template>
         </template>
   </b-card>

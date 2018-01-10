@@ -32,5 +32,5 @@
 - [x] Bug du float dans les résultats
 - [ ] Ajouter des alerts à gauche à droite
 - [ ] Feedbacks positifs lors des actions
-- [ ] Animation des listes
+- [x] Animation des listes
 - [x] Results subscriptions

@@ -13,7 +13,7 @@
         <template v-if="!users[0]">
             <p>Il n'y a pas encore d'utilisateur</p>
         </template>
-        <ol class="list-unstyled row mt-3" v-else>
+        <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-else>
             <li class="col-md-4 col-lg-3" v-for="user in users" :key="user.id">
                 <b-card no-body show variant="secondary" class="mb-3">
                     <div class="card-text d-flex justify-content-between align-items-center">
@@ -32,7 +32,7 @@
                     </div>
                 </b-card>
             </li>
-        </ol>
+        </transition-group>
       </template>
       <b-modal @ok="deleteItem()" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
           Êtes-vous sûr de vouloir <strong class="text-danger">supprimer</strong> l'utilisateur <strong>{{modal.name}}</strong> ?
