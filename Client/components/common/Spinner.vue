@@ -27,7 +27,7 @@
       },
       'line-fg-color': {
         type: String,
-        default: '#2196f3' // match .blue color to Material Design's 'Blue 500' color
+        default: '#007bff' // match .blue color to Material Design's 'Blue 500' color
       },
       'speed': {
         type: Number,

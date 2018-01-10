@@ -11,7 +11,7 @@
     </div>
     <app-footer></app-footer>
   </template>
-  <Spinner v-if="!isAppLoaded"></Spinner>
+  <Spinner class="main-spinner" size="huge" v-if="!isAppLoaded"></Spinner>
 </div>
 </template>
 
@@ -44,5 +44,10 @@ export default {
     min-height: 100vh;
     padding-bottom: 10rem;
     position: relative;
+  }
+  .main-spinner {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
   }
 </style>
