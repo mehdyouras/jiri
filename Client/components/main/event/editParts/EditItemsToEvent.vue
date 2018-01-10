@@ -8,7 +8,7 @@
         :leave-active-class="leaveAnimation"
         mode="out-in">
         <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 1" key="students">
-            <ListItem @deleteModal="openModal" v-for="item in allDetails.allStudents" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
+            <ListItem @deleteModal="openModal" v-for="item in students" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
         </transition-group>
         <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 2" key="users">
             <ListItem @deleteModal="openModal" v-for="item in allDetails.allUsers" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
@@ -58,6 +58,15 @@ export default {
     'leaveAnimation',
     'enterAnimation'
   ],
+  computed: {
+    students() {
+      return _.filter(this.allDetails.allStudents, student => {
+        if(!student.event || student.event.id === this.$route.params.eventId) {
+          return student
+        }
+      })
+    },
+  },
   apollo: {
     allDetails: {
       query: ALL_STUDENTS_USERS_PROJECTS,

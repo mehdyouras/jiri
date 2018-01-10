@@ -1,5 +1,5 @@
 <template>
-    <div class="col col-lg-6 col-12 mb-3">
+    <div class="col col-12 mb-3">
         <b-card :header="student.name">
             <table class="table table-hover">
                 <caption class="sr-only">Résultats de {{student.name}}</caption>
@@ -138,7 +138,9 @@ export default {
             let userScores = [];
             this.student.implementations.forEach(implementation => {
                 userScores.push(_.filter(implementation.scores, score => {
-                    return score.user.id === userId && score.event.id === this.$route.params.eventId;
+                    if(score.user && score.event) {
+                        return score.user.id === userId && score.event.id === this.$route.params.eventId;
+                    }
                 }))
             })
             userScores.forEach(score => {

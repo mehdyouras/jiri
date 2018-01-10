@@ -8,7 +8,6 @@
                 </span>
             </div>
             <b-dropdown class="p-3" right variant="light">
-                <b-dropdown-item @click="editItem">Modifier</b-dropdown-item>
                 <b-dropdown-item @click="deleteItem({id:item.id, name: item.name})" class="text-danger">Supprimer</b-dropdown-item>
             </b-dropdown>
           </div>
@@ -40,10 +39,6 @@ export default {
     methods: {
         deleteItem(payload) {
             this.$emit('deleteModal', payload)
-        },
-        editItem() {
-            let type = ['students', 'users', 'projects']
-            this.$router.push(`/${type[this.currentStep - 1]}/${this.item.id}`)
         },
         addItemToEvent() {
             let idToUse = this.currentStep === 3 ? this.item.weight.id : this.item.id;
