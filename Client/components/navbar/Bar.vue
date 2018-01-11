@@ -1,5 +1,5 @@
 <template>
-  <div class="jiri-navbar">
+  <div>
     <b-navbar toggleable="md" type="light" variant="light">
       <div class="container">
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
@@ -62,9 +62,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-  .jiri-navbar {
-    margin-bottom: 2em;
-  }
-</style>

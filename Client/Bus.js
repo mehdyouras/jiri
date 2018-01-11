@@ -23,7 +23,8 @@ Bus.$on('authenticateUser', payload => {
         update: (cache, {data: {authenticateUser}}) => {
             localStorage.setItem('userToken', authenticateUser.token);
             router.push({name:'dashboard'});
-            store.commit('isNotLoading')
+            store.commit('isNotLoading');
+            Bus.$emit('mutationSuccess', 'Vous vous êtes connecté avec succès.')
         },
     }).catch(e => {
         Bus.$emit('authenticateUserError', "L'adresse email ou le mot de passe est incorrect.")
@@ -41,6 +42,9 @@ Bus.$on('removeItem', payload => {
                 variables: {
                   id
                 },
+                update() {
+                    Bus.$emit('mutationSuccess', 'Le projet a été supprimé avec succès.')
+                },
                 refetchQueries: [
                     {
                         query: query.ALL_PROJECTS,
@@ -54,6 +58,9 @@ Bus.$on('removeItem', payload => {
                 variables: {
                   id
                 },
+                update() {
+                    Bus.$emit('mutationSuccess', 'L\'utilisateur a été supprimé avec succès.')
+                },
                 refetchQueries: [
                     {
                         query: query.ALL_USERS,
@@ -66,6 +73,9 @@ Bus.$on('removeItem', payload => {
                 mutation: query.DELETE_STUDENT,
                 variables: {
                   id
+                },
+                update() {
+                    Bus.$emit('mutationSuccess', 'L\'étudiant a été supprimé avec succès.')
                 },
                 refetchQueries: [
                     {
@@ -92,6 +102,9 @@ Bus.$on('removeItem', payload => {
                 variables: {
                   id
                 },
+                update() {
+                    Bus.$emit('mutationSuccess', 'L\'événement a été supprimé avec succès.')
+                },
                 refetchQueries: [
                     {
                         query: query.USER,
@@ -117,6 +130,7 @@ Bus.$on('createProject', payload => {
         },
         update() {
             store.commit('isNotLoading')
+            Bus.$emit('mutationSuccess', 'Le projet a été créé avec succès.')
         },
         refetchQueries: [
             {
@@ -143,6 +157,7 @@ Bus.$on('createStudent', payload => {
                 router.push({name: 'editStudent', params: {studentId: createStudent.id}})
             }
             store.commit('isNotLoading')
+            Bus.$emit('mutationSuccess', 'L\'étudiant a été créé avec succès.')
         },
         refetchQueries: [
             {
@@ -169,6 +184,7 @@ Bus.$on('createUser', payload => {
         update() {
             store.commit('isNotLoading')
             Bus.$emit('userCreated')
+            Bus.$emit('mutationSuccess', 'L\'utilisateur a été créé avec succès.')
         },
         refetchQueries: [
             {
@@ -202,6 +218,7 @@ Bus.$on('createEvent', payload => {
             data.User.events.push(createEvent)
             cache.writeQuery({ query: query.USER, data })
             store.commit('isNotLoading')
+            Bus.$emit('mutationSuccess', 'L\'événement a été créé avec succès.')
         },
     }).catch(error => {
         store.commit('isNotLoading')
@@ -217,6 +234,9 @@ Bus.$on('createImplementation', payload => {
                 urlProject,
                 projectId,
                 studentId
+        },
+        update() {
+            // Bus.$emit('mutationSuccess', 'L\'implementation a été créé avec succès.')
         },
         refetchQueries: [
             {
@@ -241,6 +261,9 @@ Bus.$on('createScore', payload => {
                 eventId,
                 comment,
                 score,
+        },
+        update() {
+            Bus.$emit('mutationSuccess', 'Votre note a été enregstré avec succès.')
         },
         refetchQueries: [
             {
@@ -273,6 +296,9 @@ Bus.$on('updateScore', payload => {
                 id,
                 score,
                 comment
+        },
+        update() {
+            Bus.$emit('mutationSuccess', 'La note a été modifié avec succès.')
         },
         refetchQueries: [
             {
@@ -322,6 +348,9 @@ Bus.$on('updateUser', payload => {
                 // password: hash,
                 company,
                 isAdmin
+        },
+        update() {
+            Bus.$emit('mutationSuccess', 'L\'utilisateur a été modifié avec succès.')
         },
         refetchQueries: [
             {
@@ -373,6 +402,7 @@ Bus.$on('updateEvent', payload => {
         },
         update() {
             store.commit('isNotLoading')
+            Bus.$emit('mutationSuccess', 'L\'événement a été modifié avec succès.')
         },
         refetchQueries: [
             {
@@ -422,6 +452,9 @@ Bus.$on('updateStudentName', payload => {
                 id: studentId,
                 name,
         },
+        update() {
+            Bus.$emit('mutationSuccess', 'Le nom de l\'étudiant a été modifié avec succès.')
+        },
         refetchQueries: [
             {
                 query: query.STUDENT,
@@ -444,6 +477,9 @@ Bus.$on('updateProject', payload => {
                 name,
                 description
         },
+        update() {
+            Bus.$emit('mutationSuccess', 'Le projet a été modifié avec succès.')
+        },
         refetchQueries: [
             {
                 query: query.ALL_PROJECTS,
@@ -464,6 +500,7 @@ Bus.$on('addManualScore', payload => {
         },
         update() {
             store.commit('isNotLoading')
+            Bus.$emit('mutationSuccess', 'La note finale a été prise en compte.')
         },
         refetchQueries: [
             {
@@ -490,6 +527,7 @@ Bus.$on('addGlobalComment', payload => {
         },
         update() {
             store.commit('isNotLoading')
+            Bus.$emit('mutationSuccess', 'Le commentaire global a été enregistré.')
         },
         refetchQueries: [
             {
