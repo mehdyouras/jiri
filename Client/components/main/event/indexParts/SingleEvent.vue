@@ -2,12 +2,13 @@
   <b-card class="mb-3">
       <div class="d-flex mb-3">
         <b-dropdown variant="secondary">
-            <b-dropdown-item @click="goToEditEvent">Modifier</b-dropdown-item>
+            <b-dropdown-item :to="{name: 'editEvent', params: {eventId: this.event.id}}">Modifier</b-dropdown-item>
+            <b-dropdown-item :to="{name: 'printEvent', params:{eventId: event.id}}">Imprimer les rencontres</b-dropdown-item>
             <b-dropdown-item @click="removeEvent" class="text-danger">Supprimer</b-dropdown-item>
         </b-dropdown>
         <h3 class="col">{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h3>
       </div>
-      <b-button class="mb-3" variant="primary" :to="{name: 'eventResults', params: {eventId: event.id}}" @click.prevent="goToEventResults">Consulter la grille des résultats</b-button>
+      <b-button class="mb-3" variant="primary" :to="{name: 'eventResults', params: {eventId: event.id}}">Consulter la grille des résultats</b-button>
       <div>
           <h4 class="mb-3">Jurys</h4>
           <transition-group tag="ol" name="zoom" class="list-unstyled row">
@@ -62,12 +63,6 @@ export default {
         }
     },
     methods: {
-        goToEventResults() {
-            this.$router.push({name: 'eventResults', params: {eventId: this.event.id}})
-        },
-        goToEditEvent() {
-            this.$router.push({name: 'editEvent', params: {eventId: this.event.id}})
-        },
         removeEvent() {
             let payload = {
                 type: 'event',
@@ -75,7 +70,7 @@ export default {
                 name: `${this.event.courseName} ${this.event.academicYear} - ${this.event.examSession}`
             }
             this.$emit('deleteModal', payload);
-        }
+        },
     },
 }
 </script>
