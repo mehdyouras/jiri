@@ -2,7 +2,7 @@
   <b-card>
       <h2 class="mb-3">Ajouter un projet</h2>
       <div class="row">
-        <ProjectForm class="col-lg-6" @projectCreated="finish"></ProjectForm>
+        <ProjectForm class="col-lg-6"></ProjectForm>
       </div>
   </b-card>
 </template>
@@ -15,11 +15,6 @@ export default {
     components: {
         ProjectForm,
     },
-    methods: {
-        finish() {
-            this.$router.push({name: 'dashboard'})
-        }
-    }
 }
 </script>
 

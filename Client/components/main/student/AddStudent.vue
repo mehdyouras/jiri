@@ -3,7 +3,7 @@
       <h2>Ajouter un étudiant</h2>
       <p>Informations sur l'étudiant</p>
       <div class="row">
-        <StudentForm class="col-6" @studentCreated="showModal"></StudentForm>
+        <StudentForm class="col-lg-6" @studentCreated="showModal"></StudentForm>
       </div>
       <edit-student v-if="modalVisible" :studentId="lastAddedId" :visible="modalVisible"></edit-student>
   </b-card>
@@ -33,7 +33,6 @@ export default {
     },
     methods: {
         showModal() {
-            // this.$router.push({name: 'editStudent', params: {studentId: this.lastAddedId}})
             this.modalVisible = true;
         }
     }
