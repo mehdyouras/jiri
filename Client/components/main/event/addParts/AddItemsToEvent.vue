@@ -3,11 +3,11 @@
       <Spinner v-if="isLoading"></Spinner>
       <template v-if="!isLoading">
         <AddItem :currentStep="currentStep"></AddItem>
-        <transition 
+        <transition-group 
             :enter-active-class="enterAnimation"
             :leave-active-class="leaveAnimation"
             mode="out-in">
-          <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 1" key="students">
+          <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 1 && students[0]" key="students">
               <ListItem @deleteModal="openModal" v-for="item in students" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
           </transition-group>
           <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 2" key="users">
@@ -16,7 +16,8 @@
           <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3" v-if="currentStep === 3" key="projects">
               <ListItem @deleteModal="openModal" v-for="item in allDetails.allProjects" :currentStep="currentStep" :item="item" :key="item.id"></ListItem>
           </transition-group>
-        </transition>
+        </transition-group>
+        <b-alert key="alert" class="mt-3" show v-if="currentStep === 1 && !students[0]" variant="warning">Il n'y a aucun étudiant disponible.</b-alert>
         <NextPreviousButtons @handleStep='handleStep' :currentStep="currentStep" :viewCount="viewCount"></NextPreviousButtons>
       </template>
       <b-modal @ok="deleteItem(modal.id)" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
