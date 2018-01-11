@@ -5,7 +5,6 @@
     <transition name="zoom">
       <b-container :class="{'mb-0' : dismissCountDown}">
         <b-alert class="mb-0 w-100" :show="dismissCountDown"
-                dismissible
                 variant="success"
                 @dismissed="dismissCountDown=0"
                 @dismiss-count-down="countDownChanged">
