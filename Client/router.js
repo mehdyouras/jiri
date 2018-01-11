@@ -17,6 +17,8 @@ import IndexMeetings from './components/main/meeting/IndexMeetings.vue'
 import ChooseImplementationsForMeeting from './components/main/meeting/ChooseImplementations.vue'
 import ChooseStudentForImplementation from './components/main/implementation/ChooseStudent.vue'
 import EventResults from './components/main/event/EventResults.vue'
+import PrintEvent from './components/main/print/PrintEvent.vue'
+import PrintResults from './components/main/print/PrintResults.vue'
 
 import {store} from './store'
 import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
@@ -48,6 +50,9 @@ const routes = [
       {name: "addImplementationsToMeeting", path: "/meetings/:studentId", component: ChooseImplementationsForMeeting, meta: {adminRoute: false}},
 
     {name: "indexImplementations", path: "/implementations/", component: ChooseStudentForImplementation, meta: {adminRoute: true}},
+
+    {name: "printEvent", path: "/print/event/:eventId", component: PrintEvent, meta: {adminRoute: true}},
+    {name: "printResults", path: "/print/results/:eventId", component: PrintResults, meta: {adminRoute: true}},
 
     
 
