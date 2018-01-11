@@ -21,7 +21,7 @@ import PrintEvent from './components/main/print/PrintEvent.vue'
 import PrintResults from './components/main/print/PrintResults.vue'
 
 import {store} from './store'
-import {LOGGED_IN_USER} from './constants/loggedInUser.gql'
+import {LOGGED_IN_USER} from './constants/loggedInUser.js'
 import {apolloClient} from './apollo'
 
 Vue.use(VueRouter)

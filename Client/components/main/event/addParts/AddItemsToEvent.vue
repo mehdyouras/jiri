@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {ALL_STUDENTS_USERS_PROJECTS} from '../../../../constants/allStudentsUsersProjects.gql'
+import {ALL_STUDENTS_USERS_PROJECTS} from '../../../../constants/allStudentsUsersProjects.js'
 
 import NextPreviousButtons from './NextPreviousButtons'
 import ListItem from './ListItem'
