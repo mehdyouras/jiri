@@ -1,6 +1,7 @@
 <template>
   <b-card>
     <h2 class="mb-3">Résultats - {{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h2>
+    <b-btn class="mb-3" :to="{name: 'printResults', params: {eventId: $route.params.eventId}}">Version imprimable</b-btn>
     <Spinner v-if="isLoading"></Spinner>
     <div v-else class="row">
       <single-result-table v-for="student in event.students" :key="student.id" :student="student" :globalComments="globalComments"></single-result-table>
