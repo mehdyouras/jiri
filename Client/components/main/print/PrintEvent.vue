@@ -1,13 +1,12 @@
 <template>
     <section>
-        <pre></pre>
-        <h2>Rencontres entre jurys et étudiants</h2>
+        <h2 class="mb-3">Rencontres entre jurys et étudiants</h2>
         <ul v-for="(jury, index) in event.jurys" :key="jury.id">
             <li>
                 {{jury.name}}
-                <ul>
-                    <li v-for="student in studentsToAssign(index)" :key="student.id">{{student.name}}</li>
-                </ul>
+                <ol>
+                    <li v-for="student in studentsToAssign()[index]" :key="student.id">{{student.name}}</li>
+                </ol>
             </li>
         </ul>
     </section>
@@ -24,14 +23,31 @@ export default {
         }
     },
     computed: {
-        numberOfStudentsToAssign() {
-            return parseInt((this.event.students.length / this.event.jurys.length).toFixed(0))
-        }
+        // numberOfStudentsToAssign() {
+        //     let number = this.event.students.length < 7 ? this.event.students.length : Math.ceil(this.event.students.length / this.event.jurys.length);
+        //     return number
+        // },
+        allStudents() {
+            return _.filter(this.event.students, student => true)
+        },
     },
     methods: {
-        studentsToAssign(index) {
-            let allStudents = this.event.students;
-
+        studentsToAssign() {
+            let allStudents = this.allStudents;
+            let studentsToAssign = [];
+            if(this.allStudents.length % 7 === 0) {
+                for (let index = 0; index < this.event.jurys.length; index++) {
+                    let last = _.last(allStudents);
+                    allStudents = _.dropRight(allStudents, 1)
+                    allStudents.unshift(last);
+                    studentsToAssign.push(allStudents)
+                }
+                return studentsToAssign
+            }
+            for (let index = 0; index < this.event.jurys.length; index++) {
+                studentsToAssign = _.concat(studentsToAssign, allStudents)
+            }
+            return _.chunk(studentsToAssign, 7)
         }
     },
     apollo: {
