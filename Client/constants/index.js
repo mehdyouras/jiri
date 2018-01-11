@@ -2,6 +2,7 @@ export { USER } from './user.gql'
 export { STUDENT } from './student.gql'
 export { SCORE } from './score.gql'
 export { EVENT } from './event.gql'
+export { EVENT_PRINT } from './eventPrint.gql'
 export { GLOBAL_COMMENT } from './globalComment.gql'
 
 export { ALL_PROJECTS } from './allProjects.gql';
