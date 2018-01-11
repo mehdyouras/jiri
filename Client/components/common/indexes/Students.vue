@@ -12,9 +12,36 @@
           </template>
         
         <template>
-            <section v-if="students(event.id)" v-for="event in juryTo" :key="event.id">
-                <h3>{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h3>
+            <section>
+                <h3>Les étudiants inscris à aucun événement</h3>
                 <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3">
+                    <li class="col-md-4 col-lg-3" v-for="student in studentsInNoEvent" :key="student.id">
+                        <b-card no-body show variant="secondary" class="mb-3">
+                            <div class="card-text d-flex justify-content-between align-items-center">
+                                <div @click.stop="studentClicked(student.id)" class="p-3 card-clickable">
+                                    <span class="d-block">
+                                        {{student.name}}
+                                    </span>
+                                    <span class="small">
+                                        {{student.email}}
+                                    </span>
+                                </div>
+                                <b-dropdown class="p-3" right v-if="editable && isAdmin" variant="light">
+                                    <b-dropdown-item @click="editStudent(student.id)">Modifier</b-dropdown-item>
+                                    <b-dropdown-item @click="openModal({id:student.id, name: student.name, type: 'student'})" class="text-danger">Supprimer</b-dropdown-item>
+                                </b-dropdown>
+                            </div>
+                        </b-card>
+                    </li>
+                </transition-group>
+            </section>
+            <b-alert class="mb-0" show variant="warning" v-if="!juryTo[0]">
+                <p class="mb-0">Aucun étudiant inscrit à un événement. <router-link :to="{name: 'indexEvents'}">Modifier les événements.</router-link></p>
+            </b-alert>
+            <section v-else v-for="event in juryTo" :key="event.id">
+                <h3>{{event.courseName}} {{event.academicYear}} - {{event.examSession}}</h3>
+                <b-alert variant="warning" show v-if="!students(event.id)[0]">Il n'y a aucun étudiant inscrit à cet événement.</b-alert>
+                <transition-group v-else tag="ol" name="zoom" class="list-unstyled row mt-3">
                     <li class="col-md-4 col-lg-3" v-for="student in students(event.id)" :key="student.id">
                         <b-card no-body show variant="secondary" class="mb-3">
                             <div class="card-text d-flex justify-content-between align-items-center">
@@ -35,9 +62,6 @@
                     </li>
                 </transition-group>
             </section>
-            <template v-else>
-                <p>Il n'y a pas encore d'étudiant</p>
-            </template>
         </template>
       </template>
       <b-modal @ok="deleteItem()" ref="delete" title="Confirmation" ok-title="Supprimer" ok-variant="danger" cancel-title="Annuler">
@@ -65,6 +89,7 @@ export default {
     data() {
         return {
             user: {},
+            studentsInNoEvent: {},
             isLoading: 0,
             modal: {
                 id: "",
@@ -101,6 +126,17 @@ export default {
             },
             update(data) {
                 return data.User
+            },
+            loadingKey: 'isLoading',
+        },
+        studentsInNoEvent: {
+            query: ALL_STUDENTS,
+            update(data) {
+                return _.filter(data.allStudents, student => {
+                    if(student.event === null || student.event.softDelete === true) {
+                        return student.event;
+                    }
+                })
             },
             loadingKey: 'isLoading',
         }

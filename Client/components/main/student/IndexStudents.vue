@@ -15,7 +15,7 @@ export default {
     name: 'IndexStudents',
     data() {
         return {
-            
+            modalVisible: false,
         }
     },
     components: {
@@ -25,6 +25,9 @@ export default {
         goToAddMeeting(id) {
             this.$router.push({name:'addImplementationsToMeeting', params: {studentId: id}})
         },
+        showModal() {
+            this.modalVisible = true;
+        }
     }
 }
 </script>

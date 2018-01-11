@@ -7,6 +7,7 @@ export const ALL_STUDENTS = gql`query allStudents{
         name,
         event {
             id
+            softDelete
         },
         implementations {
             id

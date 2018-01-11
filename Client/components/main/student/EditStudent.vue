@@ -4,13 +4,13 @@
         <h2 v-if="!isEditingName" @dblclick="editName">{{student.name}}</h2>
         <div class="d-flex" v-else @keyup.enter="saveName">
             <b-form-input class="col mr-3"  id="name" name="name" type="text" v-validate="'required'" v-model.trim="name" :class="{'is-invalid': this.errors.has('name')}"></b-form-input>
-            <b-btn class="" @click="saveName" variant="primary">Sauvegarder</b-btn>
+            <b-btn @click="saveName" variant="primary">Sauvegarder</b-btn>
         </div>
       </div>
       <Spinner v-if="isLoading"></Spinner>
       <b-alert show variant="warning" v-else-if="!events[0]">Il n'y a aucun événement disponible.</b-alert>
       <template v-else>
-          <div class="">
+          <div>
             <b-form-group class="pl-0" label="Modifier son événement"
                         label-for="event">
                 <b-form-select @input="switchEvent" label="Modifier son événement" v-model='eventId' name="event" id="event">
@@ -20,7 +20,7 @@
             </b-form-group>
           </div>
             <b-alert show variant="warning" v-if="!projects[0]">Cet événement n'a aucun projet. Veuillez en séléctionner un autre.</b-alert>
-            <div v-else v-for="project in projects" :key="project.project.id">
+            <div v-if="eventId !== ''" v-for="project in projects" :key="project.project.id">
                 <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
             </div>
       </template>
@@ -99,7 +99,7 @@ export default {
                 }
             },
             update(data) {
-                if(data.Student.event !== null) {
+                if(data.Student.event !== null && data.Student.event.softDelete === false) {
                     this.eventId = data.Student.event.id
                 }
                 this.name = data.Student.name
@@ -118,7 +118,7 @@ export default {
                 }
             },
             update(data) {
-                return _.filter(data.User.event, event => {
+                return _.filter(data.User.juryTo, event => {
                     return event.softDelete === false;
                 })
                 // return data.User.events

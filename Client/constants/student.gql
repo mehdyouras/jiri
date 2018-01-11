@@ -7,6 +7,7 @@ export const STUDENT = gql`query Student($id: ID!) {
         name,
         event {
             id
+            softDelete
             weights{
                 id
                 project {
