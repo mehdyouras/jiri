@@ -35,8 +35,8 @@
 
 ## 10/01 - Dernier jour !!
 
-- [ ] Ajouter des alerts à gauche à droite
-- [ ] Feedbacks positifs lors des actions
+- [x] Ajouter des alerts à gauche à droite
+- [x] Feedbacks positifs lors des actions
 - [ ] Trouver un maximum de bug
 - [ ] Wipe la DB et tester
 - [ ] Deployer sur le serveur
