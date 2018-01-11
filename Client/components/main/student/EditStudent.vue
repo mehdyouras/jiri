@@ -8,6 +8,7 @@
         </div>
       </div>
       <Spinner v-if="isLoading"></Spinner>
+      <b-alert show variant="warning" v-else-if="!events[0]">Il n'y a aucun événement disponible.</b-alert>
       <template v-else>
           <div class="">
             <b-form-group class="pl-0" label="Modifier son événement"
@@ -18,7 +19,7 @@
                 </b-form-select>
             </b-form-group>
           </div>
-            <b-alert show variant="warning" v-if="!projects[0]">Cet événement n'a aucun projet. Veuillez en séléctionner un autre ou <router-link :to="{name: 'editEvent', params : {eventId: student.event.id}}">ajouter des projets à cet événement</router-link>.</b-alert>
+            <b-alert show variant="warning" v-if="!projects[0]">Cet événement n'a aucun projet. Veuillez en séléctionner un autre.</b-alert>
             <div v-else v-for="project in projects" :key="project.project.id">
                 <SingleProjectForm :project="project.project" :student="student"></SingleProjectForm>
             </div>
@@ -117,7 +118,10 @@ export default {
                 }
             },
             update(data) {
-                return data.User.events
+                return _.filter(data.User.event, event => {
+                    return event.softDelete === false;
+                })
+                // return data.User.events
             },
             loadingKey: 'isLoading'
         }

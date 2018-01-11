@@ -8,7 +8,7 @@
           <b-button variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
         </b-alert>
         <template v-else>
-          <b-button variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
+          <b-button class="mb-3" variant="primary" :to="{name: 'addEvent'}">Créer un événement</b-button>
           <single-event @deleteModal="openModal" v-for="event in events" :key="event.id" :event="event"></single-event>
         </template>
       </template>
