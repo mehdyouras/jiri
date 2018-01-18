@@ -70,7 +70,7 @@ function loggedIn(data){
 router.beforeEach((to, from, next) => {
     apolloClient.query({
         query: LOGGED_IN_USER,
-        fetchPolicy: 'network-only',
+        //fetchPolicy: 'network-only',
       }).then(data => {  
         if(to.meta.adminRoute === true && data.data.loggedInUser.isAdmin === false) {
           next({name: 'dashboard'})
