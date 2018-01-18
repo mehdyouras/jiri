@@ -11,7 +11,9 @@
             </b-card>
         </b-collapse>
         <template v-if="!projects[0]">
-            <p>Il n'y a pas de projet.</p>
+            <b-alert class="mt-3" show variant="warning">
+                <p>Il n'y a aucun projet. Vous pouvez en rajouter un ci-dessus.</p>
+            </b-alert>
         </template>
         <transition-group tag="ol" name="zoom" class="list-unstyled row mt-3">
             <li class="col-md-4 col-lg-3" v-for="project in projects" :key="project.id">
